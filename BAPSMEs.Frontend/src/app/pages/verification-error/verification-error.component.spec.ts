@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { VerificationErrorComponent } from './verification-error.component';
+
+describe('VerificationErrorComponent', () => {
+  let component: VerificationErrorComponent;
+  let fixture: ComponentFixture<VerificationErrorComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [VerificationErrorComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(VerificationErrorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

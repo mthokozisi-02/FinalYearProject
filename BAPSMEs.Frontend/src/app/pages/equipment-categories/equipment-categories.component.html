@@ -1,0 +1,92 @@
+<!-- SECTION -->
+<div class="2xl:section 2xl:mx-auto lg:py-10 lg:px-18 md:py-10 md:px-10 py-7 px-2">
+
+    <div class="mb-4">
+        <h2 class="inline-block text-2xl font-semibold text-black pb-2 mt-3 border-b-4 border-green-700">
+            Local services</h2>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="flex justify-center">
+            <nav
+                class="flex overflow-x-auto items-center p-3 space-x-1 rtl:space-x-reverse text-lg font-bold text-gray-600 bg-gray-500/5 rounded-xl dark:bg-gray-500/20">
+                <button role="tab" type="button" (click)="showDrilling()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset text-yellow-600 shadow bg-white dark:text-white dark:bg-yellow-600"
+                    aria-selected="">
+                    Food & Beverages
+                </button>
+
+                <button role="tab" type="button" (click)="showLoading()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Retail
+                </button>
+
+                <button role="tab" type="button" (click)="showCrushing()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Services
+                </button>
+
+                <button role="tab" type="button" (click)="showSeparation()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Professional Services
+                </button>
+
+                <button role="tab" type="button" (click)="showUnderground()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Creative Services
+                </button>
+
+                <button role="tab" type="button" (click)="showSafety()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Education/Learning
+                </button>
+
+                <button role="tab" type="button" (click)="showMiscellaneos()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Automotive
+                </button>
+
+                <button role="tab" type="button" (click)="showMiscellaneos()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Home Improvement
+                </button>
+
+                <button role="tab" type="button" (click)="showMiscellaneos()"
+                    class="flex whitespace-nowrap items-center h-8 px-5 font-medium rounded-lg outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-inset hover:text-gray-800 hover:bg-white focus:text-yellow-600 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-400">
+                    Entertainment
+                </button>
+            </nav>
+        </div>
+        <div class="mt-10 mb-4 grid gap-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+                *ngFor="let item of productList">
+                <!-- <a href="#">
+                        <img class="rounded-t-lg" [src]="item.img" alt="" />
+                    </a> -->
+                <div class="relative overflow-hidden">
+                    <img class="object-cover w-full h-full" [src]="item.image_url" alt="Product">
+                    <div class="absolute inset-0 bg-black opacity-40"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <button (click)="goToCategoryProducts(item.id)"
+                            class="bg-green-700 text-white py-2 px-6 rounded-full font-bold hover:bg-gray-300 hover:text-black">View
+                            Products</button>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <a href="#">
+                        <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            {{item.name}}</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- /row -->
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

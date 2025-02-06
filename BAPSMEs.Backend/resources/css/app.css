@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+section {
+    position: relative;
+    overflow: hidden;
+    background-color: red;
+}
+
+

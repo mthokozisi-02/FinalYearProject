@@ -1,0 +1,96 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container">
+    <div class="grid grid-cols-1 pb-3 text-center">
+        <h1 class="text-green-700 font-weight-bold text-3xl uppercase mb-2">Buyer Registration</h1>
+
+        <p class="text-slate-400 dark:text-slate-300 text-lg max-w-xl mx-auto">Register as a buyer in order to checkout
+            and
+            order available products.</p>
+    </div>
+
+    <div class="bg-white border border-4 rounded-lg shadow relative m-10">
+        <div class="p-6 space-y-6 mt-8">
+            <form [formGroup]="profileForm" (submit)="createProfile()">
+                <div class="grid grid-cols-12 gap-6 mb-4">
+                    <div class="col-span-12 sm:col-span-6">
+                        <div class="col-span-6 sm:col-span-2 mb-8">
+                            <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Full
+                                Name</label>
+                            <input type="text" name="name" id="name"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                id="name" formControlName="name" placeholder="enter your full name" required="">
+                        </div>
+                        <div class="col-span-6 sm:col-span-2  mb-8">
+                            <label for="category" class="text-lg font-medium text-gray-900 block mb-2">Email</label>
+                            <input type="email" name="email" id="email" formControlName="email"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="enter your email" required="">
+                        </div>
+                        <div class="col-span-6 sm:col-span-2  mb-8">
+                            <label for="brand" class="text-lg font-medium text-gray-900 block mb-2">Password<i
+                                    style="color: grey;">(*atleast 8
+                                    characters)</i></label>
+                            <input type="password" name="password" id="password"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                formControlName="password" minlength="8" placeholder="password" required="">
+                        </div>
+                        <div class="col-span-6 sm:col-span-2  mb-8">
+                            <label for="price" class="text-lg font-medium text-gray-900 block mb-2">Password
+                                Confirmation<i style="color: grey;"></i></label>
+                            <input type="password" (ngModelChange)="check()" name="password_confirmation"
+                                id="password_confirmation"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                formControlName="password_confirmation" placeholder="re-enter your password"
+                                required="">
+                            <p *ngIf="errorAlert" class="mt-2 text-xl text-red-600 dark:text-red-500"><span
+                                    class="font-medium">Error!</span> Passwords do not match.</p>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6">
+                        <div class="col-span-6 sm:col-span-2 mb-8">
+                            <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">National ID/
+                                Passport No<i style="color: grey;"> (*6 - 12
+                                    characters)</i></label>
+                            <input type="text" name="id_number" id="id_number"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                formControlName="id_number" maxlength="12" placeholder="enter national ID/ passport No"
+                                required="">
+                        </div>
+                        <div class="col-span-6 sm:col-span-2 mb-8">
+                            <label for="category" class="text-lg font-medium text-gray-900 block mb-2">Country</label>
+                            <select id="country"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                formControlName="country" required>
+                                <option value="">Select Country</option>
+                                <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+                            </select>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2 mb-8">
+                            <label for="brand" class="text-lg font-medium text-gray-900 block mb-2">Address</label>
+                            <input type="text"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                id="address" formControlName="address" placeholder="Enter address" required>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2 mb-8">
+                            <label for="price" class="text-lg font-medium text-gray-900 block mb-2">Phone</label>
+                            <input type="text"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-2sxl rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                id="phone" formControlName="phone" minlength="10" placeholder="Enter phone" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-12 p-6 border-t border-gray-200 rounded-b">
+                    <div class="col-span-12 sm:col-span-12">
+                        <button
+                            class="btn btn-primary w-full btn-block text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-200 font-medium rounded-lg text-lg px-5 py-1.5 text-center"
+                            type="submit" [disabled]="!profileForm.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<app-footer></app-footer>

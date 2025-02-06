@@ -1,0 +1,91 @@
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          <img class="w-20 h-20 mr-2" src="assets/img/logo_.png" alt="logo">  
+      </a>
+      <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-success">
+          <div class="card-header text-center">
+            <!-- <img src="assets/img/log.jpg" alt="" style="width: 40px;"> -->
+            <a href="#" class="h1"><b><span class="text-success">Orezon Admin</span></b>
+              <!-- <i class="fas fa-store ml-2"></i> -->
+              
+            </a>
+          </div>
+          <div class="card-body">
+            <p class="login-box-msg">Sign Up to register your account</p>
+      
+            <form [formGroup]="signUpForm" (submit)="signUp()">
+                <div class="lg:w-1/3 px-3 mt-4 items-center justify-center">
+                    <div class="row" style="margin-bottom: 20px;">
+                        <select id="role" class="form-control" formControlName="role" required>
+                            <option value="">Select Role</option>
+                            <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <input type="text" class="form-control" placeholder="Name" id="name" formControlName="name" style="padding: 15px;">
+                    <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <input type="text" class="form-control" placeholder="Email address" formControlName="email" id="email" style="padding: 15px;">
+                    <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                    </div>
+                </div>
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password" id="password" style="padding: 15px;">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3" style="margin-bottom: 20px;">
+                    <input type="password" (ngModelChange)="check()" class="form-control" placeholder="Re-enter Password" formControlName="password_confirmation" id="password_confirmation" style="padding: 15px;">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3" style="margin-bottom: 20px;">
+                    <p *ngIf="errorAlert" class="mt-2 text-m text-red-600 dark:text-red-500"><span class="font-medium">Error!</span> Passwords do not match.</p>
+                </div>
+                <div class="row" >
+                    <!-- <div class="col-12 text-danger mb-1" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div> -->
+                    <!-- /.col -->
+                    <div class="col-12" style="margin-top: 20px;">
+                    <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-primary btn-block p-3" (click)="signUp()" >Sign Up</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+      
+            
+      
+            <!-- <p class="mb-1">
+              <a href="forgot-password.html">I forgot my password</a>
+            </p>
+            <p class="mb-0">
+              <a href="register.html" class="text-center">Register a new membership</a>
+            </p> -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    </div>
+  </section>
+  
+      

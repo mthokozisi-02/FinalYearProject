@@ -1,0 +1,112 @@
+<h2 class="mb-4 text-center text-3xl">Add New Package</h2>
+<form [formGroup]="packageForm" (submit)="createPackage()"
+    style="border:green, solid , 1px;padding:2vw; background-color:#f3f7f5">
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-6">
+            <label for="name" class="form-label text-lg">Name</label>
+            <input type="text" class="form-control " id="name" formControlName="name" placeholder="Enter product name"
+                required>
+        </div>
+        <div class="col-md-6">
+            <label for="description" class="form-label text-lg">Description</label>
+            <input type="text" class="form-control " id="description" formControlName="description"
+                placeholder="Enter description" required>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-6">
+            <label for="price" class="form-label text-lg">Price</label>
+            <input type="number" class="form-control " id="price" formControlName="price"
+                placeholder="Enter product price" required>
+        </div>
+        <div class="col-md-6">
+            <label for="number_of_products" class="form-label text-lg">Number Of Products</label>
+            <input type="number" class="form-control " id="number_of_products" formControlName="number_of_products"
+                placeholder="Enter Number Of Products" required>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 2vh;background-color:green;color:white;text-align: center;"
+        *ngIf="successMessage">{{successMessage}}</div>
+    <div class="card" style="margin-top: 2vh;background-color:red;color:white;text-align: center;" *ngIf="errorMessage">
+        {{errorMessage}}</div>
+    <button type="submit" class="btn btn-primary btn-block text-lg" style="margin-top: 20px;">Submit</button>
+</form>
+
+
+<div class="container mt-10">
+    <fieldset>
+        <legend class=" mb-5">View Packages</legend>
+        <table class="table table-striped table-bordered">
+            <thead style="background-color: rgb(238, 241, 241);">
+                <tr class="text-lg">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Number Of Products</th>
+                    <th>Created By</th>
+                    <th>Updated On</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of packages" class="">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.price | currency }}</td>
+                    <td>{{ item.number_of_products }}</td>
+                    <td>{{ item.created_at | date : 'MMM d, y' }}</td>
+                    <td>{{ item.updated_at | date : 'MMM d, y' }}</td>
+                    <td><button class="btn " (click)="displayModal(item)"><i class="fa fa-pen"
+                                style="color: blue;"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+
+<div *ngIf="deleteModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Delete {{selectedPackage.name}}</h5>
+            </div>
+
+            <form [formGroup]="selectedPackageForm" (submit)="updatePackage()"
+                style="border:green, solid , 1px;padding:2vw; background-color:#f3f7f5">
+                <div class="row" style="margin-bottom: 20px;">
+                    <p>Are you sure you want to delete <b>{{selectedPackage.name}}</b></p>
+                </div>
+
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-success btn-block" style="margin-top: 20px;">Yes</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-danger btn-block" (click)="hideDialog()"
+                            style="margin-top: 20px;">No</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn-primary {
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        /* Darker shade on hover */
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        /* Highlight border on focus */
+        box-shadow: 0 0 5px rgba(0, 123, 255, .5);
+        /* Subtle shadow */
+    }
+</style>

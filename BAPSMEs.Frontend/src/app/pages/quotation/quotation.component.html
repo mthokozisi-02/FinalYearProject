@@ -1,0 +1,71 @@
+<app-nav-bar></app-nav-bar>
+<div class="bg-white rounded-lg shadow-lg px-8 py-8 max-w-4xl mx-auto mb-3">
+    <div class="flex items-center justify-end">
+        <button type="button" (click)="convetToPDF()"
+            class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg  px-5 py-2.5 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            Export PDF
+            <i class="ml-2 fa fa-file-export"></i>
+        </button>
+    </div>
+</div>
+<div class="pdfsection max-w-4xl mx-auto" id="myquation" #pdfSection>
+    <div class="bg-white rounded-lg shadow-lg px-8 py-10  w-full mx-auto">
+        <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center">
+                <a href="#" class="block logo" style="font-size: 10vh;">
+                    <img src="assets/img/top_nav-1.png" alt="" style="width: 200px;">
+                </a>
+            </div>
+            <div class="text-gray-700 ml-10">
+                <div class="font-bold text-lg mb-2">INVOICE</div>
+                <div class="text-green-700 font-bold ">Date: <span class="font-normal">{{todayDate | date : 'MMM
+                        d,
+                        y'}}</span></div>
+                <div class="text-green-700 font-bold ">Invoice #: <span class="font-normal">INV12345</span></div>
+            </div>
+        </div>
+        <div class="border-b-2 border-gray-300 pb-8 mb-10">
+            <h2 class="text-lg font-bold mb-4">Quotation To:</h2>
+            <div class="text-green-700  uppercase">{{role}}</div>
+            <div class="text-green-700  ">{{user.name}}</div>
+            <div class="text-green-700 ">{{user.email}}</div>
+        </div>
+        <table class="w-full text-left mb-8">
+            <thead>
+                <tr>
+                    <th class="text-gray-700 font-bold text-lg uppercase py-2">Description</th>
+                    <th class="text-gray-700 font-bold text-lg uppercase py-2">Quantity</th>
+                    <th class="text-gray-700 font-bold text-lg uppercase py-2">Price</th>
+                    <th class="text-gray-700 font-bold text-lg uppercase py-2">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of wishlist">
+                    <td class="py-4 text-gray-700 ">{{item.name}}</td>
+                    <td class="py-4 text-gray-700 ">{{item.quantity}}</td>
+                    <td class="py-4 text-gray-700 ">{{item.price | currency}}</td>
+                    <td class="py-4 text-gray-700 ">{{item.amount | currency}}</td>
+                </tr>
+                <tr>
+                    <td class="py-4 text-gray-700"></td>
+                    <td class="py-4 text-gray-700"></td>
+                    <td class="py-4 text-gray-700 text-lg">Total:</td>
+                    <td class="py-4 text-gray-700 font-bold ">{{wishlistCount | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="border-t-2 border-gray-300 pt-8 mb-8">
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-between">
+                <p class="text-xl text-gray-600">Questions about the Terms of Service?</p>
+                <a href="#/contact-us" class="text-xl inline-flex items-center text-green-600 hover:text-green-500">
+                    <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

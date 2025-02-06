@@ -1,0 +1,210 @@
+<!-- Start block -->
+<div *ngIf="orderSection"
+    class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+    <div class="flex-1 flex items-center space-x-2">
+        <h5>
+            <span class="text-gray-500 text-2xl">All Orders:</span>
+        </h5>
+    </div>
+</div>
+<div *ngIf="orderSection"
+    class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+    <div class="w-full md:w-1/2">
+        <form class="flex items-center">
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fa fa-search mr-3"></i>
+                </div>
+                <input type="text" #filter id="simple-search" (input)="searchOrders(filter.value)"
+                    placeholder="Search by order ID" required=""
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                <button type="submit" (click)="searchOrders(filter.value)"
+                    class="absolute top-0 end-0 p-2.5 font-medium h-full text-white bg-green-700 rounded-e-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <hr>
+</div>
+<div *ngIf="orderSection" class="p-4 overflow-x-auto">
+    <table class="w-full  text-left text-gray-500 dark:text-gray-400">
+        <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="p-4">Order ID</th>
+                <th scope="col" class="p-4">Customer</th>
+                <th scope="col" class="p-4">Products</th>
+                <th scope="col" class="p-4">Quantity</th>
+                <th scope="col" class="p-4">Price</th>
+                <th scope="col" class="p-4">Order Date</th>
+                <th scope="col" class="p-4">Status</th>
+                <th scope="col" class="p-4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of filteredOrders"
+                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div class="flex items-center mr-3">
+                        {{item.order_id}}
+                    </div>
+                </th>
+                <td scope="row" class="flex items-center px-6 py-4 ">
+                    <img class="w-14 h-14 rounded-full" [src]="item.buyer_pic" alt="Jese image">
+                    <div class="ps-3">
+                        <div class="text-lg font-semibold">{{item.buyer_name}}</div>
+                        <div class="font-normal text-gray-500">{{item.buyer_email}}</div>
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center">
+                        <div class="h-4 w-4 rounded-full inline-block mr-2 bg-red-700"></div>
+                        {{item.products.length}}
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    {{item.total_quantity}}</td>
+                <td class="px-4 py-3">
+                    {{item.total_price | currency}}</td>
+                <td class="px-4 py-3">
+                    {{item.created_at | date : 'MMM d, y'}}</td>
+                <td class="px-4 py-3">
+                    <span *ngIf="item.status === 'cancelled'"
+                        class="inline-flex items-center bg-red-100 text-red-800  px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+                        <span class="w-2 h-2 me-1 bg-red-500 rounded-full"></span>
+                        Cancelled
+                    </span>
+                    <span *ngIf="item.status === 'delivered'"
+                        class="inline-flex items-center bg-green-100 text-green-800  px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                        <span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+                        Delivered
+                    </span>
+                    <span *ngIf="item.status === 'pending'"
+                        class="inline-flex items-center bg-blue-100 text-blue-800  px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                        <span class="w-2 h-2 me-1 bg-blue-500 rounded-full"></span>
+                        Pending
+                    </span>
+                </td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center space-x-4">
+                        <button type="button" (click)="viewOrder(item)"
+                            data-drawer-target="drawer-read-product-advanced"
+                            data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced"
+                            class="py-2 px-3 flex items-center  font-medium text-center text-white focus:outline-none bg-blue-700 rounded-lg border border-gray-200 hover:bg-blue-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-700 dark:bg-blue-800 dark:text-blue-400 dark:border-blue-600 dark:hover:text-white dark:hover:bg-blue-700">
+                            <i class="fa fa-eye mr-3"></i>
+                            Preview
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="viewOrderModal" class="p-4 overflow-x-auto">
+    <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b xl:mb-5 dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">View
+            {{selectedOrder.buyer_name}}'s Order</h3>
+        <button type="button" (click)="hideDialog()"
+            class="text-white bg-red-700 hover:bg-red-900 hover:text-white-900 rounded-lg  p-2 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-toggle="createProductModal">
+            <i class="fa fa-close mr-2"></i>Close
+        </button>
+    </div>
+    <!-- Modal body -->
+    <form style="padding:2vw; background-color:#f3f7f5">
+        <div class="grid gap-4 mb-4 xl:grid-cols-2">
+            <div>
+                <label for="name" class="block mb-2  font-medium text-gray-900 dark:text-white">Order
+                    #</label>
+                <span class="text-green-700 ">{{selectedOrder.order_id}}</span>
+                <hr>
+            </div>
+            <div>
+                <label for="name" class="block mb-2  font-medium text-gray-900 dark:text-white">Customer
+                    Name</label>
+                <span class="text-green-700 ">{{selectedOrder.buyer_name}}</span>
+                <hr>
+            </div>
+            <div>
+                <label for="category" class="block mb-2  font-medium text-gray-900 dark:text-white">Order
+                    Status</label>
+                <span class="text-green-700 ">{{selectedOrder.status}}</span>
+                <hr>
+            </div>
+            <div>
+                <label for="brand" class="block mb-2  font-medium text-gray-900 dark:text-white">Total
+                    Quantity</label>
+                <span class="text-green-700 ">{{selectedOrder.total_quantity}}</span>
+                <hr>
+            </div>
+            <div>
+                <label for="price" class="block mb-2  font-medium text-gray-900 dark:text-white">Price</label>
+                <span class="text-green-700 ">{{selectedOrder.total_price | currency}}</span>
+                <hr>
+            </div>
+            <div>
+                <label for="description" class="block mb-2  font-medium text-gray-900 dark:text-white">Order
+                    Date</label>
+                <span class="text-green-700 ">{{selectedOrder.created_at | date : 'MMM d,
+                    y'}}</span>
+                <hr>
+                <hr>
+            </div>
+        </div>
+        <div class="mb-4 mt-8">
+            <span class="block mb-2  font-medium text-gray-900 dark:text-white">Products</span>
+
+            <table class="w-full  text-left text-gray-500 dark:text-gray-400">
+                <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="p-4">Product</th>
+                        <th scope="col" class="p-4">Category</th>
+                        <th scope="col" class="p-4">Description</th>
+                        <th scope="col" class="p-4">Price</th>
+                        <th scope="col" class="p-4">Quantity</th>
+                        <th scope="col" class="p-4">Image</th>
+                        <th scope="col" class="p-4">Created On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of selectedOrder.products"
+                        class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <div class="flex items-center mr-3">
+                                {{item.name}}
+                            </div>
+                        </th>
+                        <td class="px-4 py-3">
+                            <span
+                                class="bg-green-100 text-primary-800  font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-primary-300">{{item.sub_category_name}}</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            {{item.description}}</td>
+                        <td class="px-4 py-3">
+                            {{item.price | currency}}</td>
+                        <td class="px-4 py-3">
+                            {{item.pivot.quantity}}</td>
+                        <td class="px-4 py-3">
+                            <img [src]="item?.image_url" class="w-16 md:w-32 max-w-full max-h-full">
+                        </td>
+                        <td class="px-4 py-3">
+                            {{
+                            item.created_at | date : 'MMM d, y' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>

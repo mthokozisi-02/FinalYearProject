@@ -1,0 +1,44 @@
+name: FTP Upload
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository code
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Set up PHP (for Laravel)
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'  # Use the PHP version required for your Laravel project
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        composer install
+
+    # Run tests (optional)
+    # - name: Run tests
+    #   run: php artisan test
+
+    # Upload to FTP
+    - name: Upload to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: quokka.mydata.city # FTP server URL (e.g., ftp://yourserver.com)
+        username: orezonco1 # FTP username
+        password: PLjhY3Sr # FTP password
+        protocol: ftp
+        local-dir: ./ # Path to the built Angular app
+        server-dir: /domains/orezon.co.zw/public_html/ # Path on tReplace with the target remote directory on the FTP server.
+        exclude: |                  
+                  vendor/**
+                  .env

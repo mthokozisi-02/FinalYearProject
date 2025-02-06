@@ -1,2 +1,2 @@
-# FinalYearProject
-final year project
+# Advertising-and-Booking-Platform-for-SMEs
+A final year project.

@@ -1,0 +1,17 @@
+.slick-list {
+    margin: 0 -10px !important; /* This should be the negative of the slide margin */
+}
+
+.slick-slider {
+    overflow: hidden; /* Prevents overflow due to margins */
+}
+
+.image-upload input[type=file] {
+    width: 100%;
+    opacity: 0;
+    height: 50px;
+    position: relative;
+    z-index: 9;
+    cursor: pointer;
+    
+}
