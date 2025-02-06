@@ -65,7 +65,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 2;
             $record['name'] = 'Restaurants';
             $record['description'] = 'Equipment used to drill holes in the ground for such activities as prospecting.';
-            $record['image_url'] = 'subCategories/restaurant.png';
+            $record['image_url'] = 'subCategories/restaurants.png';
         });
     }
     public function Cafes()
@@ -83,6 +83,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 2;
             $record['name'] = 'Bakeries';
             $record['description'] = 'Handheld tools that uses compressed air to drill holes or break through hard surfaces.';
+            $record['image_url'] = 'subCategories/bakeries.png';
         });
     }
     public function Specialtyfoodshops()
@@ -91,6 +92,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 2;
             $record['name'] = 'Specialty Food Shops';
             $record['description'] = 'Powerful tools that uses a chisel and either compressed air or an electric motor to break through hard materials like concrete or rock.';
+            $record['image_url'] = 'subCategories/specialties.png';
         });
     }
     public function Juicebars()
@@ -99,6 +101,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 2;
             $record['name'] = 'Juice Bars/Smoothie Shops';
             $record['description'] = 'Equipment used to remove overburden and waste rocks from the mine site.';
+            $record['image_url'] = 'subCategories/smoothies.png';
         });
     }
     public function FoodTruck()
@@ -107,6 +110,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 2;
             $record['name'] = 'Food Trucks';
             $record['description'] = 'Off-road, heavy-duty dump trucks specifically engineered for use in high-production mining and exceptionally demanding construction environments.';
+            $record['image_url'] = 'subCategories/foodtrucks.png';
         });
     }
 
