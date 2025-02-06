@@ -36,9 +36,11 @@ export class EquipmentCategoriesComponent {
 
   ngOnInit() {
     this.subCatgeorySevice.getAllList().subscribe((res) => {
-      res.data.forEach(element => {
-        element.image_url = 'http://127.0.0.1:8000/storage' + element.image_url;
+      this.subCategories = res.data;
+      this.subCategories.forEach(cat => {
+        cat.image_url = 'http://127.0.0.1:8000/storage/' + cat.image_url;
       });
+
       this.drillingSubCategories = res.data.filter((x) => x.category_id == 2);
       this.haulingSubCategories = res.data.filter((x) => x.category_id == 3);
       this.crushingSubCategories = res.data.filter((x) => x.category_id == 4);
@@ -53,7 +55,6 @@ export class EquipmentCategoriesComponent {
       this.sparesSubCategories = res.data.filter(
         (x) => x.category_id == 9
       );
-      this.subCategories = res.data;
       console.log('subCategories:', this.subCategories);
       this.productList = this.drillingSubCategories;
     });
