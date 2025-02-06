@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Orders } from '../../../models/orders';
 import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
+import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
-import { CartService, WishListService, ProductsService, SubCategoriesService } from '../../tools/services';
+import { CartService, ProductsService, SellerRegistrationService, SubCategoriesService, WishListService } from '../../tools/services';
 @Component({
   selector: 'app-category-shop',
   standalone: false,
@@ -13,6 +14,8 @@ import { CartService, WishListService, ProductsService, SubCategoriesService } f
 })
 export class CategoryShopComponent implements OnInit {
   currentCart: any = [];
+
+  currentWishlist: any = [];
 
   currentItem: any;
 
@@ -36,6 +39,8 @@ export class CategoryShopComponent implements OnInit {
 
   role: any
 
+  sellers: Seller[] = []
+
   viewProduct = false
 
   image: any
@@ -46,6 +51,7 @@ export class CategoryShopComponent implements OnInit {
     private productService: ProductsService,
     private categoryService: SubCategoriesService,
     public actRoute: ActivatedRoute,
+    private sellerService: SellerRegistrationService
   ) { }
   ngOnInit(): void {
     console.log('cart', this.cartService.getCurrentCart());
@@ -55,24 +61,33 @@ export class CategoryShopComponent implements OnInit {
       this.subCategories = res.data;
       console.log('categories:', this.subCategories);
 
-      this.productService.getAllList().subscribe((res) => {
-        this.unfilteredProducts = res.data.filter(
-          (x) => x.sub_category_id == this.id
-        );
-        this.unfilteredProducts.forEach((product: any) => {
-          product.image_url =
-            'https://orezon.co.zw/storage/app/public/' + product.image_url;
-          const category = this.subCategories.filter(
-            (x) => x.id == product.sub_category_id
+      this.sellerService.getAllList().subscribe((res) => {
+        this.sellers = res.data;
+        console.log('sellers:', this.sellers);
+
+        this.productService.getAllList().subscribe((res) => {
+          console.log('res.data:', res.data);
+          this.unfilteredProducts = res.data.filter(
+            (x) => x.sub_category_id == this.id
           );
-          console.log('category', category);
-          category.forEach((cat) => {
-            product.sub_category_name = cat.name;
-            console.log('category', product.sub_category_name);
+          this.unfilteredProducts.forEach((product: any) => {
+            product.image_url =
+              'https://orezon.co.zw/storage/app/public/' + product.image_url;
+            this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
+              product.seller_name = seller.user.name
+            })
+            const category = this.subCategories.filter(
+              (x) => x.id == product.sub_category_id
+            );
+            console.log('category', category);
+            category.forEach((cat) => {
+              product.sub_category_name = cat.name;
+              console.log('category', product.sub_category_name);
+            });
           });
+          this.products = this.unfilteredProducts;
+          console.log('products:', this.products);
         });
-        this.products = this.unfilteredProducts;
-        console.log('products:', this.products);
       });
     });
 
@@ -86,10 +101,11 @@ export class CategoryShopComponent implements OnInit {
       }
     });
     this.currentCart = this.cartService.getCurrentCart();
+    this.currentWishlist = this.wishlistServie.getCurrentCart()
   }
 
   updateCart(item: any) {
-     this.cartService.success('Item added to cart');
+    this.cartService.success('Item added to cart');
     this.cartService.addToCart(item, item.price, 1);
 
     this.checkIfExist(item);
@@ -100,9 +116,11 @@ export class CategoryShopComponent implements OnInit {
   }
 
   checkIfExist(item) {
-    const index = this.currentCart?.findIndex((p) => p.id === item.id);
+    this.currentWishlist = this.wishlistServie.getCurrentCart()
+    console.log('wishlist', this.currentWishlist)
+    const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
-      return this.currentCart[index].quantity;
+      return this.currentWishlist[index].quantity;
     }
     return 0;
   }

@@ -121,6 +121,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 3;
             $record['name'] = 'Book Stores';
             $record['description'] = 'Mechanical devices that moves goods and materials through a facility.';
+            $record['image_url'] = 'subCategories/bookstores.png';
         });
     }
     public function Giftshops()
@@ -129,6 +130,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 3;
             $record['name'] = 'Gift Shops';
             $record['description'] = "Compact, versatile machines with wheels that's used for construction, landscaping, and agriculture.";
+            $record['image_url'] = 'subCategories/giftshops.png';
         });
     }
     public function Antiquestores()
@@ -137,6 +139,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 3;
             $record['name'] = 'Antique Stores';
             $record['description'] = 'Equipment used in the liberation and reduction of the size of the ore.';
+            $record['image_url'] = 'subCategories/antiqueshops.png';
         });
     }
     public function Vintageclothingboutiques()
@@ -145,6 +148,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 3;
             $record['name'] = 'Vintage Clothing Boutiques';
             $record['description'] = 'Machines that uses compression force to break large materials into smaller pieces, like sand, gravel, and rocks.';
+            $record['image_url'] = 'subCategories/vintageclothing.png';
         });
     }
     public function Artgalleries()
@@ -153,6 +157,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 3;
             $record['name'] = 'Art Galleries';
             $record['description'] = 'Machines that grinds materials into a fine powder using steel or rubber balls.';
+            $record['image_url'] = 'subCategories/artgallery.png';
         });
     }
     public function Florists()
@@ -161,6 +166,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 3;
             $record['name'] = 'Florists';
             $record['description'] = 'Rod mills are used in an open circuit between crushing and the ball mill.';
+            $record['image_url'] = 'subCategories/florist.png';
         });
     }
 
@@ -170,6 +176,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 4;
             $record['name'] = 'Pet Grooming/Dog Walking Services';
             $record['description'] = 'Equipment for separating commercially valuable minerals from their ores.';
+            $record['image_url'] = 'subCategories/dogwalking.png';
         });
     }
     public function Housekeeping()
@@ -178,6 +185,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 4;
             $record['name'] = 'Housekeeping/Cleaning Services';
             $record['description'] = 'Equipment that removes unwanted materials from a stream by using magnets to pull out metal.';
+            $record['image_url'] = 'subCategories/housekeeping.png';
         });
     }
     public function Landscaping()
@@ -186,6 +194,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 4;
             $record['name'] = 'Landscaping/Lawn Care';
             $record['description'] = 'These are laboratory devices that use centrifugal force to separate components in a liquid or solid.';
+            $record['image_url'] = 'subCategories/landscaping.png';
         });
     }
     public function Handyman()
@@ -194,6 +203,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 4;
             $record['name'] = 'Handyman/Home Repair Services';
             $record['description'] = 'These are devices that separate solid components in a slurry based on particle density and shape.';
+            $record['image_url'] = 'subCategories/handyman.png';
         });
     }
     public function Photography ()
@@ -202,6 +212,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 4;
             $record['name'] = 'Photography Studios';
             $record['description'] = 'These are devices that separate solid components in a slurry based on particle density and shape.';
+            $record['image_url'] = 'subCategories/photography.png';
         });
     }
     public function Eventplanners()
@@ -210,6 +221,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 4;
             $record['name'] = 'Event Planners/Wedding Coordinators';
             $record['description'] = 'These are devices that separate solid components in a slurry based on particle density and shape.';
+            $record['image_url'] = 'subCategories/eventplanner.png';
         });
     }
 
@@ -220,6 +232,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 5;
             $record['name'] = 'Accountants/Tax Preparers';
             $record['description'] = 'A variety of subsurface mining techniques used to extract hard minerals.';
+            $record['image_url'] = 'subCategories/accountants.png';
         });
     }
     public function Lawyers()
@@ -228,6 +241,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 5;
             $record['name'] = 'Lawyers';
             $record['description'] = 'These are similar to conventional front end loaders but developed for the toughest of hard rock mining applications.';
+            $record['image_url'] = 'subCategories/lawyers.png';
         });
     }
     public function Realestateagents()
@@ -236,6 +250,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 5;
             $record['name'] = 'Real Estate Agents';
             $record['description'] = 'These are a mobile platforms that uses a scissor-like mechanism to raise and lower workers to elevated heights.';
+            $record['image_url'] = 'subCategories/realestateagents.png';
         });
     }
     public function Insuranceagents()
@@ -244,6 +259,8 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 5;
             $record['name'] = 'Insurance agents';
             $record['description'] = 'These are vehicles used to transport materials and debris in underground mining operations.';
+            $record['image_url'] = 'subCategories/insuranceagents.png';
+
         });
     }
     public function Travelagents()
@@ -252,6 +269,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 5;
             $record['name'] = 'Travel agents';
             $record['description'] = 'These are vehicles used to transport materials and debris in underground mining operations.';
+            $record['image_url'] = 'subCategories/travelagents.png';
         });
     }
     public function Interiordesigners()
@@ -260,6 +278,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 5;
             $record['name'] = 'Interior Designers';
             $record['description'] = 'These are vehicles used to transport materials and debris in underground mining operations.';
+            $record['image_url'] = 'subCategories/interiordesigners.png';
         });
     }
 
@@ -270,6 +289,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 6;
             $record['name'] = 'Graphic Designers';
             $record['description'] = 'Collection of tools and protective gear that miners use to protect themselves.';
+            $record['image_url'] = 'subCategories/graphicdesigners.png';
         });
     }
     public function Webdevelopers()
@@ -278,6 +298,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 6;
             $record['name'] = 'Web Developers';
             $record['description'] = 'Collection of tools and protective gear that miners use to protect themselves.';
+            $record['image_url'] = 'subCategories/webdevelopers.png';
         });
     }
     public function Videographers()
@@ -286,6 +307,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 6;
             $record['name'] = 'Videographers/Filmmakers';
             $record['description'] = 'Collection of tools and protective gear that miners use to protect themselves.';
+            $record['image_url'] = 'subCategories/videographers.png';
         });
     }
     public function Writers()
@@ -294,6 +316,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 6;
             $record['name'] = 'Writers/Editors';
             $record['description'] = 'Collection of tools and protective gear that miners use to protect themselves.';
+            $record['image_url'] = 'subCategories/writers.png';
         });
     }
     public function Artists()
@@ -302,6 +325,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 6;
             $record['name'] = 'Artists/CraftsPeople';
             $record['description'] = 'Collection of tools and protective gear that miners use to protect themselves.';
+            $record['image_url'] = 'subCategories/artists.png';
         });
     }
     public function Musicians()
@@ -310,6 +334,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 6;
             $record['name'] = 'Musicians/Instructors';
             $record['description'] = 'Collection of tools and protective gear that miners use to protect themselves.';
+            $record['image_url'] = 'subCategories/musicians.png';
         });
     }
 
@@ -321,6 +346,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 7;
             $record['name'] = 'Language Schools';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect the eyes from injury and irritation caused by dust, debris, and other hazards.';
+            $record['image_url'] = 'subCategories/languageschools.png';
         });
     }
     public function Dancestudios()
@@ -329,6 +355,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 7;
             $record['name'] = 'Dance Studios';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect the eyes from injury and irritation caused by dust, debris, and other hazards.';
+            $record['image_url'] = 'subCategories/dancestudios.png';
         });
     }
     public function Yoga()
@@ -337,6 +364,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 7;
             $record['name'] = 'Yoga/Martial Arts Schools';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect the eyes from injury and irritation caused by dust, debris, and other hazards.';
+            $record['image_url'] = 'subCategories/yoga.png';
         });
     }
     public function Cookingclasses()
@@ -345,6 +373,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 7;
             $record['name'] = 'Cooking Classes';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect the eyes from injury and irritation caused by dust, debris, and other hazards.';
+            $record['image_url'] = 'subCategories/cooking.png';
         });
     }
     public function Artinstruction()
@@ -353,6 +382,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 7;
             $record['name'] = 'Art Instruction';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect the eyes from injury and irritation caused by dust, debris, and other hazards.';
+            $record['image_url'] = 'subCategories/artinstructor.png';
         });
     }
     public function Tutoringservices()
@@ -361,6 +391,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 7;
             $record['name'] = 'Tutoring Services';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect the eyes from injury and irritation caused by dust, debris, and other hazards.';
+            $record['image_url'] = 'subCategories/tutoring.png';
         });
     }
 
@@ -372,6 +403,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 8;
             $record['name'] = 'Car Washes';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect miners from hazardous airborne contaminants.';
+            $record['image_url'] = 'subCategories/carwash.png';
         });
     }
     public function Autorepairshops()
@@ -380,6 +412,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 8;
             $record['name'] = 'Auto Repair Shops';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect miners from hazardous airborne contaminants.';
+            $record['image_url'] = 'subCategories/autorepairs.png';
         });
     }
     public function Bikeshops()
@@ -388,6 +421,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 8;
             $record['name'] = 'Bike Shops';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect miners from hazardous airborne contaminants.';
+            $record['image_url'] = 'subCategories/bikeshops.png';
         });
     }
     public function Motorcycleshops()
@@ -396,6 +430,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 8;
             $record['name'] = 'Motorcycle Shops';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect miners from hazardous airborne contaminants.';
+            $record['image_url'] = 'subCategories/motorcycles.png';
         });
     }
     public function Usedcardealerships()
@@ -404,6 +439,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 8;
             $record['name'] = 'Used Car Dealerships';
             $record['description'] = 'These are a type of personal protective equipment (PPE) that protect miners from hazardous airborne contaminants.';
+            $record['image_url'] = 'subCategories/usedcardealerships.png';
         });
     }
 
@@ -414,6 +450,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 9;
             $record['name'] = 'Furniture Makers/Upholsterers';
             $record['description'] = 'These are equipments that prevents or reduces the impact of a fall from an elevated surface.';
+            $record['image_url'] = 'subCategories/furnituremakers.png';
         });
     }
     public function Customcabinetmakers()
@@ -422,6 +459,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 9;
             $record['name'] = 'Custom CabinetMakers';
             $record['description'] = 'These are equipments that prevents or reduces the impact of a fall from an elevated surface.';
+            $record['image_url'] = 'subCategories/customcabinetmakers.png';
         });
     }
     public function Windowtreatments()
@@ -430,6 +468,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 9;
             $record['name'] = 'Window Treatments (curtains, blinds, etc.)';
             $record['description'] = 'These are equipments that prevents or reduces the impact of a fall from an elevated surface.';
+            $record['image_url'] = 'subCategories/windowtreatment.png';
         });
     }
     public function Painters()
@@ -438,6 +477,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 9;
             $record['name'] = 'Painters/Decorators';
             $record['description'] = 'These are equipments that prevents or reduces the impact of a fall from an elevated surface.';
+            $record['image_url'] = 'subCategories/painters.png';
         });
     }
     public function Flooringinstallers()
@@ -446,6 +486,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 9;
             $record['name'] = 'Flooring Installers';
             $record['description'] = 'These are equipments that prevents or reduces the impact of a fall from an elevated surface.';
+            $record['image_url'] = 'subCategories/flooringinstallers.png';
         });
     }
 
@@ -456,6 +497,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 10;
             $record['name'] = 'Movie Theaters';
             $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/movietheatres.png';
         });
     }
     public function Bowlingalleys()
@@ -464,6 +506,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 10;
             $record['name'] = 'Bowling Alleys/Laser Tag';
             $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/bowlingalley.png';
         });
     }
     public function Escaperooms()
@@ -472,6 +515,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 10;
             $record['name'] = 'Escape Rooms';
             $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/escaperoom.png';
         });
     }
     public function Arcades()
@@ -480,6 +524,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 10;
             $record['name'] = 'Arcades/Game Centers';
             $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/arcades.png';
         });
     }
     public function Comedyclubs()
@@ -488,6 +533,7 @@ class SubCategoryFactory extends Factory
             $record['category_id'] = 10;
             $record['name'] = 'Comedy Clubs';
             $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/comedyclubs.png';
         });
     }
 

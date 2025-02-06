@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
+import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
-import { CartService, ProductsService, SearchService, SubCategoriesService, WishListService } from '../../tools/services';
+import { CartService, ProductsService, SearchService, SellerRegistrationService, SubCategoriesService, WishListService } from '../../tools/services';
 import { CategoriesService } from '../../tools/services/categories.service';
 
 
@@ -23,6 +24,8 @@ export class SearchComponent implements OnInit {
   cartTotalAmount = 0;
 
   viewProduct = false
+
+  selectedProduct: Products = {} as Products;
 
   image: any
 
@@ -50,6 +53,8 @@ export class SearchComponent implements OnInit {
 
   wishlistCount = 0
 
+  sellers: Seller[] = []
+
   cart = false
 
   selectedFilterCategory: any
@@ -62,7 +67,8 @@ export class SearchComponent implements OnInit {
     private categoryService: CategoriesService,
     private cartService: CartService,
     private productService: ProductsService,
-    private wishlistServie: WishListService
+    private wishlistServie: WishListService,
+    private sellerService: SellerRegistrationService
   ) { }
 
   ngOnInit(): void {
@@ -89,22 +95,36 @@ export class SearchComponent implements OnInit {
       console.log('categories:', this.categories);
     });
 
-    this.productService.getAllList().subscribe((res) => {
-      this.products = res.data
-      this.products.forEach((product: any) => {
-        product.image_url =
-          'https://orezon.co.zw/storage/app/public/' + product.image_url;
-        const category = this.subCategories.filter(
-          (x) => x.id == product.sub_category_id
-        );
-        console.log('category', category);
-        category.forEach((cat) => {
-          product.sub_category_name = cat.name;
-          console.log('category', product.sub_category_name);
+    this.subCategoryService.getAllList().subscribe((res) => {
+      this.subCategories = res.data;
+      console.log('categories:', this.subCategories);
+
+      this.sellerService.getAllList().subscribe((res) => {
+        this.sellers = res.data;
+        console.log('sellers:', this.sellers);
+
+        this.productService.getAllList().subscribe((res) => {
+          console.log('res.data:', res.data);
+          this.products = res.data
+          this.products.forEach((product: any) => {
+            product.image_url =
+              'https://orezon.co.zw/storage/app/public/' + product.image_url;
+            this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
+              product.seller_name = seller.user.name
+            })
+            const category = this.subCategories.filter(
+              (x) => x.id == product.sub_category_id
+            );
+            console.log('category', category);
+            category.forEach((cat) => {
+              product.sub_category_name = cat.name;
+              console.log('category', product.sub_category_name);
+            });
+          });
+          this.filteredProducts = this.products;
+          console.log('products:', this.products);
         });
       });
-      this.filteredProducts = this.products;
-      console.log('products:', this.products);
     });
 
     this.subCategoryService.getAllList().subscribe((res) => {
@@ -243,6 +263,7 @@ export class SearchComponent implements OnInit {
   viewImage(item: any) {
     this.viewProduct = true
     this.image = item
+    this.selectedProduct = item
   }
 
   hideDialog() {

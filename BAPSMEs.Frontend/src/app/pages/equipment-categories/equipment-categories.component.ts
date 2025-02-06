@@ -13,21 +13,23 @@ export class EquipmentCategoriesComponent {
 
   subCategories: SubCategory[] = [];
 
-  drillingSubCategories: SubCategory[] = [];
+  foodnBeverageSubCategories: SubCategory[] = [];
 
-  haulingSubCategories: SubCategory[] = [];
+  retailSubCategories: SubCategory[] = [];
 
-  crushingSubCategories: SubCategory[] = [];
+  servicesSubCategories: SubCategory[] = [];
 
-  separationSubCategories: SubCategory[] = [];
+  professionalServicesSubCategories: SubCategory[] = [];
 
-  undergroundSubCategories: SubCategory[] = [];
+  creativeServicesSubCategories: SubCategory[] = [];
 
-  safetySubCategories: SubCategory[] = [];
+  educationSubCategories: SubCategory[] = [];
 
-  miscellaneousSubCategories: SubCategory[] = [];
+  automotiveSubCategories: SubCategory[] = [];
 
-  sparesSubCategories: SubCategory[] = [];
+  homeimprovementSubCategories: SubCategory[] = [];
+
+  entertainmentSubCategories: SubCategory[] = [];
 
   constructor(
     private router: Router,
@@ -41,51 +43,62 @@ export class EquipmentCategoriesComponent {
         cat.image_url = 'http://127.0.0.1:8000/storage/' + cat.image_url;
       });
 
-      this.drillingSubCategories = res.data.filter((x) => x.category_id == 2);
-      this.haulingSubCategories = res.data.filter((x) => x.category_id == 3);
-      this.crushingSubCategories = res.data.filter((x) => x.category_id == 4);
-      this.separationSubCategories = res.data.filter((x) => x.category_id == 5);
-      this.undergroundSubCategories = res.data.filter(
+      this.foodnBeverageSubCategories = res.data.filter((x) => x.category_id == 2);
+      this.retailSubCategories = res.data.filter((x) => x.category_id == 3);
+      this.servicesSubCategories = res.data.filter((x) => x.category_id == 4);
+      this.professionalServicesSubCategories = res.data.filter((x) => x.category_id == 5);
+      this.creativeServicesSubCategories = res.data.filter(
         (x) => x.category_id == 6
       );
-      this.safetySubCategories = res.data.filter((x) => x.category_id == 7);
-      this.miscellaneousSubCategories = res.data.filter(
+      this.educationSubCategories = res.data.filter((x) => x.category_id == 7);
+      this.automotiveSubCategories = res.data.filter(
         (x) => x.category_id == 8
       );
-      this.sparesSubCategories = res.data.filter(
+      this.homeimprovementSubCategories = res.data.filter(
         (x) => x.category_id == 9
       );
+      this.entertainmentSubCategories = res.data.filter(
+        (x) => x.category_id == 10
+      );
       console.log('subCategories:', this.subCategories);
-      this.productList = this.drillingSubCategories;
+      this.productList = this.foodnBeverageSubCategories;
     });
   }
 
-  showDrilling() {
-    this.productList = this.drillingSubCategories;
+  showFoodnBeverage() {
+    this.productList = this.foodnBeverageSubCategories;
   }
 
-  showLoading() {
-    this.productList = this.haulingSubCategories;
+  showRetail() {
+    this.productList = this.retailSubCategories;
   }
 
-  showCrushing() {
-    this.productList = this.crushingSubCategories;
+  showServices() {
+    this.productList = this.servicesSubCategories;
   }
 
-  showSeparation() {
-    this.productList = this.separationSubCategories;
+  showProfessionalServices() {
+    this.productList = this.professionalServicesSubCategories;
   }
 
-  showUnderground() {
-    this.productList = this.undergroundSubCategories;
+  showCreativeServices() {
+    this.productList = this.creativeServicesSubCategories;
   }
 
-  showSafety() {
-    this.productList = this.safetySubCategories;
+  showEducation() {
+    this.productList = this.educationSubCategories;
   }
 
-  showMiscellaneos() {
-    this.productList = this.miscellaneousSubCategories;
+  showAutomotive() {
+    this.productList = this.automotiveSubCategories;
+  }
+
+  showHomeImprovement() {
+    this.productList = this.automotiveSubCategories;
+  }
+
+  showEntertainment() {
+    this.productList = this.entertainmentSubCategories;
   }
 
   goToCategoryProducts(id: any) {

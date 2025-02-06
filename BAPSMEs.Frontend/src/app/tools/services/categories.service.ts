@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ResponseHandler } from '../../../models/response-handler';
 import { AlertService } from './alert.service';
 
-const url = 'https://orezon.co.zw/api/v1';
+const url = 'http://127.0.0.1:8000/api/v1';
 const headers: HttpHeaders = new HttpHeaders().set(
   'Content-Type',
   'application/json, charset=utf-8'
@@ -12,7 +12,7 @@ const headers: HttpHeaders = new HttpHeaders().set(
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesService  extends AlertService{
+export class CategoriesService extends AlertService {
   constructor(private http: HttpClient) {
     super()
   }
