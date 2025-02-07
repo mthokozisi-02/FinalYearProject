@@ -17,9 +17,12 @@ return new class extends Migration
             $table->foreignId('sub_category_id')->constrained('sub_categories');
             $table->string('name');
             $table->text('description')->nullable();
+            $table->enum('bookable', ['true', 'false'])->default('false');
             $table->decimal('price', 15, 2);
             $table->integer('quantity')->default(0);
             $table->string('image_url')->nullable();
+            $table->string('image_url2')->nullable();
+            $table->string('image_url3')->nullable();
             $table->timestamps();
         });
     }

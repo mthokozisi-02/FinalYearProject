@@ -39,4 +39,9 @@ class Product extends Model
                     ->withPivot('quantity', 'price');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
 }

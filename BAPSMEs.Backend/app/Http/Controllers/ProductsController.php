@@ -14,7 +14,7 @@ class ProductsController extends Controller
     public function index()
     {
         try {
-            $products = Product::with(['subcategory'])
+            $products = Product::with(['subcategory','ratings'])
                 ->where('quantity', '>', 0)
                 ->get();
 
@@ -101,7 +101,9 @@ class ProductsController extends Controller
                 'description' => 'nullable|string',
                 'price' => 'required|numeric|min:0',
                 'quantity' => 'required|integer|min:0',
-                'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image_url2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image_url3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             $validatedData['user_id'] = $user->id;
@@ -111,6 +113,18 @@ class ProductsController extends Controller
                 $image = $request->file('image_url');
                 $imagePath = $image->store('products', 'public'); // Save in the "public/products" directory
                 $validatedData['image_url'] = $imagePath;
+            }
+            // Handle image upload
+            if ($request->hasFile('image_url2')) {
+                $image = $request->file('image_url2');
+                $imagePath = $image->store('products', 'public'); // Save in the "public/products" directory
+                $validatedData['image_url2'] = $imagePath;
+            }
+            // Handle image upload
+            if ($request->hasFile('image_url3')) {
+                $image = $request->file('image_url3');
+                $imagePath = $image->store('products', 'public'); // Save in the "public/products" directory
+                $validatedData['image_url3'] = $imagePath;
             }
 
             $product = Product::create($validatedData);
@@ -126,7 +140,7 @@ class ProductsController extends Controller
     // {
     //     try {
     //         $user = auth()->user();
-            
+
     //         // Get the current user's package and the product limit
     //         $userPackage = UserPackage::where('user_id', $user->id)
     //             ->first();

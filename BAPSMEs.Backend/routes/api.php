@@ -64,6 +64,11 @@ Route::prefix('v1')->group(function() {
         Route::get('/category/{id}', [ProductsController::class, 'findByCategory']);
     });
 
+    Route::prefix('ratings')->group(function () {
+        Route::get('/', [\App\Http\Controllers\RatingsController::class, 'index']);
+        Route::post('/rating', [\App\Http\Controllers\RatingsController::class, 'store']);
+    });
+
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {
         // Routes accessible to all authenticated users
