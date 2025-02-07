@@ -94,7 +94,7 @@ export class EquipmentCategoriesComponent {
   }
 
   showHomeImprovement() {
-    this.productList = this.automotiveSubCategories;
+    this.productList = this.homeimprovementSubCategories;
   }
 
   showEntertainment() {
