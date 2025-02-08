@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IgcRatingComponent, defineComponents } from 'igniteui-webcomponents';
@@ -17,7 +17,7 @@ defineComponents(IgcRatingComponent);
   templateUrl: './enquire.component.html',
   styleUrl: './enquire.component.css'
 })
-export class EnquireComponent {
+export class EnquireComponent implements AfterViewInit {
 
 
   product: Products = {} as Products
@@ -42,6 +42,8 @@ export class EnquireComponent {
 
   ratingValue = 0
 
+  Flowbite: any;
+
   imagePreview: string = '';
 
   userId: any
@@ -54,6 +56,20 @@ export class EnquireComponent {
 
   public ratingForm: FormGroup;
 
+  fiveStar = 0;
+  fourStar = 0;
+  oneStar = 0;
+  twoStar = 0;
+  threeStar = 0;
+
+  five = 0;
+  four = 0;
+  one = 0;
+  two = 0;
+  three = 0;
+
+  totalStars = 0
+
   constructor(private productService: ProductsService, private categoryService: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private sellerService: SellerRegistrationService,
@@ -62,6 +78,13 @@ export class EnquireComponent {
     this.ratingForm = new FormGroup({
       comment: new FormControl('', [Validators.required]),
     });
+  }
+
+  ngAfterViewInit() {
+    if (typeof this.Flowbite !== 'undefined') {
+      this.Flowbite.initCarousels(); // Initialize Flowbite carousel
+      this.Flowbite.initDatepickers();
+    }
   }
 
   ngOnInit(): void {
@@ -97,6 +120,20 @@ export class EnquireComponent {
               this.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (this.noOfRatings))
               this.avgRating = Math.floor(this.unRoundedAvgRating);
 
+              this.totalStars = product.ratings.length
+
+              this.one = product.ratings.filter(x => x.rating == 1).length
+              this.two = product.ratings.filter(x => x.rating == 2).length
+              this.three = product.ratings.filter(x => x.rating == 3).length
+              this.four = product.ratings.filter(x => x.rating == 4).length
+              this.five = product.ratings.filter(x => x.rating == 5).length
+
+              this.fiveStar = (((product.ratings.filter(x => x.rating == 5).length) / this.totalStars) * 100)
+              this.fourStar = (((product.ratings.filter(x => x.rating == 4).length) / this.totalStars) * 100)
+              this.threeStar = (((product.ratings.filter(x => x.rating == 3).length) / this.totalStars) * 100)
+              this.twoStar = (((product.ratings.filter(x => x.rating == 2).length) / this.totalStars) * 100)
+              this.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / this.totalStars) * 100)
+
               product.ratings.forEach(rate => {
                 this.sellers.filter(x => x.user_id == rate.user_id).forEach(seller => {
                   rate.user_name = seller.user.name
@@ -104,6 +141,13 @@ export class EnquireComponent {
                 this.buyers.filter(x => x.user_id == rate.user_id).forEach(buyer => {
                   rate.user_name = buyer.user.name
                 })
+
+                if (rate.image_url1) {
+                  rate.image_url1 = 'http://127.0.0.1:8000/storage/' + rate.image_url1
+                }
+                if (rate.image_url2) {
+                  rate.image_url2 = 'http://127.0.0.1:8000/storage/' + rate.image_url2
+                }
               })
               this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
                 product.seller_name = seller.user.name
@@ -155,6 +199,8 @@ export class EnquireComponent {
           alert(res.message);
           this.ngOnInit()
           console.log(res.message);
+          this.selectedFile = null
+          this.selectedFile2 = null
         } else {
           console.log(res.message);
           // Handle the error as needed
@@ -162,6 +208,7 @@ export class EnquireComponent {
       },
       (error) => {
         console.error(error.error.message);
+        console.log('error', error)
         alert(error.error.message);
         // Handle the error as needed
       }

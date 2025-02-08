@@ -27,7 +27,7 @@ class RatingsController extends Controller
             if ($request->hasFile('image_url1')) {
                 $image = $request->file('image_url1');
                 $imagePath = $image->store('products', 'public'); // Save in the "public/products" directory
-                $validatedData['image_url'] = $imagePath;
+                $validatedData['image_url1'] = $imagePath;
             }
             // Handle image upload
             if ($request->hasFile('image_url2')) {
