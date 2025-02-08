@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { CommonModule, DecimalPipe } from '@angular/common';
@@ -32,6 +32,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { DashboardNavBarComponent } from './pages/dashboard-nav-bar/dashboard-nav-bar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EmailVerifiedComponent } from './pages/email-verified/email-verified.component';
+import { EnquireComponent } from './pages/enquire/enquire.component';
 import { EquipmentCategoriesComponent } from './pages/equipment-categories/equipment-categories.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -60,8 +61,6 @@ import { VerificationErrorComponent } from './pages/verification-error/verificat
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ErrorInterceptor, LoaderInterceptor } from './tools/helpers';
 import { AlertService } from './tools/services';
-import { EnquireComponent } from './pages/enquire/enquire.component';
-
 
 @NgModule({
   declarations: [
@@ -140,5 +139,6 @@ import { EnquireComponent } from './pages/enquire/enquire.component';
 
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -7,14 +7,14 @@ const cartStorageName = 'wishlist';
 @Injectable({
   providedIn: 'root'
 })
-export class WishListService  extends AlertService {
+export class WishListService extends AlertService {
   orezonCart: any = [];
   updateTotal = new BehaviorSubject(false);
   toggleCart = new BehaviorSubject(false);
 
   constructor() {
     super()
-   }
+  }
 
   saveToStorage() {
     localStorage.setItem(cartStorageName, JSON.stringify(this.orezonCart));

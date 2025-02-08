@@ -1,4 +1,5 @@
 import { Pivot } from './pivot';
+import { Ratings } from './ratings';
 import { SubCategory } from './sub-category';
 
 export interface Products {
@@ -10,8 +11,8 @@ export interface Products {
   amount: number;
   pivot: Pivot;
   image_url: any;
-  image_url1: any;
   image_url2: any;
+  image_url3: any;
   sub_category_id: number;
   subcategory: SubCategory;
   sub_category_name: string;
@@ -22,4 +23,5 @@ export interface Products {
   seller_id: number;
   seller_name: string
   total_amount: number
+  ratings: Ratings[]
 }

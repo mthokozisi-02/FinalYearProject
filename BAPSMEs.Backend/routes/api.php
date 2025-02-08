@@ -64,11 +64,6 @@ Route::prefix('v1')->group(function() {
         Route::get('/category/{id}', [ProductsController::class, 'findByCategory']);
     });
 
-    Route::prefix('ratings')->group(function () {
-        Route::get('/', [\App\Http\Controllers\RatingsController::class, 'index']);
-        Route::post('/rating', [\App\Http\Controllers\RatingsController::class, 'store']);
-    });
-
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {
         // Routes accessible to all authenticated users
@@ -78,6 +73,11 @@ Route::prefix('v1')->group(function() {
         Route::get('metals/search/{name}', [MetalsController::class, 'search']);
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/profile', [AuthController::class, 'profile']);
+
+        Route::prefix('ratings')->group(function () {
+            Route::get('/', [\App\Http\Controllers\RatingsController::class, 'index']);
+            Route::post('/rating', [\App\Http\Controllers\RatingsController::class, 'store']);
+        });
 
         Route::prefix('packages')->group(function () {
             Route::post('/register', [PackageController::class, 'createPackage']);

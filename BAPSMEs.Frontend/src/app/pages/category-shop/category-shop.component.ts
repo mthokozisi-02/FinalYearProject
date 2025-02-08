@@ -75,7 +75,7 @@ export class CategoryShopComponent implements OnInit {
           );
           this.unfilteredProducts.forEach((product: any) => {
             product.image_url =
-              'https://orezon.co.zw/storage/app/public/' + product.image_url;
+              'http://127.0.0.1:8000/storage/' + product.image_url;
             this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
               product.seller_name = seller.user.name
             })

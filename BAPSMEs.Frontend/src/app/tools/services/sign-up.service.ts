@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertService } from '.';
 
-const url = 'https://orezon.co.zw/api/v1';
+const url = 'http://127.0.0.1:8000/api/v1';
 const headers: HttpHeaders = new HttpHeaders().set(
   'Content-Type',
   'application/json, charset=utf-8'
@@ -11,10 +11,10 @@ const headers: HttpHeaders = new HttpHeaders().set(
 @Injectable({
   providedIn: 'root',
 })
-export class SignUpService  extends AlertService {
+export class SignUpService extends AlertService {
   constructor(private http: HttpClient) {
     super()
-   }
+  }
 
   signUp(itemDto: any) {
     var body = JSON.stringify(itemDto);

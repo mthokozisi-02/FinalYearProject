@@ -17,9 +17,24 @@ class RatingsController extends Controller
                 'product_id' => 'required|exists:products,id',
                 'comment' => 'nullable|string|max:255',
                 'rating' => 'required|integer|min:0',
+                'image_url1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image_url2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             $validatedData['user_id'] = $user->id;
+
+            // Handle image upload
+            if ($request->hasFile('image_url1')) {
+                $image = $request->file('image_url1');
+                $imagePath = $image->store('products', 'public'); // Save in the "public/products" directory
+                $validatedData['image_url'] = $imagePath;
+            }
+            // Handle image upload
+            if ($request->hasFile('image_url2')) {
+                $image = $request->file('image_url2');
+                $imagePath = $image->store('products', 'public'); // Save in the "public/products" directory
+                $validatedData['image_url2'] = $imagePath;
+            }
 
             $rating = Rating::create($validatedData);
 

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->string('comment')->nullable();
             $table->integer('rating')->default(0);
+            $table->string('image_url1')->nullable();
+            $table->string('image_url2')->nullable();
             $table->timestamps();
         });
     }

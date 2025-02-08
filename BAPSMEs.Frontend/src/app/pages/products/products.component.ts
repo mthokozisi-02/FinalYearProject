@@ -45,6 +45,10 @@ export class ProductsComponent implements OnInit {
 
   selectedFile: File | null = null;
 
+  selectedFile2: File | null = null;
+
+  selectedFile3: File | null = null;
+
   addProduct_ = false;
 
   title: any;
@@ -115,7 +119,7 @@ export class ProductsComponent implements OnInit {
       this.productService.getSellerProducts(this.user).subscribe((res) => {
         res.data.forEach((product: any) => {
           product.image_url =
-            'https://orezon.co.zw/storage/app/public/' + product.image_url;
+            'http://127.0.0.1:8000/storage/' + product.image_url;
           const category = this.subCategories.filter(
             (x) => x.id == product.sub_category_id
           );
@@ -140,6 +144,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
+    console.log('1')
     const target = event.target as HTMLInputElement;
     this.selectedFile = target.files!.item(0);
 
@@ -152,7 +157,44 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  onFileSelected2(event: any) {
+    console.log('2')
+    const target = event.target as HTMLInputElement;
+    this.selectedFile2 = target.files!.item(0);
+
+    if (this.selectedFile2) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        this.displayImage2(e.target!.result as string);
+      };
+      reader.readAsDataURL(this.selectedFile2);
+    }
+  }
+
+  onFileSelected3(event: any) {
+    const target = event.target as HTMLInputElement;
+    this.selectedFile3 = target.files!.item(0);
+
+    if (this.selectedFile3) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        this.displayImage3(e.target!.result as string);
+      };
+      reader.readAsDataURL(this.selectedFile3);
+    }
+  }
+
   displayImage(imageData: string): void {
+    // Update the image preview in the template
+    this.imagePreview = imageData;
+  }
+
+  displayImage2(imageData: string): void {
+    // Update the image preview in the template
+    this.imagePreview = imageData;
+  }
+
+  displayImage3(imageData: string): void {
     // Update the image preview in the template
     this.imagePreview = imageData;
   }
@@ -166,6 +208,20 @@ export class ProductsComponent implements OnInit {
     return URL.createObjectURL(this.selectedFile);
   }
 
+  getImagePreview2(): string {
+    if (!this.selectedFile2) {
+      return 'assets/img/upload.svg';
+    }
+    return URL.createObjectURL(this.selectedFile2);
+  }
+
+  getImagePreview3(): string {
+    if (!this.selectedFile3) {
+      return 'assets/img/upload.svg';
+    }
+    return URL.createObjectURL(this.selectedFile3);
+  }
+
   addProduct() {
     console.log(this.productForm.value);
     this.newProduct = this.productForm.value;
@@ -177,6 +233,8 @@ export class ProductsComponent implements OnInit {
     formData.append('quantity', this.productForm.value.quantity);
     formData.append('sub_category_id', this.productForm.value.sub_category_id);
     formData.append('image_url', this.selectedFile, this.selectedFile.name);
+    formData.append('image_url2', this.selectedFile2, this.selectedFile2.name);
+    formData.append('image_url3', this.selectedFile3, this.selectedFile3.name);
     formData.append('user_id', this.user);
 
     this.productService.create(formData).subscribe(

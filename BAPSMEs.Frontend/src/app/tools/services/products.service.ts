@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AlertService } from '.';
 import { ResponseHandler } from '../../../models/response-handler';
 
-const url = 'https://orezon.co.zw/api/v1';
+const url = 'http://127.0.0.1:8000/api/v1';
 let headers: HttpHeaders = new HttpHeaders();
 headers.append('Content-Type', 'multipart/form-data');
 headers.append('enctype', 'multipart/form-data');
