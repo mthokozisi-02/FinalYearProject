@@ -60,6 +60,7 @@ import { VerificationErrorComponent } from './pages/verification-error/verificat
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ErrorInterceptor, LoaderInterceptor } from './tools/helpers';
 import { AlertService } from './tools/services';
+import { EnquireComponent } from './pages/enquire/enquire.component';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { AlertService } from './tools/services';
     VerificationErrorComponent,
     VerifyEmailComponent,
     DashboardNavBarComponent,
-    SellerStatsComponent
+    SellerStatsComponent,
+    EnquireComponent
   ],
   imports: [
     BrowserModule,

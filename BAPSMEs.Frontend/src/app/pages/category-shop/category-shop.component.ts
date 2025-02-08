@@ -1,5 +1,5 @@
 import { Component, type OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Orders } from '../../../models/orders';
 import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
@@ -51,11 +51,14 @@ export class CategoryShopComponent implements OnInit {
     private productService: ProductsService,
     private categoryService: SubCategoriesService,
     public actRoute: ActivatedRoute,
+    private router: Router,
     private sellerService: SellerRegistrationService
   ) { }
   ngOnInit(): void {
     console.log('cart', this.cartService.getCurrentCart());
     this.role = sessionStorage.getItem('loggedUserRole') || '{}';
+    this.id = this.actRoute.snapshot.params['id'];
+
 
     this.categoryService.getAllList().subscribe((res) => {
       this.subCategories = res.data;
@@ -90,8 +93,6 @@ export class CategoryShopComponent implements OnInit {
         });
       });
     });
-
-    this.id = this.actRoute.snapshot.params['id'];
 
 
 
@@ -152,6 +153,10 @@ export class CategoryShopComponent implements OnInit {
     console.log('item', item)
     this.viewProduct = true
     this.selectedProduct = item
+  }
+
+  enquire(id: number) {
+    this.router.navigate(['/enquire', id]);
   }
 
   hideDialog() {

@@ -10,6 +10,8 @@ export interface Products {
   amount: number;
   pivot: Pivot;
   image_url: any;
+  image_url1: any;
+  image_url2: any;
   sub_category_id: number;
   subcategory: SubCategory;
   sub_category_name: string;

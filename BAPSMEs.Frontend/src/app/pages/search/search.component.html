@@ -238,6 +238,32 @@
 							Enquire Now
 						</button>
 					</div>
+					<div class="mt-4 flex items-center justify-between gap-4">
+						<button type="button"
+							class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+							<svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor" viewBox="0 0 18 21">
+								<path
+									d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+							</svg>
+							Book Now
+						</button>
+						<button type="button"
+							class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+							<svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512" version="1.1"
+								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<g id="Page-1" stroke="white" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Path" fill="white" transform="translate(64.000000, 85.333333)">
+										<path
+											d="M384,1.42108547e-14 L384,298.666667 L277.333333,298.666667 L277.333333,384 L147.2,298.666667 L1.42108547e-14,298.666667 L1.42108547e-14,1.42108547e-14 L384,1.42108547e-14 Z M341.333333,42.6666667 L42.6666667,42.6666667 L42.6666667,256 L159.941531,256 L234.666667,305.002667 L234.666667,256 L341.333333,256 L341.333333,42.6666667 Z M192.935,201.066667 C199.768368,201.066667 205.414144,203.316644 209.8725,207.816667 C214.330856,212.316689 216.56,217.983299 216.56,224.816667 C216.56,231.5667 214.330856,237.191644 209.8725,241.691667 C205.414144,246.191689 199.768368,248.441667 192.935,248.441667 C185.934965,248.441667 180.226689,246.191689 175.81,241.691667 C171.393311,237.191644 169.185,231.441702 169.185,224.441667 C169.185,217.774967 171.434978,212.212522 175.935,207.754167 C180.435023,203.295811 186.101632,201.066667 192.935,201.066667 Z M202.185,65.0666667 C221.185095,65.0666667 235.643284,69.5666217 245.56,78.5666667 C254.310044,86.6500404 258.685,97.1499354 258.685,110.066667 C258.685,118.81671 256.560021,126.295802 252.31,132.504167 C248.591231,137.936485 242.320454,143.767492 233.497515,149.997322 L229.56,152.691667 C221.226667,158.275028 216.101676,162.545819 214.185,165.504167 C212.268324,168.462515 211.31,173.733295 211.31,181.316667 L211.31,186.441667 L174.435,186.441667 L174.435,175.441667 C174.435,164.85828 175.518323,157.483354 177.685,153.316667 C178.935006,150.899988 180.601656,148.754176 182.685,146.879167 L185.011529,144.940391 C185.967309,144.18359 187.103359,143.316246 188.419684,142.338357 L201.829549,132.738531 C207.493614,128.58228 211.34124,125.316679 213.3725,122.941667 C216.080847,119.774984 217.435,116.066688 217.435,111.816667 C217.435,106.483307 215.539186,102.254182 211.7475,99.1291667 C207.955814,96.004151 202.810033,94.4416667 196.31,94.4416667 C185.64328,94.4416667 172.768409,98.7332904 157.685,107.316667 L146.56,79.5666667 C165.060093,69.8999517 183.601574,65.0666667 202.185,65.0666667 Z">
+
+										</path>
+									</g>
+								</g>
+							</svg>
+							Enquire Now
+						</button>
+					</div>
 				</div>
 			</div>
 			}
@@ -260,15 +286,25 @@
 							</div>
 
 							<div class="mt-6 sm:mt-8 lg:mt-0">
+								<span
+									class="mb-2 inline-block rounded bg-green-200 px-2.5 py-0.5 font-medium text-blue-800 dark:bg-green-900 dark:text-blue-300 uppercase">
+									{{selectedProduct.sub_category_name}} </span>
 								<h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
 									{{selectedProduct.name}}
 								</h1>
-								<div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+								<div class="mt-2 sm:items-center sm:gap-4 sm:flex">
 									<p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
 										{{selectedProduct.price | currency}}
 									</p>
 								</div>
-								<div class="flex items-center gap-2 mt-2 sm:mt-0">
+								<p class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>SELLER:</b> {{selectedProduct.seller_name}}
+								</p>
+
+								<p class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>DESCRIPTION: </b> {{selectedProduct.description}}
+								</p>
+								<div class="flex items-center gap-2 mt-4 mb-4">
 									<div class="flex items-center gap-1">
 										<svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
 											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -310,53 +346,97 @@
 									</a>
 								</div>
 
-								<div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-									<a (click)="addTowishList(selectedProduct)" title=""
-										class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-										role="button">
-										<svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-											viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-												stroke-width="2"
-												d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+								<div class="mt-6 min-w-0 flex-1 space-y-3 sm:mt-0">
+									<div class="flex items-center gap-2">
+										<p
+											class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+											5</p>
+										<svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											fill="currentColor" viewBox="0 0 24 24">
+											<path
+												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
-										Add to Wishlist
-									</a>
+										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 20%"></div>
+										</div>
+										<a href="#"
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">239
+											<span class="hidden sm:inline">reviews</span></a>
+									</div>
 
-									<a (click)="updateCart(selectedProduct)" title=""
-										class="text-white mt-4 sm:mt-0 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800 flex items-center justify-center"
-										role="button">
-										<svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512"
-											version="1.1" xmlns="http://www.w3.org/2000/svg"
-											xmlns:xlink="http://www.w3.org/1999/xlink">
-											<g id="Page-1" stroke="white" stroke-width="1" fill="none"
-												fill-rule="evenodd">
-												<g id="Path" fill="white" transform="translate(64.000000, 85.333333)">
-													<path
-														d="M384,1.42108547e-14 L384,298.666667 L277.333333,298.666667 L277.333333,384 L147.2,298.666667 L1.42108547e-14,298.666667 L1.42108547e-14,1.42108547e-14 L384,1.42108547e-14 Z M341.333333,42.6666667 L42.6666667,42.6666667 L42.6666667,256 L159.941531,256 L234.666667,305.002667 L234.666667,256 L341.333333,256 L341.333333,42.6666667 Z M192.935,201.066667 C199.768368,201.066667 205.414144,203.316644 209.8725,207.816667 C214.330856,212.316689 216.56,217.983299 216.56,224.816667 C216.56,231.5667 214.330856,237.191644 209.8725,241.691667 C205.414144,246.191689 199.768368,248.441667 192.935,248.441667 C185.934965,248.441667 180.226689,246.191689 175.81,241.691667 C171.393311,237.191644 169.185,231.441702 169.185,224.441667 C169.185,217.774967 171.434978,212.212522 175.935,207.754167 C180.435023,203.295811 186.101632,201.066667 192.935,201.066667 Z M202.185,65.0666667 C221.185095,65.0666667 235.643284,69.5666217 245.56,78.5666667 C254.310044,86.6500404 258.685,97.1499354 258.685,110.066667 C258.685,118.81671 256.560021,126.295802 252.31,132.504167 C248.591231,137.936485 242.320454,143.767492 233.497515,149.997322 L229.56,152.691667 C221.226667,158.275028 216.101676,162.545819 214.185,165.504167 C212.268324,168.462515 211.31,173.733295 211.31,181.316667 L211.31,186.441667 L174.435,186.441667 L174.435,175.441667 C174.435,164.85828 175.518323,157.483354 177.685,153.316667 C178.935006,150.899988 180.601656,148.754176 182.685,146.879167 L185.011529,144.940391 C185.967309,144.18359 187.103359,143.316246 188.419684,142.338357 L201.829549,132.738531 C207.493614,128.58228 211.34124,125.316679 213.3725,122.941667 C216.080847,119.774984 217.435,116.066688 217.435,111.816667 C217.435,106.483307 215.539186,102.254182 211.7475,99.1291667 C207.955814,96.004151 202.810033,94.4416667 196.31,94.4416667 C185.64328,94.4416667 172.768409,98.7332904 157.685,107.316667 L146.56,79.5666667 C165.060093,69.8999517 183.601574,65.0666667 202.185,65.0666667 Z">
-
-													</path>
-												</g>
-											</g>
+									<div class="flex items-center gap-2">
+										<p
+											class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+											4</p>
+										<svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											fill="currentColor" viewBox="0 0 24 24">
+											<path
+												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
+										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 60%"></div>
+										</div>
+										<a href="#"
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">432
+											<span class="hidden sm:inline">reviews</span></a>
+									</div>
 
-										Enquire Now
-									</a>
+									<div class="flex items-center gap-2">
+										<p
+											class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+											3</p>
+										<svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											fill="currentColor" viewBox="0 0 24 24">
+											<path
+												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+										</svg>
+										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 15%"></div>
+										</div>
+										<a href="#"
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">53
+											<span class="hidden sm:inline">reviews</span></a>
+									</div>
+
+									<div class="flex items-center gap-2">
+										<p
+											class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+											2</p>
+										<svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											fill="currentColor" viewBox="0 0 24 24">
+											<path
+												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+										</svg>
+										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 5%"></div>
+										</div>
+										<a href="#"
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">32
+											<span class="hidden sm:inline">reviews</span></a>
+									</div>
+
+									<div class="flex items-center gap-2">
+										<p
+											class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+											1</p>
+										<svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											fill="currentColor" viewBox="0 0 24 24">
+											<path
+												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+										</svg>
+										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 0%"></div>
+										</div>
+										<a href="#"
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">13
+											<span class="hidden sm:inline">reviews</span></a>
+									</div>
 								</div>
-
-								<hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
-
-								<p class="mb-6 text-gray-500 dark:text-gray-400">
-									<b>Category:</b> {{selectedProduct.sub_category_name}}
-								</p>
-								<p class="mb-6 text-gray-500 dark:text-gray-400">
-									<b>Seller:</b> {{selectedProduct.seller_name}}
-								</p>
-
-								<p class="text-gray-500 dark:text-gray-400">
-									<b>Description: </b> {{selectedProduct.description}}
-								</p>
 							</div>
 						</div>
 					</div>
