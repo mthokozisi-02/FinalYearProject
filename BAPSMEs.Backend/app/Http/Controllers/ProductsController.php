@@ -14,7 +14,7 @@ class ProductsController extends Controller
     public function index()
     {
         try {
-            $products = Product::with(['subcategory','ratings'])
+            $products = Product::with(['subcategory','ratings','enquiries'])
                 ->where('quantity', '>', 0)
                 ->get();
 
@@ -53,7 +53,7 @@ class ProductsController extends Controller
         try {
             $user = auth()->user();
 
-            $products = Product::with(['subcategory.category'])->where('user_id', $user->id)->get();
+            $products = Product::with(['subcategory.category','enquiries'])->where('user_id', $user->id)->get();
 
             return successResponseHandler('fetched seller products successfully',$products);
 

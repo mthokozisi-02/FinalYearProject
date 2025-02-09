@@ -108,7 +108,30 @@ export class SearchComponent implements OnInit {
           this.products = res.data
           this.products.forEach((product: any) => {
             product.image_url =
-              'https://orezon.co.zw/storage/app/public/' + product.image_url;
+              'http://127.0.0.1:8000/storage/' + product.image_url;
+            product.image_url2 =
+              'http://127.0.0.1:8000/storage/' + product.image_url2;
+            product.image_url3 =
+              'http://127.0.0.1:8000/storage/' + product.image_url3;
+
+            product.noOfRatings = product.ratings.length
+            product.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (product.noOfRatings))
+            product.avgRating = Math.floor(product.unRoundedAvgRating);
+
+            product.totalStars = product.ratings.length
+
+            product.one = product.ratings.filter(x => x.rating == 1).length
+            product.two = product.ratings.filter(x => x.rating == 2).length
+            product.three = product.ratings.filter(x => x.rating == 3).length
+            product.four = product.ratings.filter(x => x.rating == 4).length
+            product.five = product.ratings.filter(x => x.rating == 5).length
+
+            product.fiveStar = (((product.ratings.filter(x => x.rating == 5).length) / product.totalStars) * 100)
+            product.fourStar = (((product.ratings.filter(x => x.rating == 4).length) / product.totalStars) * 100)
+            product.threeStar = (((product.ratings.filter(x => x.rating == 3).length) / product.totalStars) * 100)
+            product.twoStar = (((product.ratings.filter(x => x.rating == 2).length) / product.totalStars) * 100)
+            product.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / product.totalStars) * 100)
+
             this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
               product.seller_name = seller.user.name
             })

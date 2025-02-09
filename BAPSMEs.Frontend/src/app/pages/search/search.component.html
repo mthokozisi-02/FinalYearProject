@@ -159,41 +159,15 @@
 						</div>
 					</div>
 
-					<div class="mt-2 flex items-center gap-2">
-						<div class="flex items-center">
-							<svg class="h-4 w-4 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor" viewBox="0 0 24 24">
-								<path
-									d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z" />
-							</svg>
-
-							<svg class="h-4 w-4 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor" viewBox="0 0 24 24">
-								<path
-									d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z" />
-							</svg>
-
-							<svg class="h-4 w-4 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor" viewBox="0 0 24 24">
-								<path
-									d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z" />
-							</svg>
-
-							<svg class="h-4 w-4 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor" viewBox="0 0 24 24">
-								<path
-									d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z" />
-							</svg>
-
-							<svg class="h-4 w-4 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor" viewBox="0 0 24 24">
-								<path
-									d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z" />
-							</svg>
+					<div class="mt-2 flex items-center gap-2 sm:mt-0">
+						<div class="flex items-center gap-0.5">
+							<igc-rating [value]="item.avgRating" class="text-yellow-300" disabled></igc-rating>
 						</div>
-
-						<p class="text-sm font-medium text-gray-900 dark:text-white">5.0</p>
-						<p class="text-sm font-medium text-gray-500 dark:text-gray-400">(455)</p>
+						<p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+							{{item.unRoundedAvgRating | number:'1.2-2'}}</p>
+						<a href="#"
+							class="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
+							({{item.noOfRatings}})</a>
 					</div>
 
 					<ul class="mt-2 flex items-center gap-4">
@@ -272,6 +246,7 @@
 	</div>
 	<!-- /container -->
 
+
 	<div *ngIf="viewProduct" class="relative z-10">
 		<div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
 		<div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -280,9 +255,23 @@
 				<section class="bg-white md:py-16 dark:bg-gray-900 antialiased">
 					<div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
 						<div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+
 							<div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-								<img class="w-full dark:hidden" [src]="selectedProduct.image_url" alt="" />
-								<img class="w-full hidden dark:block" [src]="selectedProduct.image_url" alt="" />
+								<div id="slider"
+									class="flex overflow-x-scroll space-x-4 rounded-lg shadow-lg no-scrollbar">
+									<div class="flex-shrink-0 w-full scroll-ml-6">
+										<img [src]="selectedProduct.image_url" alt="Slider Image 1"
+											class="w-full h-[440px] object-cover rounded-lg">
+									</div>
+									<div class="flex-shrink-0 w-full scroll-ml-6">
+										<img [src]="selectedProduct.image_url2" alt="Slider Image 2"
+											class="w-full h-[440px] object-cover rounded-lg">
+									</div>
+									<div class="flex-shrink-0 w-full scroll-ml-6">
+										<img [src]="selectedProduct.image_url3" alt="Slider Image 3"
+											class="w-full h-[440px] object-cover rounded-lg">
+									</div>
+								</div>
 							</div>
 
 							<div class="mt-6 sm:mt-8 lg:mt-0">
@@ -304,46 +293,16 @@
 								<p class="mt-2 text-gray-500 dark:text-gray-400">
 									<b>DESCRIPTION: </b> {{selectedProduct.description}}
 								</p>
-								<div class="flex items-center gap-2 mt-4 mb-4">
-									<div class="flex items-center gap-1">
-										<svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											fill="currentColor" viewBox="0 0 24 24">
-											<path
-												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-										</svg>
-										<svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											fill="currentColor" viewBox="0 0 24 24">
-											<path
-												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-										</svg>
-										<svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											fill="currentColor" viewBox="0 0 24 24">
-											<path
-												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-										</svg>
-										<svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											fill="currentColor" viewBox="0 0 24 24">
-											<path
-												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-										</svg>
-										<svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											fill="currentColor" viewBox="0 0 24 24">
-											<path
-												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
-										</svg>
+								<div class="mt-4 flex items-center gap-2 sm:mt-0">
+									<div class="flex items-center gap-0.5">
+										<igc-rating [value]="selectedProduct.avgRating" class="text-yellow-300"
+											disabled></igc-rating>
 									</div>
 									<p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-										(5.0)
-									</p>
+										({{selectedProduct.unRoundedAvgRating | number:'1.2-2'}})</p>
 									<a href="#"
 										class="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
-										345 Reviews
-									</a>
+										{{selectedProduct.noOfRatings}} Reviews </a>
 								</div>
 
 								<div class="mt-6 min-w-0 flex-1 space-y-3 sm:mt-0">
@@ -358,10 +317,11 @@
 												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
 										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
-											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 20%"></div>
+											<div class="h-1.5 rounded-full bg-yellow-300"
+												[style.width.%]="selectedProduct.fiveStar"></div>
 										</div>
 										<a href="#"
-											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">239
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.five}}
 											<span class="hidden sm:inline">reviews</span></a>
 									</div>
 
@@ -376,10 +336,11 @@
 												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
 										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
-											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 60%"></div>
+											<div class="h-1.5 rounded-full bg-yellow-300"
+												[style.width.%]="selectedProduct.fourStar"></div>
 										</div>
 										<a href="#"
-											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">432
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.four}}
 											<span class="hidden sm:inline">reviews</span></a>
 									</div>
 
@@ -394,10 +355,11 @@
 												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
 										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
-											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 15%"></div>
+											<div class="h-1.5 rounded-full bg-yellow-300"
+												[style.width.%]="selectedProduct.threeStar"></div>
 										</div>
 										<a href="#"
-											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">53
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.three}}
 											<span class="hidden sm:inline">reviews</span></a>
 									</div>
 
@@ -412,10 +374,11 @@
 												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
 										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
-											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 5%"></div>
+											<div class="h-1.5 rounded-full bg-yellow-300"
+												[style.width.%]="selectedProduct.twoStar"></div>
 										</div>
 										<a href="#"
-											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">32
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.two}}
 											<span class="hidden sm:inline">reviews</span></a>
 									</div>
 
@@ -430,17 +393,18 @@
 												d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
 										</svg>
 										<div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
-											<div class="h-1.5 rounded-full bg-yellow-300" style="width: 0%"></div>
+											<div class="h-1.5 rounded-full bg-yellow-300"
+												[style.width.%]="selectedProduct.oneStar"></div>
 										</div>
 										<a href="#"
-											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">13
+											class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.one}}
 											<span class="hidden sm:inline">reviews</span></a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="flex justify-between p-2 items-center rounded-t border-b dark:border-gray-600">
+					<div class="mt-8 flex justify-between p-2 items-center rounded-t border-t dark:border-gray-600">
 						<button type="button" (click)="hideDialog()"
 							class="text-white bg-red-700 hover:bg-gray-200 hover:text-gray-900 rounded-lg  p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
 							data-modal-toggle="createProductModal">

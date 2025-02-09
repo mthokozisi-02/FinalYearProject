@@ -3,11 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IgcRatingComponent, defineComponents } from 'igniteui-webcomponents';
 import { Buyer } from '../../../models/buyer';
+import { Enquire } from '../../../models/enquire';
 import { Products } from '../../../models/products';
 import { Ratings } from '../../../models/ratings';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { BuyerRegistrationService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { EnquiryService } from '../../tools/services/enquiry.service';
 import { RatingService } from '../../tools/services/rating.service';
 
 defineComponents(IgcRatingComponent);
@@ -42,6 +44,8 @@ export class EnquireComponent implements AfterViewInit {
 
   ratingValue = 0
 
+  newEnquiry: Enquire = {} as Enquire
+
   Flowbite: any;
 
   imagePreview: string = '';
@@ -55,6 +59,8 @@ export class EnquireComponent implements AfterViewInit {
   selectedFile2: File | null = null;
 
   public ratingForm: FormGroup;
+
+  public enquireForm: FormGroup;
 
   fiveStar = 0;
   fourStar = 0;
@@ -70,13 +76,21 @@ export class EnquireComponent implements AfterViewInit {
 
   totalStars = 0
 
-  constructor(private productService: ProductsService, private categoryService: SubCategoriesService,
+  constructor(private productService: ProductsService, private enquiryService: EnquiryService, private categoryService: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
     private ratingService: RatingService) {
     this.ratingForm = new FormGroup({
       comment: new FormControl('', [Validators.required]),
+    });
+    this.enquireForm = new FormGroup({
+      message: new FormControl('', [Validators.required]),
+      quantity: new FormControl(0, [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      time: new FormControl('', [Validators.required]),
+      payment: new FormControl('', [Validators.required]),
     });
   }
 
@@ -214,6 +228,46 @@ export class EnquireComponent implements AfterViewInit {
       }
     );
     this.ratingForm.reset();
+  }
+
+  enquire() {
+    this.newEnquiry.date = this.enquireForm.value.date
+    this.newEnquiry.time = this.enquireForm.value.time
+    this.newEnquiry.location = this.enquireForm.value.location
+    this.newEnquiry.payment = this.enquireForm.value.payment
+    this.newEnquiry.quantity = this.enquireForm.value.quantity
+    this.newEnquiry.message = this.enquireForm.value.message
+    this.newEnquiry.product_id = this.product.id
+    this.newEnquiry.sub_category_id = this.product.sub_category_id
+    this.newEnquiry.seller_id = this.product.user_id
+    this.newEnquiry.user_id = this.userId
+    this.newEnquiry.total_price = (Number(this.product.price)) * this.newEnquiry.quantity
+
+    console.log('enquiry', this.newEnquiry)
+
+    this.enquiryService.enquire(this.newEnquiry).subscribe(
+      (res) => {
+        console.log('res', res);
+
+        if (res.status == 'created') {
+          alert(res.message);
+          this.ngOnInit()
+          console.log(res.message);
+          this.selectedFile = null
+          this.selectedFile2 = null
+        } else {
+          console.log(res.message);
+          // Handle the error as needed
+        }
+      },
+      (error) => {
+        console.error(error.error.message);
+        console.log('error', error)
+        alert(error.error.message);
+        // Handle the error as needed
+      }
+    );
+    this.enquireForm.reset();
   }
 
   onFileSelected2(event: any) {

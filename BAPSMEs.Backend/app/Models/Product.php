@@ -44,4 +44,9 @@ class Product extends Model
         return $this->hasMany(Rating::class);
     }
 
+    public function enquiries()
+    {
+        return $this->hasMany(Enquiry::class);
+    }
+
 }

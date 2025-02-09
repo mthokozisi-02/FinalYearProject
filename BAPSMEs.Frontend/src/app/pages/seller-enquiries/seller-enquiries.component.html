@@ -1,0 +1,176 @@
+<!-- Start block -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+    <div class="flex-1 flex items-center space-x-2">
+        <h5>
+            <span class="text-gray-500 text-2xl">All Enquiries:</span>
+        </h5>
+    </div>
+</div>
+<div
+    class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+    <div class="w-full md:w-1/2">
+        <form class="flex items-center">
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fa fa-search mr-3"></i>
+                </div>
+                <input type="text" #filter id="simple-search" (input)="searchPayments(filter.value)"
+                    placeholder="Search by buyer" required=""
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                <button type="submit" (click)="searchPayments(filter.value)"
+                    class="absolute top-0 end-0 p-2.5 font-medium h-full text-white bg-green-700 rounded-e-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <hr>
+</div>
+<div class="overflow-x-auto">
+    <table class="w-full  text-left text-gray-500 dark:text-gray-400">
+        <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="p-4">ID</th>
+                <th scope="col" class="p-4">Buyer</th>
+                <th scope="col" class="p-4">Category</th>
+                <th scope="col" class="p-4">Product</th>
+                <th scope="col" class="p-4">Quantity</th>
+                <th scope="col" class="p-4">Date</th>
+                <th scope="col" class="p-4">Time</th>
+                <th scope="col" class="p-4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of filteredEnquiries"
+                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div class="flex items-center mr-3">
+                        {{item.id}}
+                    </div>
+                </th>
+                <td scope="row" class="flex items-center px-6 py-4">
+                    <img class="w-14 h-14 rounded-full" [src]="item.buyer_pic" alt="Jese image">
+                    <div class="ps-3">
+                        <div class="text-lg font-semibold">{{item.buyer_name}}</div>
+                        <div class="font-normal text-gray-500">
+                            {{ item.buyer_email | slice:0:19 }}...
+                        </div>
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    <span
+                        class="inline-flex items-center bg-green-100 text-green-800  px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                        <span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+                        {{item.sub_category_name}}
+                    </span>
+                </td>
+                <td class="px-4 py-3">
+                    {{item.product_name}}</td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center">
+                        <div class="h-4 w-4 rounded-full inline-block mr-2 bg-red-700"></div>
+                        {{item.quantity}}
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    {{item.date | date : 'MMM d, y'}}</td>
+                <td class="px-4 py-3">
+                    {{item.time}}</td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center space-x-4">
+                        <button type="button" (click)="view(item)" data-modal-target="viewProductModal"
+                            data-modal-toggle="viewProductModal" aria-controls="drawer-read-product-advanced"
+                            class="py-2 px-3 flex items-center font-medium text-center text-white focus:outline-none bg-blue-700 rounded-lg border border-blue-700 hover:bg-white hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-700 dark:bg-blue-800 dark:text-blue-400 dark:border-blue-600 dark:hover:text-white dark:hover:bg-blue-700">
+                            Read
+                        </button>
+                        <button *ngIf="item.received == 'false'" type="button" (click)="Received(item)"
+                            class="place-items-center text-white hover:text-green-700 border bg-green-700 border-green-500 hover:bg-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg px-3 py-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900">
+                            Received
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="viewEnquiry" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center xl:items-center xl:p-0">
+            <div
+                class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all xl:my-8">
+                <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 xl:p-5"
+                    style="border:green, solid , 1px;padding:2vw;">
+                    <!-- Modal header -->
+                    <div
+                        class="flex justify-between items-center pb-4 mb-4 rounded-t border-b xl:mb-5 dark:border-gray-600">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">View
+                            {{selectedEnquiry.product_name}}</h3>
+                        <button type="button" (click)="hideDialog()"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="createProductModal">
+                            <i class="fa fa-close mr-3"></i>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form>
+                        <div class="grid gap-4 mb-4 xl:grid-cols-2">
+                            <div>
+                                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
+                                    Name</label>
+                                <span class="text-green-700">{{selectedEnquiry.product_name}}</span>
+                                <hr>
+                            </div>
+                            <div>
+                                <label for="category"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Category</label>
+                                <span class="text-green-700">{{selectedEnquiry.sub_category_name}}</span>
+                                <hr>
+                            </div>
+                            <div>
+                                <label for="brand"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Quantity</label>
+                                <span class="text-green-700">{{selectedEnquiry.quantity}}</span>
+                                <hr>
+                            </div>
+                            <div>
+                                <label for="price"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Price</label>
+                                <span class="text-green-700">{{selectedEnquiry.total_price | currency}}</span>
+                                <hr>
+                            </div>
+                            <div>
+                                <label for="brand" class="block mb-2 font-medium text-gray-900 dark:text-white">Date and
+                                    Time</label>
+                                <span class="text-green-700">{{selectedEnquiry.date | date : 'MMM d, y'}} at
+                                    {{selectedEnquiry.time}}</span>
+                                <hr>
+                            </div>
+                            <div class="xl:col-span-2">
+                                <label for="description"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
+
+                                <ng-container
+                                    *ngFor="let chunk of splitDescription(selectedEnquiry.message, 18); let first = first">
+                                    <span class="text-green-700">{{ chunk }}</span>
+                                    <hr>
+                                </ng-container>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>

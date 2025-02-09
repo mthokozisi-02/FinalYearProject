@@ -183,7 +183,7 @@
 
         <div class="bg-white border border-4 rounded-lg shadow relative mt-16">
             <div class="p-6 space-y-6 mt-8">
-                <form [formGroup]="">
+                <form [formGroup]="enquireForm" (submit)="enquire()">
                     <div class="grid grid-cols-12 gap-6 mb-4">
                         <div class="col-span-12 sm:col-span-6">
                             <div class="col-span-6 sm:col-span-2 mb-8">
@@ -205,7 +205,7 @@
                             <div class="col-span-6 sm:col-span-2  mb-4">
                                 <label for="category" class="text-lg font-medium text-gray-900 block mb-2">Quantity <i
                                         style="color: grey;">(*if applicable)</i></label>
-                                <input type="number" name="email" id="email" formControlName="email"
+                                <input type="number" name="quantity" id="quantity" formControlName="quantity"
                                     class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                     placeholder="enter quantity you require" required="">
                             </div>
@@ -216,34 +216,42 @@
                                     Location <i style="color: grey;">(*if applicable)</i></label>
                                 <input type="text" name="location" id="location"
                                     class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    formControlName="id_number" maxlength="12" placeholder="enter preferred location"
+                                    formControlName="location" maxlength="12" placeholder="enter preferred location"
                                     required="">
                             </div>
                             <div class="col-span-6 sm:col-span-2 mb-8">
-                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Preferred
-                                    Date <i style="color: grey;">(*if applicable)</i></label>
+                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">
+                                    Preferred Date <i style="color: grey;">(*if applicable)</i>
+                                </label>
 
-                                <input datepicker id="default-datepicker" type="text"
-                                    class="relative form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    placeholder="Select date">
+                                <div class="flex gap-4">
+                                    <!-- Date Input -->
+                                    <input type="date" name="date" id="date"
+                                        class="w-1/2 form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 p-2.5"
+                                        formControlName="date" required>
 
+                                    <!-- Time Input -->
+                                    <input type="time" name="time" id="time"
+                                        class="w-1/2 form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 p-2.5"
+                                        formControlName="time" required>
+                                </div>
                             </div>
+
                             <div class="col-span-6 sm:col-span-2 mb-4">
                                 <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Preferred
                                     Payment Method <i style="color: grey;">(*if applicable)</i></label>
-                                <input type="text" name="id_number" id="id_number"
+                                <input type="text" name="payment" id="payment"
                                     class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    formControlName="id_number" maxlength="12"
+                                    formControlName="payment" maxlength="12"
                                     placeholder="enter preferred payment method" required="">
                             </div>
                         </div>
                         <div class="col-span-12 sm:col-span-12 mb-8">
                             <label for="product-name"
                                 class="text-lg font-medium text-gray-900 block mb-2">Message</label>
-                            <textarea rows="8" type="text" name="id_number" id="id_number"
+                            <textarea rows="8" type="text" name="message" id="message"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                formControlName="id_number" maxlength="12" placeholder="enter your message"
-                                required=""></textarea>
+                                formControlName="message" placeholder="enter your message" required=""></textarea>
                         </div>
                     </div>
                     <div class="flex justify-between w-full px-3 border-t border-gray-200">

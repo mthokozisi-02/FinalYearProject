@@ -28,6 +28,11 @@ class Seller extends Model
         return $this->hasOneThrough(Package::class, UserPackage::class, 'user_id', 'id', 'user_id', 'package_id');
     }
 
+    public function enquiries()
+    {
+        return $this->hasMany(Enquiry::class);
+    }
+
     // public function bankDetails()
     // {
     //     return $this->hasOne(BankDetail::class, 'user_id', 'user_id');

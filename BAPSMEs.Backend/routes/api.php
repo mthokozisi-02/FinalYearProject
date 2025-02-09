@@ -79,6 +79,11 @@ Route::prefix('v1')->group(function() {
             Route::post('/rating', [\App\Http\Controllers\RatingsController::class, 'store']);
         });
 
+        Route::prefix('enquiries')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Api\EnquiryController::class, 'index']);
+            Route::post('/enquire', [\App\Http\Controllers\Api\EnquiryController::class, 'store']);
+        });
+
         Route::prefix('packages')->group(function () {
             Route::post('/register', [PackageController::class, 'createPackage']);
             Route::put('/update/{id}', [PackageController::class, 'updatePackage']);
@@ -146,6 +151,12 @@ Route::prefix('v1')->group(function() {
                 Route::delete('/{id}', [OrderController::class, 'destroy']);
             });
 
+            Route::prefix('enquiries')->middleware('auth')->group(function () {
+                Route::get('/seller', [\App\Http\Controllers\Api\EnquiryController::class, 'getEnquiriesForSeller']);
+                Route::put('/{id}', [\App\Http\Controllers\Api\EnquiryController::class, 'updateEnquiryStatus']);
+                Route::delete('/{id}', [\App\Http\Controllers\Api\EnquiryController::class, 'destroy']);
+            });
+
             Route::get('/seller/payments', [PaymentController::class, 'getPaymentsForSeller']);
 
         });
@@ -154,6 +165,10 @@ Route::prefix('v1')->group(function() {
         Route::middleware('role:buyer')->group(function () {
             Route::get('/buyer/dashboard', function () {
                 return response()->json(['message' => 'Welcome Buyer']);
+            });
+
+            Route::prefix('enquiries')->middleware('auth')->group(function () {
+                Route::get('/buyer', [\App\Http\Controllers\Api\EnquiryController::class, 'getEnquiriesForBuyer']);
             });
 
             Route::get('/buyer/payments', [PaymentController::class, 'getPaymentsForBuyer']);

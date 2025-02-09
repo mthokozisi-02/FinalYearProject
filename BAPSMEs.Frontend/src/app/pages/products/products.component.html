@@ -303,7 +303,7 @@
                         class="bg-green-100 text-primary-800 font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-primary-300">{{item.sub_category_name}}</span>
                 </td>
                 <td class="px-4 py-3">
-                    {{item.description}}</td>
+                    {{item.description | truncate:4 }}</td>
                 <td class="px-4 py-3">
                     {{item.price | currency}}</td>
                 <td class="px-4 py-3">
@@ -388,20 +388,28 @@
                             <div class="xl:col-span-2">
                                 <label for="description"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
-                                <span class="text-green-700">{{selectedProduct.description}}</span>
-                                <hr>
-                                <hr>
+
+                                <ng-container
+                                    *ngFor="let chunk of splitDescription(selectedProduct.description, 18); let first = first">
+                                    <span class="text-green-700">{{ chunk }}</span>
+                                    <hr>
+                                </ng-container>
                             </div>
+
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <span class="block mb-2 font-medium text-gray-900 dark:text-white">Product
                                 Images</span>
                             <div class="flex justify-center items-center w-full">
-                                <label for="dropzone-file"
-                                    class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                    <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                                <label
+                                    class="flex flex-col justify-center items-center w-full h-[150p] bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    <div class="flex flex-row justify-center items-center gap-4 pt-1 pb-1">
                                         <img [src]="selectedProduct?.image_url" alt="Uploaded Image"
-                                            class="mx-auto d-block" style="max-height: 150px; max-width: 100%;">
+                                            class="max-h-[150px] max-w-full">
+                                        <img [src]="selectedProduct?.image_url2" alt="Uploaded Image"
+                                            class="max-h-[150px] max-w-full">
+                                        <img [src]="selectedProduct?.image_url3" alt="Uploaded Image"
+                                            class="max-h-[150px] max-w-full">
                                     </div>
                                 </label>
                             </div>

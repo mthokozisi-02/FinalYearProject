@@ -47,8 +47,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SelectPackageComponent } from './pages/select-package/select-package.component';
 import { SellerCheckoutComponent } from './pages/seller-checkout/seller-checkout.component';
+import { SellerEnquiriesComponent } from './pages/seller-enquiries/seller-enquiries.component';
 import { SellerOrdersComponent } from './pages/seller-orders/seller-orders.component';
-import { SellerPaymentsComponent } from './pages/seller-payments/seller-payments.component';
 import { SellerPayoutsComponent } from './pages/seller-payouts/seller-payouts.component';
 import { SellerStatsComponent } from './pages/seller-stats/seller-stats.component';
 import { SellerTermsAndConditionsComponent } from './pages/seller-terms-and-conditions/seller-terms-and-conditions.component';
@@ -61,6 +61,7 @@ import { VerificationErrorComponent } from './pages/verification-error/verificat
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ErrorInterceptor, LoaderInterceptor } from './tools/helpers';
 import { AlertService } from './tools/services';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,7 @@ import { AlertService } from './tools/services';
     CartComponent,
     BuyerProfileComponent,
     SellerOrdersComponent,
-    SellerPaymentsComponent,
+    SellerEnquiriesComponent,
     BuyerPaymentComponent,
     AdminPaymentComponent,
     SellerPayoutsComponent,
@@ -110,7 +111,8 @@ import { AlertService } from './tools/services';
     VerifyEmailComponent,
     DashboardNavBarComponent,
     SellerStatsComponent,
-    EnquireComponent
+    EnquireComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

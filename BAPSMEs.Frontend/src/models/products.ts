@@ -1,3 +1,4 @@
+import { Enquire } from './enquire';
 import { Pivot } from './pivot';
 import { Ratings } from './ratings';
 import { SubCategory } from './sub-category';
@@ -22,6 +23,21 @@ export interface Products {
   updated_at: Date;
   seller_id: number;
   seller_name: string
-  total_amount: number
+  total_amount: number;
+  avgRating: number;
+  unRoundedAvgRating: number;
+  noOfRatings: number;
+  one: number;
+  two: number;
+  three: number;
+  four: number;
+  five: number;
+  oneStar: number;
+  twoStar: number;
+  threeStar: number;
+  fourStar: number;
+  fiveStar: number;
+  totalStars: number;
   ratings: Ratings[]
+  enquiries: Enquire[]
 }
