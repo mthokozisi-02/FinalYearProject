@@ -202,8 +202,12 @@ export class EnquireComponent implements AfterViewInit {
     formData.append('user_id', String(this.userId));
     formData.append('product_id', String(this.id));
     formData.append('rating', String(this.newRating.rating));
-    formData.append('image_url1', this.selectedFile, this.selectedFile.name);
-    formData.append('image_url2', this.selectedFile2, this.selectedFile2.name);
+    if (this.selectedFile) {
+      formData.append('image_url1', this.selectedFile, this.selectedFile.name);
+    }
+    if (this.selectedFile2) {
+      formData.append('image_url2', this.selectedFile2, this.selectedFile2.name);
+    }
 
     this.ratingService.create(formData).subscribe(
       (res) => {

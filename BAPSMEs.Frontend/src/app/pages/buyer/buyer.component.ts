@@ -88,20 +88,27 @@ export class BuyerComponent {
     } else {
       //this.profileForm.value.profile_pic = this.selectedFile
 
-
       this.buyerRegistrationService.create(this.profileForm.value).subscribe(
         (res) => {
           console.log('res', res);
 
-          this.buyerRegistrationService.success("Buyer Profile Created Successfully")
+          if (res.status == 'created') {
+            this.buyerRegistrationService.success("Buyer Profile Created Successfully")
 
-          this.router.navigate(['/verify-email']);
+            this.router.navigate(['/verify-email']);
+          } else {
+            console.log(res.message);
+            // Handle the error as needed
+          }
         },
+        (error) => {
+          console.error(error.error.message);
+          alert(error.error.message);
+        }
+      )
 
-      );
+      this.newBuyerProfile = {} as Buyer;
     }
-
-    this.newBuyerProfile = {} as Buyer;
   }
 
   onFileSelected(event: Event): void {

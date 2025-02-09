@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Buyer } from '../../../models/buyer';
+import { Enquire } from '../../../models/enquire';
 import { Package } from '../../../models/package';
 import { Payments } from '../../../models/payments';
 import { ProductCategory } from '../../../models/product-category';
@@ -10,7 +11,8 @@ import { Seller } from '../../../models/seller';
 import { SubOrder } from '../../../models/sub-order';
 import { User } from '../../../models/user';
 import { Roles } from '../../tools/models';
-import { BuyerRegistrationService, OrdersService, PackagesService, PaymentService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { BuyerRegistrationService, PackagesService, PaymentService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { EnquiryService } from '../../tools/services/enquiry.service';
 
 @Component({
   selector: 'app-seller-stats',
@@ -20,6 +22,10 @@ import { BuyerRegistrationService, OrdersService, PackagesService, PaymentServic
 export class SellerStatsComponent {
 
   subOrders: SubOrder[] = [];
+
+  selectedEnquiry: Enquire = {} as Enquire;
+
+  viewEnquiry = false;
 
   user: User = {} as User;
 
@@ -69,9 +75,17 @@ export class SellerStatsComponent {
 
   clientsPercentageDiff: any
 
+  thisMonthEnquiries = 0
+
+  lastMonthEnquiries = 0
+
+  enquiriesPercentageDiff: any
+
   payments: Payments[] = []
 
   products: Products[] = []
+
+  enquiries: Enquire[] = []
 
   thisMonthOrders = 0
 
@@ -87,7 +101,7 @@ export class SellerStatsComponent {
     private packageService: PackagesService,
     private router: Router,
     private paymentService: PaymentService,
-    private orderService: OrdersService,
+    private enquiryService: EnquiryService,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
     private categoryService: SubCategoriesService,
@@ -145,66 +159,46 @@ export class SellerStatsComponent {
       console.log('products:', res.data);
     });
 
+    this.enquiryService.getSellerEnquiries().subscribe((res) => {
+      res.data.forEach((enquiry) => {
+        enquiry.buyer_pic =
+          'assets/img/user.png';
+        enquiry.buyer_name = enquiry.user.name;
+        enquiry.buyer_email = enquiry.user.email;
+        enquiry.sub_category_name = enquiry.sub_category.name
+        enquiry.product_name = enquiry.product.name
+      });
+      this.enquiries = res.data
+      console.log('enquiries:', this.enquiries);
+
+      this.lastMonthEnquiries = this.enquiries.filter(enquiry => {
+        const userDate = new Date(enquiry.created_at);
+        return userDate.getFullYear() === new Date().getFullYear() &&
+          userDate.getMonth() === new Date().getMonth() - 1;
+      }).length;
+
+      this.thisMonthEnquiries = this.enquiries.filter(enquiry => {
+        const userDate = new Date(enquiry.created_at);
+        return userDate.getFullYear() === new Date().getFullYear() &&
+          userDate.getMonth() === new Date().getMonth();
+      }).length;
+
+
+      // Calculate percentage difference
+      this.enquiriesPercentageDiff = ((this.thisMonthEnquiries - this.lastMonthEnquiries) / this.lastMonthEnquiries * 100).toFixed(2)
+      if (this.enquiriesPercentageDiff == Infinity) {
+        this.enquiriesPercentageDiff = 100
+      } else if (!(this.enquiriesPercentageDiff >= 0)) {
+        this.enquiriesPercentageDiff = 0
+      }
+      console.log('all:', this.lastMonthEnquiries, this.thisMonthEnquiries, this.enquiriesPercentageDiff);
+
+
+    });
+
 
     this.buyerService.getAllList().subscribe((res) => {
       this.buyers = res.data;
-
-      this.orderService.getSellerOrders().subscribe((res) => {
-        this.subOrders = res.data;
-
-        console.log('orders:', this.subOrders)
-        this.subOrders.forEach((order) => {
-          order.total_quantity = 0;
-          this.buyers
-            .filter((x) => x.user_id == order.buyer_id)
-            .forEach((buyer) => {
-              console.log('entered', buyer);
-              order.buyer_pic =
-                'assets/img/user.png';
-              order.buyer_name = buyer.user.name;
-              order.buyer_email = buyer.user.email;
-            });
-          order.products.forEach((prod: any) => {
-            prod.image_url =
-              'https://orezon.co.zw/storage/app/public/' + prod.image_url;
-            const category = this.categories.filter(
-              (x) => x.id == prod.sub_category_id
-            );
-            category.forEach((cat) => {
-              prod.sub_category_name = cat.name;
-            });
-            this.sellers
-              .filter((x) => x.user_id == order.seller_id)
-              .forEach((seller) => {
-                prod.business_name = seller.business_name;
-              });
-            order.total_quantity += prod.pivot.quantity;
-          });
-        });
-        this.totalOrders = this.subOrders.length
-
-        // Calculate total orders for last month and this month
-        this.lastMonthOrders = this.subOrders.filter(order => {
-          const orderDate = new Date(order.created_at);
-          return orderDate.getFullYear() === new Date().getFullYear() &&
-            orderDate.getMonth() === new Date().getMonth() - 1;
-        }).reduce((sum, order) => sum + Number(order.total_price), 0);
-
-        this.thisMonthOrders = this.subOrders.filter(order => {
-          const orderDate = new Date(order.created_at);
-          return orderDate.getFullYear() === new Date().getFullYear() &&
-            orderDate.getMonth() === new Date().getMonth();
-        }).reduce((sum, order) => sum + Number(order.total_price), 0);
-
-        // Calculate percentage difference
-        this.ordersPercentageDiff = ((this.thisMonthOrders - this.lastMonthOrders) / this.lastMonthOrders * 100).toFixed(2)
-        if (this.ordersPercentageDiff == Infinity) {
-          this.ordersPercentageDiff = 100
-        } else if (!(this.ordersPercentageDiff >= 0)) {
-          this.ordersPercentageDiff = 0
-        }
-        console.log('orders:', this.subOrders, this.thisMonthOrders, this.lastMonthOrders, this.ordersPercentageDiff);
-      });
 
       this.lastMonthClients = this.buyers.filter(user => {
         const userDate = new Date(user.created_at);
@@ -286,6 +280,7 @@ export class SellerStatsComponent {
   hideDialog() {
     this.drawer = false;
     this.viewOrderModal = false;
+    this.viewEnquiry = false
   }
 
   showDashboard() {
@@ -326,6 +321,43 @@ export class SellerStatsComponent {
     this.profile = false;
     this.orders = false;
     this.payment = true;
+  }
+
+  view(item: any) {
+    this.selectedEnquiry = item
+    this.viewEnquiry = true
+  }
+
+  Received(item: any) {
+    this.enquiryService
+      .updateStatus(item.id)
+      .subscribe(
+        (res) => {
+          console.log('res', res);
+
+          if (res.status == 'success') {
+            this.enquiryService.success('Enquiry updated successfully');
+            this.ngOnInit();
+          } else {
+            console.error(Error);
+          }
+        }
+      );
+  }
+
+  splitDescription(description: string, wordsPerLine: number): string[] {
+    if (!description) return [];
+
+    const words = description.split(' '); // Split into words
+    const lines = [];
+    console.log(words)
+
+    for (let i = 0; i < words.length; i += wordsPerLine) {
+      lines.push(words.slice(i, i + wordsPerLine).join(' '));
+    }
+    console.log(lines)
+
+    return lines;
   }
 
   update() { }
