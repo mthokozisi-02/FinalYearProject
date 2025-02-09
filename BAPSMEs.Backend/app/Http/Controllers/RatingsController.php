@@ -15,7 +15,7 @@ class RatingsController extends Controller
 
             $validatedData = $request->validate([
                 'product_id' => 'required|exists:products,id',
-                'comment' => 'nullable|string|max:255',
+                'comment' => 'nullable|string|max:555',
                 'rating' => 'required|integer|min:0',
                 'image_url1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'image_url2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

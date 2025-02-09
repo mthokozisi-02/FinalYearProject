@@ -216,8 +216,7 @@
                                     Location <i style="color: grey;">(*if applicable)</i></label>
                                 <input type="text" name="location" id="location"
                                     class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    formControlName="location" maxlength="12" placeholder="enter preferred location"
-                                    required="">
+                                    formControlName="location" placeholder="enter preferred location" required="">
                             </div>
                             <div class="col-span-6 sm:col-span-2 mb-8">
                                 <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">
@@ -280,14 +279,14 @@
                     <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Reviews</h2>
 
                     <div class="mt-2 flex items-center gap-2 sm:mt-0">
-                        <div class="flex items-center gap-0.5">
-                            <igc-rating [value]="avgRating" class="text-yellow-300" (igcChange)="ratingChanged($event);"
-                                disabled></igc-rating>
+                        <div class="ml-4 mr-4 flex items-center gap-0.5">
+                            <igc-rating [value]="avgRating" class="text-yellow-300 scale-125"
+                                (igcChange)="ratingChanged($event);" disabled></igc-rating>
                         </div>
-                        <p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+                        <p class="text-sm mt-2 font-medium leading-none text-gray-500 dark:text-gray-400">
                             ({{unRoundedAvgRating | number:'1.2-2'}})</p>
                         <a href="#"
-                            class="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
+                            class="text-sm mt-2 font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
                             {{noOfRatings}} Reviews </a>
                     </div>
                 </div>
@@ -397,10 +396,11 @@
                     <form [formGroup]="ratingForm" (submit)="submitRating()" class="p-4 md:p-5">
                         <div class="mb-4 grid grid-cols-2 gap-4">
                             <div class="col-span-2">
-                                <div class="flex items-center">
-                                    <igc-rating value="ratingVal" min="1" max="5" class="text-yellow-300"
+                                <div class="ml-4 flex items-center">
+                                    <igc-rating value="ratingVal" min="1" max="5" class="text-yellow-300 scale-125"
                                         (igcChange)="ratingChanged($event);"></igc-rating>
-                                    <span class="ms-2 text-lg font-bold text-gray-900 dark:text-white">{{ratingValue}}
+                                    <span
+                                        class="ml-6 mt-2 text-lg font-bold text-gray-900 dark:text-white">{{ratingValue}}
                                         out of
                                         5</span>
                                 </div>
