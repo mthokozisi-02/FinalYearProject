@@ -49,4 +49,9 @@ class Product extends Model
         return $this->hasMany(Enquiry::class);
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
 }

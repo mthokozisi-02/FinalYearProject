@@ -182,7 +182,7 @@
         </div>
 
         <div class="bg-white border border-4 rounded-lg shadow relative mt-16">
-            <div class="p-6 space-y-6 mt-8">
+            <div *ngIf="product.bookable == 'true'" class="p-6 space-y-6 mt-8">
                 <form [formGroup]="enquireForm" (submit)="enquire()">
                     <div class="grid grid-cols-12 gap-6 mb-4">
                         <div class="col-span-12 sm:col-span-6">
@@ -251,6 +251,62 @@
                             <textarea rows="8" type="text" name="message" id="message"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                 formControlName="message" placeholder="enter your message" required=""></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-between w-full px-3 border-t border-gray-200">
+                        <div class="md:flex md:items-center">
+                            <label class="block text-gray-500 font-bold">
+                                <input class="mr-2 leading-tight" type="checkbox">
+                                <span class="text-green-700">
+                                    Send me your newsletter!
+                                </span>
+                            </label>
+                        </div>
+                        <button
+                            class="mt-4 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                            type="submit">
+                            Send Message
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="product.bookable == 'false'" class="p-6 space-y-6 mt-8">
+                <form [formGroup]="enquireForm" (submit)="enquire()">
+                    <div class="grid grid-cols-12 gap-6 mb-4">
+                        <div class="col-span-12 sm:col-span-6">
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name"
+                                    class="text-lg font-medium text-gray-900 block mb-2">Category</label>
+                                <input type="text" name="name" [value]="product.sub_category_name"
+                                    class="form-control text-green-700 font-bold shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    placeholder="enter your full name" id="disabled-input" aria-label="disabled input"
+                                    disabled>
+                            </div>
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Product
+                                    Name</label>
+                                <input type="text" name="name" [value]="product.name"
+                                    class="form-control shadow-sm text-green-700 font-bold bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    placeholder="enter your full name" id="disabled-input" aria-label="disabled input"
+                                    disabled>
+                            </div>
+                            <div class="col-span-6 sm:col-span-2  mb-4">
+                                <label for="category" class="text-lg font-medium text-gray-900 block mb-2">Quantity <i
+                                        style="color: grey;">(*if applicable)</i></label>
+                                <input type="number" name="quantity" id="quantity" formControlName="quantity"
+                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    placeholder="enter quantity you require" required="">
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6">
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name"
+                                    class="text-lg font-medium text-gray-900 block mb-2">Message</label>
+                                <textarea rows="10" type="text" name="message" id="message"
+                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    formControlName="message" placeholder="enter your message" required=""></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="flex justify-between w-full px-3 border-t border-gray-200">

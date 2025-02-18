@@ -5,7 +5,7 @@ import { User } from './user';
 export interface Seller {
   id: number;
   user_id: number;
-  id_number: number;
+  address: string;
   country: Country;
   business_name: string;
   phone: string;

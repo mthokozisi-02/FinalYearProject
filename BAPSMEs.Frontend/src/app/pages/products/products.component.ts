@@ -240,6 +240,11 @@ export class ProductsComponent implements OnInit {
     formData.append('image_url2', this.selectedFile2, this.selectedFile2.name);
     formData.append('image_url3', this.selectedFile3, this.selectedFile3.name);
     formData.append('user_id', this.user);
+    if (this.productForm.value.sub_category_id == 5 || this.productForm.value.sub_category_id == 17 || this.productForm.value.sub_category_id == 18 || this.productForm.value.sub_category_id == 22 || this.productForm.value.sub_category_id == 21 || this.productForm.value.sub_category_id == 1) {
+      formData.append('bookable', 'true');
+    } else {
+      formData.append('bookable', 'false');
+    }
 
     this.productService.create(formData).subscribe(
       (res) => {

@@ -114,6 +114,7 @@ export class SearchComponent implements OnInit {
             product.image_url3 =
               'http://127.0.0.1:8000/storage/' + product.image_url3;
 
+
             product.noOfRatings = product.ratings.length
             product.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (product.noOfRatings))
             product.avgRating = Math.floor(product.unRoundedAvgRating);
@@ -133,7 +134,9 @@ export class SearchComponent implements OnInit {
             product.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / product.totalStars) * 100)
 
             this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
-              product.seller_name = seller.user.name
+              product.seller_name = seller.business_name
+              product.location = seller.address
+              product.business_name = (seller.business_name).toUpperCase()
             })
             const category = this.subCategories.filter(
               (x) => x.id == product.sub_category_id
@@ -199,6 +202,10 @@ export class SearchComponent implements OnInit {
 
   openCart() {
     this.router.navigate(['/cart']);
+  }
+
+  enquire(id: number) {
+    this.router.navigate(['/enquire', id]);
   }
 
   openQuation() {

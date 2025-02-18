@@ -1,3 +1,5 @@
+import { Buyer } from "./buyer";
+
 export interface Enquire {
     id?: number; // Optional for new entries
     user_id: number;
@@ -18,5 +20,8 @@ export interface Enquire {
     updated_at?: string; // Timestamp as ISO string
     buyer_name: string;
     buyer_email: string;
-    buyer_pic: any
+    buyer_pic: any;
+    buyer_phone: string;
+    buyer_country: string;
+    buyer: Buyer
 }

@@ -5,6 +5,7 @@ import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { User } from '../../../models/user';
+import { BuyerRegistrationService } from '../../tools/services/buyer-registration.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
 @Component({
   selector: 'app-seller-enquiries',
@@ -16,6 +17,8 @@ export class SellerEnquiriesComponent {
   enquiries: Enquire[] = []
 
   viewEnquiry = false;
+
+  viewEnquiries = false
 
   subCategories: SubCategory[] = []
 
@@ -33,7 +36,7 @@ export class SellerEnquiriesComponent {
 
   buyer_pic: any;
 
-  constructor(private enquiryService: EnquiryService) { }
+  constructor(private enquiryService: EnquiryService, private buyerService: BuyerRegistrationService,) { }
 
 
   ngOnInit(): void {
@@ -41,18 +44,30 @@ export class SellerEnquiriesComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.enquiryService.getSellerEnquiries().subscribe((res) => {
-      res.data.forEach((enquiry) => {
-        enquiry.buyer_pic =
-          'assets/img/user.png';
-        enquiry.buyer_name = enquiry.user.name;
-        enquiry.buyer_email = enquiry.user.email;
-        enquiry.sub_category_name = enquiry.sub_category.name
-        enquiry.product_name = enquiry.product.name
+    this.viewEnquiry = false;
+    this.viewEnquiries = true;
+
+    this.buyerService.getAllList().subscribe((res) => {
+      this.buyers = res.data;
+      console.log('buyers', this.buyers)
+      this.enquiryService.getSellerEnquiries().subscribe((res) => {
+        res.data.forEach((enquiry) => {
+
+          this.buyers.filter(x => x.user_id == enquiry.user_id).forEach(buyer => {
+            enquiry.buyer_phone = buyer.phone
+            enquiry.buyer_country = buyer.country
+          })
+          enquiry.buyer_pic =
+            'assets/img/user.png';
+          enquiry.buyer_name = enquiry.user.name;
+          enquiry.buyer_email = enquiry.user.email;
+          enquiry.sub_category_name = enquiry.sub_category.name
+          enquiry.product_name = enquiry.product.name
+        });
+        this.enquiries = res.data
+        this.filteredEnquiries = this.enquiries
+        console.log('enquiries:', this.enquiries);
       });
-      this.enquiries = res.data
-      this.filteredEnquiries = this.enquiries
-      console.log('enquiries:', this.enquiries);
     });
   }
 
@@ -90,6 +105,7 @@ export class SellerEnquiriesComponent {
   view(item: any) {
     this.selectedEnquiry = item
     this.viewEnquiry = true
+    this.viewEnquiries = false
   }
 
   Received(item: any) {
@@ -107,6 +123,11 @@ export class SellerEnquiriesComponent {
           }
         }
       );
+  }
+
+  clear() {
+    this.viewEnquiries = true
+    this.viewEnquiry = false
   }
 
 }

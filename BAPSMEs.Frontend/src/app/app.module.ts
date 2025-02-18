@@ -62,6 +62,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { ErrorInterceptor, LoaderInterceptor } from './tools/helpers';
 import { AlertService } from './tools/services';
 import { TruncatePipe } from './truncate.pipe';
+import { RecommendedProductsComponent } from './pages/recommended-products/recommended-products.component';
+import { EventsComponent } from './pages/events/events.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import { TruncatePipe } from './truncate.pipe';
     DashboardNavBarComponent,
     SellerStatsComponent,
     EnquireComponent,
-    TruncatePipe
+    TruncatePipe,
+    RecommendedProductsComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,

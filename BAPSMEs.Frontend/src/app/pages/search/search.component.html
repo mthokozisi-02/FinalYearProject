@@ -101,9 +101,9 @@
 				<div class="h-56 w-full">
 					<a href="#"
 						class="group relative flex h-full items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg">
-						<img class="absolute inset-0 mx-auto h-full dark:hidden object-cover object-center transition duration-200 group-hover:scale-110"
+						<img class="absolute inset-0 mx-auto w-full h-54 dark:hidden object-cover object-center transition duration-200 group-hover:scale-110"
 							[src]="item.image_url" alt="" />
-						<img class="absolute inset-0 mx-auto hidden h-full dark:block object-cover object-center transition duration-200 group-hover:scale-110"
+						<img class="absolute inset-0 mx-auto hidden w-full h-54 dark:block object-cover object-center transition duration-200 group-hover:scale-110"
 							[src]="item.image_url" alt="" />
 
 						<div
@@ -112,7 +112,7 @@
 
 						<span
 							class="relative mb-2 ml-2 rounded-lg bg-green-100 px-1.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-							Up to 35% off </span>
+							<b>{{item.business_name}}</b> </span>
 					</a>
 				</div>
 				<div class="p-4">
@@ -172,7 +172,7 @@
 
 					<ul class="mt-2 flex items-center gap-4">
 
-						<li class="flex items-center gap-2">
+						<li *ngIf="item.bookable == 'false'" class="flex items-center gap-2">
 							<svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
 								height="24" fill="none" viewBox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -183,7 +183,7 @@
 									+
 									' '}}</b> in Wishlist</p>
 						</li>
-						<li class="flex items-center gap-2">
+						<li *ngIf="item.bookable == 'false'" class="flex items-center gap-2">
 							<svg class="h-5 w-5 text-black dark:text-black" aria-hidden="true"
 								xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
@@ -191,12 +191,29 @@
 							</svg>
 							<p class="font-medium text-gray-500 dark:text-gray-400">Best Price</p>
 						</li>
+						<li *ngIf="item.bookable == 'true'" class="flex items-center gap-2">
+							<p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price
+								|
+								currency}}</p>
+						</li>
+						<li *ngIf="item.bookable == 'true'" class="flex items-center gap-2">
+							<svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+								height="24" fill="none" viewBox="0 0 24 24">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+							</svg>
+							<p class="font-medium text-gray-500 dark:text-gray-400"><b> {{checkIfExist(item)
+									+
+									' '}}</b> in Wishlist</p>
+						</li>
 					</ul>
 
-					<div class="mt-4 flex items-center justify-between gap-4">
-						<p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">$1,699</p>
+					<div *ngIf="item.bookable == 'false'" class="mt-4 flex items-center justify-between gap-4">
+						<p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price |
+							currency}}</p>
 
-						<button type="button"
+						<button type="button" (click)="enquire(item.id)"
 							class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
 							<svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512" version="1.1"
 								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -212,7 +229,7 @@
 							Enquire Now
 						</button>
 					</div>
-					<div class="mt-4 flex items-center justify-between gap-4">
+					<div *ngIf="item.bookable == 'true'" class="mt-4 flex items-center justify-between gap-4">
 						<button type="button"
 							class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 							<svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +239,7 @@
 							</svg>
 							Book Now
 						</button>
-						<button type="button"
+						<button type="button" (click)="enquire(item.id)"
 							class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
 							<svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512" version="1.1"
 								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -289,7 +306,9 @@
 								<p class="mt-2 text-gray-500 dark:text-gray-400">
 									<b>SELLER:</b> {{selectedProduct.seller_name}}
 								</p>
-
+								<p class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>LOCATION:</b> {{selectedProduct.location}}
+								</p>
 								<p class="mt-2 text-gray-500 dark:text-gray-400">
 									<b>DESCRIPTION: </b> {{selectedProduct.description}}
 								</p>

@@ -100,7 +100,9 @@ export class CategoryShopComponent implements OnInit {
             product.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / product.totalStars) * 100)
 
             this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
-              product.seller_name = seller.user.name
+              product.seller_name = seller.business_name
+              product.location = seller.address
+              product.business_name = (seller.business_name).toUpperCase()
             })
             const category = this.subCategories.filter(
               (x) => x.id == product.sub_category_id

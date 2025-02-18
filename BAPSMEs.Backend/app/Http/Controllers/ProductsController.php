@@ -6,6 +6,7 @@ use App\Models\Package;
 use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\UserPackage;
+use App\ProductSimilarity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,6 +63,40 @@ class ProductsController extends Controller
         }
     }
 
+    public function getSimilarProducts($id)
+    {
+        try {
+            // Get products with all necessary relationships
+            $products = Product::with(['subcategory', 'ratings', 'enquiries'])
+                ->where('quantity', '>', 0)
+                ->get();
+
+            // Find the specific product
+            $product = $products->firstWhere('id', $id);
+
+            if (!$product) {
+                return response()->json(['error' => 'Product not found'], 404);
+            }
+
+            // Initialize similarity calculator with products
+            $productSimilarity = new ProductSimilarity($products->toArray());
+
+            // Calculate similarity matrix
+            $similarityMatrix = $productSimilarity->calculateSimilarityMatrix();
+
+            // Get sorted similar products
+            $similarProducts = $productSimilarity->getProductsSortedBySimularity($id, $similarityMatrix);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $similarProducts
+            ]);
+
+        } catch (\Exception $e) {
+            return errorResponseHandler($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         try {
@@ -99,6 +134,7 @@ class ProductsController extends Controller
                 'sub_category_id' => 'required|exists:sub_categories,id',
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
+                'bookable' => 'nullable|string',
                 'price' => 'required|numeric|min:0',
                 'quantity' => 'required|integer|min:0',
                 'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

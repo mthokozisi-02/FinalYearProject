@@ -60,10 +60,8 @@ export class ProfileComponent {
     this.sellerForm = new FormGroup({
       business_name: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      id_number: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(12),
+      address: new FormControl('', [
+        Validators.required
       ]),
       phone: new FormControl('', [
         Validators.required,
@@ -141,10 +139,8 @@ export class ProfileComponent {
       country: new FormControl(this.curentSellerDetails.country, [
         Validators.required,
       ]),
-      id_number: new FormControl(this.curentSellerDetails.id_number, [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(12),
+      id_number: new FormControl(this.curentSellerDetails.address, [
+        Validators.required
       ]),
       phone: new FormControl(this.curentSellerDetails.phone, [
         Validators.required,

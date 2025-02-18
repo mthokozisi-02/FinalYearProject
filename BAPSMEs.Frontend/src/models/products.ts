@@ -25,8 +25,10 @@ export interface Products {
   seller_name: string
   total_amount: number;
   avgRating: number;
+  bookable: string;
   unRoundedAvgRating: number;
   noOfRatings: number;
+  location: string;
   one: number;
   two: number;
   three: number;

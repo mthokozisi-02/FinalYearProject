@@ -33,6 +33,11 @@ class Seller extends Model
         return $this->hasMany(Enquiry::class);
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     // public function bankDetails()
     // {
     //     return $this->hasOne(BankDetail::class, 'user_id', 'user_id');

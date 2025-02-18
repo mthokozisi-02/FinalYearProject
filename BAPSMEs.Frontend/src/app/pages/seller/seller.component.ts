@@ -45,10 +45,8 @@ export class SellerComponent {
     this.sellerForm = new FormGroup({
       business_name: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      id_number: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(12),
+      address: new FormControl('', [
+        Validators.required
       ]),
       phone: new FormControl('', [
         Validators.required,

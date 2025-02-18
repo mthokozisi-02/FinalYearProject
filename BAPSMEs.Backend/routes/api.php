@@ -62,6 +62,7 @@ Route::prefix('v1')->group(function() {
         Route::get('/', [ProductsController::class, 'index']);
         Route::get('/{id}', [ProductsController::class, 'find']);
         Route::get('/category/{id}', [ProductsController::class, 'findByCategory']);
+        Route::post('/product/{id}', [ProductsController::class, 'getSimilarProducts']);
     });
 
     // Protected routes
@@ -82,6 +83,11 @@ Route::prefix('v1')->group(function() {
         Route::prefix('enquiries')->group(function () {
             Route::get('/', [\App\Http\Controllers\Api\EnquiryController::class, 'index']);
             Route::post('/enquire', [\App\Http\Controllers\Api\EnquiryController::class, 'store']);
+        });
+
+        Route::prefix('bookings')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Api\V1\BookingController::class, 'index']);
+            Route::post('/book', [\App\Http\Controllers\Api\V1\BookingController::class, 'store']);
         });
 
         Route::prefix('packages')->group(function () {
@@ -157,6 +163,12 @@ Route::prefix('v1')->group(function() {
                 Route::delete('/{id}', [\App\Http\Controllers\Api\EnquiryController::class, 'destroy']);
             });
 
+            Route::prefix('bookings')->middleware('auth')->group(function () {
+                Route::get('/seller', [\App\Http\Controllers\Api\V1\BookingController::class, 'getBookingsForSeller']);
+                Route::put('/{id}', [\App\Http\Controllers\Api\V1\BookingController::class, 'updateBookingStatus']);
+                Route::delete('/{id}', [\App\Http\Controllers\Api\V1\BookingController::class, 'destroy']);
+            });
+
             Route::get('/seller/payments', [PaymentController::class, 'getPaymentsForSeller']);
 
         });
@@ -169,6 +181,10 @@ Route::prefix('v1')->group(function() {
 
             Route::prefix('enquiries')->middleware('auth')->group(function () {
                 Route::get('/buyer', [\App\Http\Controllers\Api\EnquiryController::class, 'getEnquiriesForBuyer']);
+            });
+
+            Route::prefix('bookings')->middleware('auth')->group(function () {
+                Route::get('/buyer', [\App\Http\Controllers\Api\V1\BookingController::class, 'getBookingsForBuyer']);
             });
 
             Route::get('/buyer/payments', [PaymentController::class, 'getPaymentsForBuyer']);

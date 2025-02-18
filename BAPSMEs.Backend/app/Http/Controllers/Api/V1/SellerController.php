@@ -19,8 +19,8 @@ class SellerController extends Controller
     {
         try {
             $sellers = Seller::with([
-                'user', 
-                'user.bankDetails', 
+                'user',
+                'user.bankDetails',
                 'packages'
             ])->latest()->get();
 
@@ -41,7 +41,7 @@ class SellerController extends Controller
             }
 
             return successResponseHandler('seller found', $seller);
-            
+
         } catch (\Exception $e) {
             return errorResponseHandler($e->getMessage());
         }
@@ -55,15 +55,14 @@ class SellerController extends Controller
                 'email' => 'required|string|email|max:255|unique:users,email',
                 'password' => 'required|string|min:8|max:255|confirmed',
                 // 'role' => 'required|string|in:admin,buyer,seller',
-                'id_number' => ['required', 'min:6', 'max:12', 'unique:sellers,id_number'],
+                'address' => ['required', 'max:255'],
                 'country' => ['required'],
                 'business_name' => ['required'],
                 'phone' => ['required', 'min:9', 'max:14'],
-                'bank' => ['nullable'], 
+                'bank' => ['nullable'],
                 'account_number' => ['nullable'],
                 'branch' => ['nullable'],
-                'branch_code' => ['nullable'],
-                'paypal_email' => ['required', 'email']
+                'branch_code' => ['nullable']
             ]);
 
             if ($validator->fails()) {
@@ -81,7 +80,7 @@ class SellerController extends Controller
 
             $seller = Seller::create([
                 'user_id' => $user->id,
-                'id_number' => $request->id_number,
+                'address' => $request->address,
                 'country' => $request->country,
                 'business_name' => $request->business_name,
                 'phone' => $request->phone
@@ -122,7 +121,7 @@ class SellerController extends Controller
             }
 
             $request->validate([
-                'id_number' => 'string|max:11',
+                'address' => 'string|max:255',
                 'country' => 'string|max:255',
                 'business_name' => 'string|max:255',
                 'phone' => 'string|max:14'
