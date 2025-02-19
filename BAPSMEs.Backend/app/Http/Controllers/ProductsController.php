@@ -16,7 +16,7 @@ class ProductsController extends Controller
     {
         try {
             $products = Product::with(['subcategory','ratings','enquiries'])
-                ->where('quantity', '>', 0)
+                ->where('status', '=', 'Active')
                 ->get();
 
             return successResponseHandler('fetched products successfully',$products);
@@ -68,7 +68,7 @@ class ProductsController extends Controller
         try {
             // Get products with all necessary relationships
             $products = Product::with(['subcategory', 'ratings', 'enquiries'])
-                ->where('quantity', '>', 0)
+                ->where('status', '=', 'Active')
                 ->get();
 
             // Find the specific product
@@ -131,12 +131,81 @@ class ProductsController extends Controller
 
             // Validate and create the product
             $validatedData = $request->validate([
+                // Required fields
                 'sub_category_id' => 'required|exists:sub_categories,id',
                 'name' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0',
+
+                // Optional text fields
                 'description' => 'nullable|string',
                 'bookable' => 'nullable|string',
-                'price' => 'required|numeric|min:0',
+                'delivery_options' => 'nullable|string',
+                'dietary_information' => 'nullable|string',
+                'shipping_options' => 'nullable|string',
+                'warranty_information' => 'nullable|string',
+                'service_area' => 'nullable|string',
+                'qualification' => 'nullable|string',
+                'language_support' => 'nullable|string',
+                'certifications' => 'nullable|string',
+                'project_type' => 'nullable|string',
+                'turnaround_time' => 'nullable|string',
+                'revisions_included' => 'nullable|string',
+                'file_formats' => 'nullable|string',
+                'usage_rights' => 'nullable|string',
+                'materials_included' => 'nullable|string',
+                'prerequisites' => 'nullable|string',
+                'vehicle_type' => 'nullable|string',
+                'parts_included' => 'nullable|string',
+                'loaner_vehicle' => 'nullable|string',
+                'project_scope' => 'nullable|string',
+                'license_number' => 'nullable|string',
+                'insurance_coverage' => 'nullable|string',
+                'permit_handling' => 'nullable|string',
+                'warranty_period' => 'nullable|string',
+                'equipment_provided' => 'nullable|string',
+                'catering_options' => 'nullable|string',
+                'parking_availability' => 'nullable|string',
+                'property_types' => 'nullable|string',
+                'response_time' => 'nullable|string',
+                'policy_term' => 'nullable|string',
+                'premium_frequency' => 'nullable|string',
+
+                // Optional numeric fields
+                'preparation_time' => 'nullable|numeric',
+                'minimum_order' => 'nullable|integer',
+                'service_duration' => 'nullable|integer',
+                'experience_level' => 'nullable|integer',
+                'class_size' => 'nullable|integer',
+                'capacity' => 'nullable|integer',
+                'age_restriction' => 'nullable|integer',
+                'deductible_amount' => 'nullable|numeric',
+                'coverage_limit' => 'nullable|numeric',
+                'minimum_balance' => 'nullable|numeric',
+                'interest_rate' => 'nullable|numeric',
+                'fees' => 'nullable|numeric',
+                'transaction_limit' => 'nullable|numeric',
+
+                // Enums
+                'status' => 'required|in:Active,Inactive,Pending',
+                'service_type' => 'required|in:Product,Service',
+                'product_type' => 'required|in:Physical,Digital',
+                'inventory_status' => 'required|in:Available,"Out of Stock"',
+                'return_policy' => 'required|in:Return,"Exchange Terms"',
+                'appointment' => 'required|in:yes,no',
+                'location_type' => 'required|in:On-Site,Off-Site,Virtual',
+                'expertise_level' => 'required|in:Beginner,Intermediate,Advanced',
+                'session_format' => 'required|in:Individual,Group',
+                'course_format' => 'required|in:Online,In-person',
+                'construction_project_type' => 'required|in:New Build,Renovation,Repair',
+                'service_scope' => 'required|in:"Full Project Management","Consultation-only"',
+                'payment_term' => 'required|in:Milestone-based,Progressive',
+                'coverage_type' => 'required|in:Property,Liability,Life',
+                'account_type' => 'required|in:Personal,Business,investment',
+                'service_level' => 'required|in:Full,"Partial Management",Basic,Standard,Premium',
+                'management_fee' => 'required|in:Percentage,"Flat Rate"',
                 'quantity' => 'required|integer|min:0',
+
+                // Image validation
                 'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'image_url2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'image_url3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -238,14 +307,86 @@ class ProductsController extends Controller
                 return forbiddenResponseHandler( 'Product not found or you do not have permission to update it');
             }
 
-            // Validate request data
+            // Validate and create the product
             $validatedData = $request->validate([
+                // Required fields
                 'sub_category_id' => 'required|exists:sub_categories,id',
-                'name' => 'nullable|string|max:255',
+                'name' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0',
+
+                // Optional text fields
                 'description' => 'nullable|string',
-                'price' => 'nullable|numeric|min:0',
-                'quantity' => 'nullable|integer|min:0',
-                'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate new image
+                'bookable' => 'nullable|string',
+                'delivery_options' => 'nullable|string',
+                'dietary_information' => 'nullable|string',
+                'shipping_options' => 'nullable|string',
+                'warranty_information' => 'nullable|string',
+                'service_area' => 'nullable|string',
+                'qualification' => 'nullable|string',
+                'language_support' => 'nullable|string',
+                'certifications' => 'nullable|string',
+                'project_type' => 'nullable|string',
+                'turnaround_time' => 'nullable|string',
+                'revisions_included' => 'nullable|string',
+                'file_formats' => 'nullable|string',
+                'usage_rights' => 'nullable|string',
+                'materials_included' => 'nullable|string',
+                'prerequisites' => 'nullable|string',
+                'vehicle_type' => 'nullable|string',
+                'parts_included' => 'nullable|string',
+                'loaner_vehicle' => 'nullable|string',
+                'project_scope' => 'nullable|string',
+                'license_number' => 'nullable|string',
+                'insurance_coverage' => 'nullable|string',
+                'permit_handling' => 'nullable|string',
+                'warranty_period' => 'nullable|string',
+                'equipment_provided' => 'nullable|string',
+                'catering_options' => 'nullable|string',
+                'parking_availability' => 'nullable|string',
+                'property_types' => 'nullable|string',
+                'response_time' => 'nullable|string',
+                'policy_term' => 'nullable|string',
+                'premium_frequency' => 'nullable|string',
+
+                // Optional numeric fields
+                'preparation_time' => 'nullable|numeric',
+                'minimum_order' => 'nullable|integer',
+                'service_duration' => 'nullable|integer',
+                'experience_level' => 'nullable|integer',
+                'class_size' => 'nullable|integer',
+                'capacity' => 'nullable|integer',
+                'age_restriction' => 'nullable|integer',
+                'deductible_amount' => 'nullable|numeric',
+                'coverage_limit' => 'nullable|numeric',
+                'minimum_balance' => 'nullable|numeric',
+                'interest_rate' => 'nullable|numeric',
+                'fees' => 'nullable|numeric',
+                'transaction_limit' => 'nullable|numeric',
+
+                // Enums
+                'status' => 'required|in:Active,Inactive,Pending',
+                'service_type' => 'required|in:Product,Service',
+                'product_type' => 'required|in:Physical,Digital',
+                'inventory_status' => 'required|in:Available,"Out of Stock"',
+                'return_policy' => 'required|in:Return,"Exchange Terms"',
+                'appointment' => 'required|in:yes,no',
+                'location_type' => 'required|in:On-Site,Off-Site,Virtual',
+                'expertise_level' => 'required|in:Beginner,Intermediate,Advanced',
+                'session_format' => 'required|in:Individual,Group',
+                'course_format' => 'required|in:Online,In-person',
+                'construction_project_type' => 'required|in:New Build,Renovation,Repair',
+                'service_scope' => 'required|in:"Full Project Management","Consultation-only"',
+                'payment_term' => 'required|in:Milestone-based,Progressive',
+                'coverage_type' => 'required|in:Property,Liability,Life',
+                'account_type' => 'required|in:Personal,Business,investment',
+                'service_level' => 'required|in:Full,"Partial Management",Basic,Standard,Premium',
+                'management_fee' => 'required|in:Percentage,"Flat Rate"',
+                'quantity' => 'required|integer|min:0',
+
+                // Image validation
+                'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image_url2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image_url3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // Handle image upload
@@ -259,6 +400,32 @@ class ProductsController extends Controller
                 $image = $request->file('image_url');
                 $imagePath = $image->store('products', 'public');
                 $validatedData['image_url'] = $imagePath;
+            }
+
+            // Handle image upload
+            if ($request->hasFile('image_url2')) {
+                // Delete the old image if it exists
+                if ($product->image_url && Storage::disk('public')->exists($product->image_url)) {
+                    Storage::disk('public')->delete($product->image_url);
+                }
+
+                // Save the new image
+                $image = $request->file('image_url2');
+                $imagePath = $image->store('products', 'public');
+                $validatedData['image_url2'] = $imagePath;
+            }
+
+            // Handle image upload
+            if ($request->hasFile('image_url3')) {
+                // Delete the old image if it exists
+                if ($product->image_url && Storage::disk('public')->exists($product->image_url)) {
+                    Storage::disk('public')->delete($product->image_url);
+                }
+
+                // Save the new image
+                $image = $request->file('image_url3');
+                $imagePath = $image->store('products', 'public');
+                $validatedData['image_url3'] = $imagePath;
             }
 
             // Update the product

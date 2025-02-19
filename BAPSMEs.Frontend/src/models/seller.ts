@@ -22,4 +22,5 @@ export interface Seller {
   account_number: string;
   branch: string;
   branch_code: string;
+  paypal_email: string;
 }

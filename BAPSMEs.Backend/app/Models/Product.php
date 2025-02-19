@@ -36,7 +36,7 @@ class Product extends Model
     public function subOrders()
     {
         return $this->belongsToMany(SubOrder::class, 'order_products')
-                    ->withPivot('quantity', 'price');
+                    ->withPivot( 'price');
     }
 
     public function ratings()

@@ -31,6 +31,8 @@ export class EquipmentCategoriesComponent {
 
   entertainmentSubCategories: SubCategory[] = [];
 
+  healthSubCategories: SubCategory[] = [];
+
   constructor(
     private router: Router,
     private subCatgeorySevice: SubCategoriesService
@@ -59,6 +61,9 @@ export class EquipmentCategoriesComponent {
       );
       this.entertainmentSubCategories = res.data.filter(
         (x) => x.category_id == 10
+      );
+      this.healthSubCategories = res.data.filter(
+        (x) => x.category_id == 11
       );
       console.log('subCategories:', this.subCategories);
       this.productList = this.foodnBeverageSubCategories;
@@ -99,6 +104,10 @@ export class EquipmentCategoriesComponent {
 
   showEntertainment() {
     this.productList = this.entertainmentSubCategories;
+  }
+
+  showHealth() {
+    this.productList = this.healthSubCategories;
   }
 
   goToCategoryProducts(id: any) {

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         Category::factory(1)->Automotive()->create();
         Category::factory(1)->HomeImprovement()->create();
         Category::factory(1)->Entertainment()->create();
+        Category::factory(1)->Health()->create();
 
         SubCategory::factory(1)->construction()->create();
         SubCategory::factory(1)->insurance()->create();
@@ -96,6 +97,13 @@ class DatabaseSeeder extends Seeder
         SubCategory::factory(1)->Escaperooms()->create();
         SubCategory::factory(1)->Arcades()->create();
         SubCategory::factory(1)->Comedyclubs()->create();
+
+        SubCategory::factory(1)->Saloon()->create();
+        SubCategory::factory(1)->BeautyShop()->create();
+        SubCategory::factory(1)->Mediacl()->create();
+        SubCategory::factory(1)->WellnessCenters()->create();
+        SubCategory::factory(1)->Fitness()->create();
+        SubCategory::factory(1)->AlternativeTherapy()->create();
 
         Package::factory(1)->basic()->create();
         Package::factory(1)->premium()->create();

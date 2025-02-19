@@ -146,7 +146,7 @@ class SubCategoryFactory extends Factory
     {
         return $this->afterMaking(function ($record) {
             $record['category_id'] = 3;
-            $record['name'] = 'Vintage Clothing Boutiques';
+            $record['name'] = 'Clothing Boutiques';
             $record['description'] = 'Machines that uses compression force to break large materials into smaller pieces, like sand, gravel, and rocks.';
             $record['image_url'] = 'subCategories/vintageclothing.png';
         });
@@ -534,6 +534,60 @@ class SubCategoryFactory extends Factory
             $record['name'] = 'Comedy Clubs';
             $record['description'] = 'Their availability is important for ensuring high output.';
             $record['image_url'] = 'subCategories/comedyclubs.png';
+        });
+    }
+    public function Saloon()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['category_id'] = 11;
+            $record['name'] = 'Salons';
+            $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/salon.png';
+        });
+    }
+    public function BeautyShop()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['category_id'] = 11;
+            $record['name'] = 'Beauty Shops';
+            $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/beautyshop.png';
+        });
+    }
+    public function WellnessCenters()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['category_id'] = 11;
+            $record['name'] = 'Wellness Centers';
+            $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/wellness.png';
+        });
+    }
+    public function AlternativeTherapy()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['category_id'] = 11;
+            $record['name'] = 'Alternative Therapies';
+            $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/therapy.png';
+        });
+    }
+    public function Mediacl()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['category_id'] = 11;
+            $record['name'] = 'Medical Facilities';
+            $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/medical.png';
+        });
+    }
+    public function Fitness()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['category_id'] = 11;
+            $record['name'] = 'Fitness';
+            $record['description'] = 'Their availability is important for ensuring high output.';
+            $record['image_url'] = 'subCategories/fitness.png';
         });
     }
 

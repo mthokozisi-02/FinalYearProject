@@ -101,4 +101,12 @@ class CategoryFactory extends Factory
             $record['description'] = 'local services';
         });
     }
+
+    public function Health()
+    {
+        return $this->afterMaking(function ($record) {
+            $record['name'] = 'Health';
+            $record['description'] = 'local services';
+        });
+    }
 }

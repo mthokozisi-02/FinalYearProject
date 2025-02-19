@@ -16,5 +16,5 @@ Button Text
 </x-mail::button> --}}
 
 Thanks,<br>
-Ore-zone
+Nust Project
 </x-mail::message>

@@ -63,7 +63,6 @@ export class SellerComponent {
       account_number: new FormControl('', [Validators.required]),
       branch: new FormControl('', [Validators.required]),
       branch_code: new FormControl('', [Validators.required]),
-      paypal_email: new FormControl('', [Validators.required]),
     });
   }
 
@@ -103,6 +102,7 @@ export class SellerComponent {
       console.log(this.sellerForm.value);
       this.newSeller = this.sellerForm.value;
       this.newSeller.user_id = 0;
+      this.newSeller.paypal_email = this.sellerForm.value.email
       console.log('seller', this.newSeller);
 
       this.sellerService.create(this.newSeller).subscribe(
