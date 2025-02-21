@@ -27,12 +27,12 @@ return new class extends Migration
 
             $table->enum('product_type', ['Physical', 'Digital'])->nullable();
             $table->enum('inventory_status', ['Available', 'Out of Stock'])->nullable();
-            $table->string('shipping_options')->nullable();
+            $table->enum('shipping_options', ['Delivery', 'Pickup'])->nullable();
             $table->enum('return_policy', ['Return', 'Exchange Terms'])->nullable();
             $table->string('warranty_information')->nullable();
 
             $table->integer('service_duration')->nullable();
-            $table->enum('appointment', ['yes', 'no'])->default('no');
+            $table->enum('appointment', ['yes', 'no'])->nullable();
             $table->enum('location_type', ['On-Site', 'Off-Site', 'Virtual'])->nullable();
             $table->string('service_area')->nullable();
             $table->string('qualification')->nullable();

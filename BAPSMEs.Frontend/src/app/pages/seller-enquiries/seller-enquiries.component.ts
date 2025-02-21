@@ -106,6 +106,10 @@ export class SellerEnquiriesComponent {
     this.selectedEnquiry = item
     this.viewEnquiry = true
     this.viewEnquiries = false
+
+    if (item.received == false) {
+      this.Received(item)
+    }
   }
 
   Received(item: any) {

@@ -104,7 +104,7 @@ export class RecommendedProductsComponent implements OnInit {
     });
 
     this.wishlist = this.wishlistService.getCurrentCart()
-    console.log('wishlist', this.wishlist)
+    console.log(' enetered wishlist', this.wishlist)
     this.id = this.wishlist[this.wishlist.length - 1].id;
 
     if (this.wishlist.length != 0) {
@@ -317,6 +317,7 @@ export class RecommendedProductsComponent implements OnInit {
 
   removeItemFromWishlist(item) {
     this.wishlistServie.removeFromCart(item)
+    this.ngOnInit()
   }
 
   viewImage(item: any) {

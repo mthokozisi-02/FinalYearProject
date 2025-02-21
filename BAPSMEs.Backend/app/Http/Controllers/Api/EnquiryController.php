@@ -94,12 +94,67 @@ class EnquiryController extends Controller
             'sub_category_id' => 'required',
             'user_id' => 'required',
             'total_price' => 'required',
-            'quantity' => 'nullable',
-            'location' => 'nullable|string|max:255',
-            'payment' => 'nullable|string|max:255',
-            'message' => 'nullable|string|max:255',
-            'date' => 'nullable',
-            'time' => 'nullable',
+
+            // Core fields
+            'preferred_contact_method' => 'nullable|string|in:whatsapp,email,call',
+            'payment_method' => 'nullable|string|in:cash,swipe,credit_card,ecocash',
+            'enquiry_type' => 'nullable|string|in:general,specific_service',
+            'urgency_level' => 'nullable|string|in:very_urgent,not_urgent',
+            'additional_information' => 'nullable|string|max:255',
+            'preferred_time' => 'nullable|string|max:255',
+            'preferred_date' => 'nullable|string|max:255',
+
+            // Construction fields
+            'project_details' => 'nullable|string|max:255',
+            'payment_schedule' => 'nullable|string|max:255',
+
+            // Insurance and Banking fields
+            'preferred_location' => 'nullable|string|max:255',
+            'insurance_type' => 'nullable|string|in:life,property',
+
+            // Common service fields
+            'service_interest' => 'nullable|string|max:255',
+            'account_requirements' => 'nullable|string|max:255',
+            'transaction_requirements' => 'nullable|string|max:255',
+            'documentation_needed' => 'nullable|string|max:255',
+
+            // Property fields
+            'management_duration' => 'nullable|string|max:255',
+
+            // Food and Beverage fields
+            'cuisine_preference' => 'nullable|string|max:255',
+            'budget_range' => 'nullable|string|max:255',
+            'special_occasion_details' => 'nullable|string|max:255',
+
+            // Retail fields
+            'price_range' => 'nullable|string|max:255',
+            'availability_requirements' => 'nullable|string|max:255',
+            'customization_needs' => 'nullable|string|max:255',
+
+            // Services fields
+            'service_requirements' => 'nullable|string|max:255',
+
+            // Creative Service fields
+            'style_references' => 'nullable|string|max:255',
+
+            // Education fields
+            'area_of_interest' => 'nullable|string|max:255',
+            'experience_level' => 'nullable|string|max:255',
+            'learning_goals' => 'nullable|string|max:255',
+
+            // Automotive fields
+            'vehicle_information' => 'nullable|string|max:255',
+            'service_type_interest' => 'nullable|string|max:255',
+            'preferred_time_frame' => 'nullable|string|max:255',
+
+            // Home fields
+            'project_type' => 'nullable|string|max:255',
+            'property_information' => 'nullable|string|max:255',
+
+            // Entertainment fields
+            'event_type' => 'nullable|string|max:255',
+            'guest_information' => 'nullable|string|max:255',
+            'special_requirements' => 'nullable|string|max:255'
         ]);
 
         $user = auth()->user();

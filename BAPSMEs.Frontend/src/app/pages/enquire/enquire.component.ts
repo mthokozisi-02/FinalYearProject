@@ -95,12 +95,66 @@ export class EnquireComponent implements AfterViewInit {
       comment: new FormControl('', [Validators.required]),
     });
     this.enquireForm = new FormGroup({
-      message: new FormControl('', [Validators.required]),
-      quantity: new FormControl(0, [Validators.required]),
-      location: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required]),
-      time: new FormControl('', [Validators.required]),
-      payment: new FormControl('', [Validators.required]),
+      // Core fields
+      preferred_contact_method: new FormControl(''),
+      payment_method: new FormControl(''),
+      enquiry_type: new FormControl(''),
+      urgency_level: new FormControl(''),
+      additional_information: new FormControl(''),
+      preferred_time: new FormControl(''),
+      preferred_date: new FormControl(''),
+
+      // Construction fields
+      project_details: new FormControl(''),
+      payment_schedule: new FormControl(''),
+
+      // Insurance and Banking fields
+      preferred_location: new FormControl(''),
+      insurance_type: new FormControl(''),
+
+      // Common service fields
+      service_interest: new FormControl(''),
+      account_requirements: new FormControl(''),
+      transaction_requirements: new FormControl(''),
+      documentation_needed: new FormControl(''),
+
+      // Property fields
+      management_duration: new FormControl(''),
+
+      // Food and Beverage fields
+      cuisine_preference: new FormControl(''),
+      budget_range: new FormControl(''),
+      special_occasion_details: new FormControl(''),
+
+      // Retail fields
+      price_range: new FormControl(''),
+      availability_requirements: new FormControl(''),
+      customization_needs: new FormControl(''),
+
+      // Services fields
+      service_requirements: new FormControl(''),
+
+      // Creative Service fields
+      style_references: new FormControl(''),
+
+      // Education fields
+      area_of_interest: new FormControl(''),
+      experience_level: new FormControl(''),
+      learning_goals: new FormControl(''),
+
+      // Automotive fields
+      vehicle_information: new FormControl(''),
+      service_type_interest: new FormControl(''), // Fixed typo: serviceType_interest -> service_type_interest
+      preferred_time_frame: new FormControl(''),
+
+      // Home fields
+      project_type: new FormControl(''),
+      property_information: new FormControl(''),
+
+      // Entertainment fields
+      event_type: new FormControl(''),
+      guest_information: new FormControl(''),
+      special_requirements: new FormControl('')
     });
     this.bookForm = new FormGroup({
       message: new FormControl('', [Validators.required]),
@@ -255,17 +309,61 @@ export class EnquireComponent implements AfterViewInit {
   }
 
   enquire() {
-    this.newEnquiry.date = this.enquireForm.value.date
-    this.newEnquiry.time = this.enquireForm.value.time
-    this.newEnquiry.location = this.enquireForm.value.location
-    this.newEnquiry.payment = this.enquireForm.value.payment
-    this.newEnquiry.quantity = this.enquireForm.value.quantity
-    this.newEnquiry.message = this.enquireForm.value.message
+    this.newEnquiry.preferred_date = this.enquireForm.value.preferred_date
+    this.newEnquiry.preferred_time = this.enquireForm.value.preferred_date
+    this.newEnquiry.preferred_location = this.enquireForm.value.preferred_location
+    this.newEnquiry.payment_method = this.enquireForm.value.payment_method
+
+    // Core fields
+    this.newEnquiry.preferred_date = this.enquireForm.value.preferred_date;
+    this.newEnquiry.preferred_time = this.enquireForm.value.preferred_time;
+    this.newEnquiry.preferred_location = this.enquireForm.value.preferred_location;
+    this.newEnquiry.payment_method = this.enquireForm.value.payment_method;
+
+    // Construction fields
+    this.newEnquiry.project_details = this.enquireForm.value.project_details;
+    this.newEnquiry.payment_schedule = this.enquireForm.value.payment_schedule;
+
+    // Insurance and Banking fields
+    this.newEnquiry.insurance_type = this.enquireForm.value.insurance_type;
+
+    // Common service fields
+    this.newEnquiry.service_interest = this.enquireForm.value.service_interest;
+    this.newEnquiry.account_requirements = this.enquireForm.value.account_requirements;
+    this.newEnquiry.transaction_requirements = this.enquireForm.value.transaction_requirements;
+    this.newEnquiry.documentation_needed = this.enquireForm.value.documentation_needed;
+
+    // Property fields
+    this.newEnquiry.management_duration = this.enquireForm.value.management_duration;
+
+    // Food and Beverage fields
+    this.newEnquiry.cuisine_preference = this.enquireForm.value.cuisine_preference;
+    this.newEnquiry.budget_range = this.enquireForm.value.budget_range;
+    this.newEnquiry.special_occasion_details = this.enquireForm.value.special_occasion_details;
+
+    // Retail fields
+    this.newEnquiry.price_range = this.enquireForm.value.price_range;
+    this.newEnquiry.availability_requirements = this.enquireForm.value.availability_requirements;
+    this.newEnquiry.customization_needs = this.enquireForm.value.customization_needs;
+
+    // Services fields
+    this.newEnquiry.service_requirements = this.enquireForm.value.service_requirements;
+
+    // Creative Service fields
+    this.newEnquiry.style_references = this.enquireForm.value.style_references;
+
+    // Education fields
+    this.newEnquiry.area_of_interest = this.enquireForm.value.area_of_interest;
+    this.newEnquiry.experience_level = this.enquireForm.value.experience_level;
+    this.newEnquiry.learning_goals = this.enquireForm.value.learning_goals;
+
+    // Automotive
+
     this.newEnquiry.product_id = this.product.id
     this.newEnquiry.sub_category_id = this.product.sub_category_id
     this.newEnquiry.seller_id = this.product.user_id
     this.newEnquiry.user_id = this.userId
-    this.newEnquiry.total_price = (Number(this.product.price)) * this.newEnquiry.quantity
+    this.newEnquiry.total_price = (Number(this.product.price))
 
     console.log('enquiry', this.newEnquiry)
 
