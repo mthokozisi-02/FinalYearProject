@@ -22,6 +22,8 @@ export class RecommendedProductsComponent implements OnInit {
   totalCart = 0;
   cartTotalAmount = 0;
 
+  currentWishlist: any = [];
+
   viewProduct = false
 
   selectedProduct: Products = {} as Products;
@@ -159,7 +161,8 @@ export class RecommendedProductsComponent implements OnInit {
               });
             });
             this.filteredProducts = this.products.filter(x => x.similarity >= 0.5);
-            console.log('products:', this.filteredProducts);
+            console.log('Products:', this.products);
+            console.log('filteredProducts:', this.filteredProducts);
           });
         });
       });
@@ -243,11 +246,9 @@ export class RecommendedProductsComponent implements OnInit {
   addTowishList(item) {
     this.cartService.success('Item added to wishlist');
     this.wishlistServie.addToCart(item, item.price, 1)
+    this.ngOnInit()
   }
 
-  updateProducts() {
-    console.log('yeah')
-  }
 
 
 
@@ -261,9 +262,11 @@ export class RecommendedProductsComponent implements OnInit {
 
 
   checkIfExist(item) {
-    const index = this.currentCart?.findIndex((p) => p.id === item.id);
+    this.currentWishlist = this.wishlistServie.getCurrentCart()
+    console.log('wishlist', this.currentWishlist)
+    const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
-      return this.currentCart[index].quantity;
+      return this.currentWishlist[index].quantity;
     }
     return 0;
   }
