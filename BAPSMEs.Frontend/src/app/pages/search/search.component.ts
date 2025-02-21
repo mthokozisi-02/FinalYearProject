@@ -90,9 +90,9 @@ export class SearchComponent implements OnInit {
 
     this.enquiryService.getSellerEnquiries().subscribe((res) => {
       console.log('enquiries', res.data)
+      this.notifications = []
       res.data.filter(x => x.received == "false").forEach(enquiry => {
         enquiry.type = 'New Enquiry'
-        this.notifications = []
         this.notifications = [...this.notifications, enquiry]
       })
       console.log('notifications', this.notifications)
