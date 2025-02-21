@@ -45,6 +45,10 @@ export class CategoryShopComponent implements OnInit {
 
   image: any
 
+  selectedCategoryOption: any
+
+  selectedSubCategoryOption: any
+
   constructor(
     public cartService: CartService,
     private wishlistServie: WishListService,
@@ -178,6 +182,9 @@ export class CategoryShopComponent implements OnInit {
     console.log('item', item)
     this.viewProduct = true
     this.selectedProduct = item
+
+    this.selectedCategoryOption = this.selectedProduct.subcategory.category_id
+    this.selectedSubCategoryOption = this.selectedProduct.sub_category_id
   }
 
   enquire(id: number) {

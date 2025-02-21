@@ -22,6 +22,12 @@ export class ProductsService extends AlertService {
     });
   }
 
+  getSimilarProducts(itemDto: any) {
+    return this.http.post<ResponseHandler>(`${url}/products/product/${itemDto}`, {
+      headers,
+    });
+  }
+
   update(itemDto: any, id: number) {
     return this.http.put<ResponseHandler>(`${url}/products/update/${id}`, itemDto, {
       headers,

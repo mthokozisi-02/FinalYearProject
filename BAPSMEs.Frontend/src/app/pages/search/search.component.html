@@ -91,19 +91,19 @@
 </div>
 <!-- /MAIN HEADER -->
 
-<div class="section p-4" *ngIf="showProducts">
+<div class="section p-4 mt-4" *ngIf="showProducts">
 	<!-- row -->
 	<div class="row overflow-hidden">
 
 		<div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-			@for (item of products; track $index) {
+			@for (item of filteredProducts; track $index) {
 			<div class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm dark:border-gray-700 dark:bg-gray-800">
 				<div class="h-56 w-full">
 					<a href="#"
 						class="group relative flex h-full items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg">
-						<img class="absolute inset-0 mx-auto w-full h-54 dark:hidden object-cover object-center transition duration-200 group-hover:scale-110"
+						<img class="absolute inset-0 mx-auto w-full h-56 dark:hidden object-cover object-center transition duration-200 group-hover:scale-110"
 							[src]="item.image_url" alt="" />
-						<img class="absolute inset-0 mx-auto hidden w-full h-54 dark:block object-cover object-center transition duration-200 group-hover:scale-110"
+						<img class="absolute inset-0 mx-auto hidden w-full h-56 dark:block object-cover object-center transition duration-200 group-hover:scale-110"
 							[src]="item.image_url" alt="" />
 
 						<div
@@ -172,7 +172,8 @@
 
 					<ul class="mt-2 flex items-center gap-4">
 
-						<li *ngIf="item.bookable == 'false'" class="flex items-center gap-2">
+						<li *ngIf="item.appointment == 'no' || item.appointment == null"
+							class="flex items-center gap-2">
 							<svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
 								height="24" fill="none" viewBox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -183,7 +184,8 @@
 									+
 									' '}}</b> in Wishlist</p>
 						</li>
-						<li *ngIf="item.bookable == 'false'" class="flex items-center gap-2">
+						<li *ngIf="item.appointment == 'no' || item.appointment == null"
+							class="flex items-center gap-2">
 							<svg class="h-5 w-5 text-black dark:text-black" aria-hidden="true"
 								xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
@@ -191,12 +193,12 @@
 							</svg>
 							<p class="font-medium text-gray-500 dark:text-gray-400">Best Price</p>
 						</li>
-						<li *ngIf="item.bookable == 'true'" class="flex items-center gap-2">
+						<li *ngIf="item.appointment == 'yes'" class="flex items-center gap-2">
 							<p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price
 								|
 								currency}}</p>
 						</li>
-						<li *ngIf="item.bookable == 'true'" class="flex items-center gap-2">
+						<li *ngIf="item.appointment == 'yes'" class="flex items-center gap-2">
 							<svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
 								height="24" fill="none" viewBox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -209,7 +211,8 @@
 						</li>
 					</ul>
 
-					<div *ngIf="item.bookable == 'false'" class="mt-4 flex items-center justify-between gap-4">
+					<div *ngIf="item.appointment == 'no' || item.appointment == null"
+						class="mt-4 flex items-center justify-between gap-4">
 						<p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price |
 							currency}}</p>
 
@@ -229,7 +232,7 @@
 							Enquire Now
 						</button>
 					</div>
-					<div *ngIf="item.bookable == 'true'" class="mt-4 flex items-center justify-between gap-4">
+					<div *ngIf="item.appointment == 'yes'" class="mt-4 flex items-center justify-between gap-4">
 						<button type="button"
 							class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 							<svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -304,15 +307,310 @@
 									</p>
 								</div>
 								<p class="mt-2 text-gray-500 dark:text-gray-400">
-									<b>SELLER:</b> {{selectedProduct.seller_name}}
+									<b>Seller:</b> {{selectedProduct.seller_name}}
 								</p>
-								<p class="mt-2 text-gray-500 dark:text-gray-400">
-									<b>LOCATION:</b> {{selectedProduct.location}}
+								<p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Service Type</b> {{selectedProduct.service_type}}
 								</p>
-								<p class="mt-2 text-gray-500 dark:text-gray-400">
-									<b>DESCRIPTION: </b> {{selectedProduct.description}}
+								<!-- Preparation Time -->
+								<p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Preparation Time:</b> {{selectedProduct.preparation_time || 'N/A'}}
 								</p>
-								<div class="mt-4 flex items-center gap-2 sm:mt-0">
+
+								<!-- Minimum Order -->
+								<p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Minimum Order:</b> {{selectedProduct.minimum_order || 'N/A'}}
+								</p>
+
+								<!-- Delivery Options -->
+								<p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Delivery Options:</b> {{selectedProduct.delivery_options || 'N/A'}}
+								</p>
+
+								<!-- Dietary Information -->
+								<p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Dietary Information:</b> {{selectedProduct.dietary_information || 'N/A'}}
+								</p>
+
+								<!-- Product Type -->
+								<p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Product Type:</b> {{selectedProduct.product_type || 'N/A'}}
+								</p>
+
+								<!-- Inventory Status -->
+								<p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Inventory Status:</b> {{selectedProduct.inventory_status || 'N/A'}}
+								</p>
+
+								<!-- Shipping Options -->
+								<p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Shipping Options:</b> {{selectedProduct.shipping_options || 'N/A'}}
+								</p>
+
+								<!-- Return Policy -->
+								<p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Return Policy:</b> {{selectedProduct.return_policy || 'N/A'}}
+								</p>
+
+								<!-- Warranty Information -->
+								<p *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8"
+									class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Warranty Information:</b> {{selectedProduct.warranty_information || 'N/A'}}
+								</p>
+
+								<!-- Service Duration -->
+								<p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Service Duration:</b> {{selectedProduct.service_duration || 'N/A'}}
+								</p>
+
+								<!-- Appointment -->
+								<p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Appointment:</b> {{selectedProduct.appointment || 'N/A'}}
+								</p>
+
+								<!-- Location Type -->
+								<p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Location Type:</b> {{selectedProduct.location_type || 'N/A'}}
+								</p>
+
+								<!-- Service Area -->
+								<p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Service Area:</b> {{selectedProduct.service_area || 'N/A'}}
+								</p>
+
+								<!-- Qualification -->
+								<p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Qualification:</b> {{selectedProduct.qualification || 'N/A'}}
+								</p>
+
+								<!-- Expertise Level -->
+								<p *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7"
+									class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Expertise Level:</b> {{selectedProduct.expertise_level || 'N/A'}}
+								</p>
+
+								<!-- Session Format -->
+								<p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Session Format:</b> {{selectedProduct.session_format || 'N/A'}}
+								</p>
+
+								<!-- Language Support -->
+								<p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Language Support:</b> {{selectedProduct.language_support || 'N/A'}}
+								</p>
+
+								<!-- Certifications -->
+								<p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Certifications:</b> {{selectedProduct.certifications || 'N/A'}}
+								</p>
+
+								<!-- Experience Level -->
+								<p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Experience Level:</b> {{selectedProduct.experience_level || 'N/A'}}
+								</p>
+
+								<!-- Project Type -->
+								<p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Project Type:</b> {{selectedProduct.project_type || 'N/A'}}
+								</p>
+
+								<!-- Turnaround Time -->
+								<p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Turnaround Time:</b> {{selectedProduct.turnaround_time || 'N/A'}}
+								</p>
+
+								<!-- Revisions Included -->
+								<p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Revisions Included:</b> {{selectedProduct.revisions_included || 'N/A'}}
+								</p>
+
+								<!-- File Formats -->
+								<p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>File Formats:</b> {{selectedProduct.file_formats || 'N/A'}}
+								</p>
+
+								<!-- Usage Rights -->
+								<p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Usage Rights:</b> {{selectedProduct.usage_rights || 'N/A'}}
+								</p>
+
+								<!-- Course Format -->
+								<p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Course Format:</b> {{selectedProduct.course_format || 'N/A'}}
+								</p>
+
+								<!-- Class Size -->
+								<p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Class Size:</b> {{selectedProduct.class_size || 'N/A'}}
+								</p>
+
+								<!-- Materials Included -->
+								<p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Materials Included:</b> {{selectedProduct.materials_included || 'N/A'}}
+								</p>
+
+								<!-- Prerequisites -->
+								<p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Prerequisites:</b> {{selectedProduct.prerequisites || 'N/A'}}
+								</p>
+
+								<!-- Vehicle Type -->
+								<p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Vehicle Type:</b> {{selectedProduct.vehicle_type || 'N/A'}}
+								</p>
+
+								<!-- Parts Included -->
+								<p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Parts Included:</b> {{selectedProduct.parts_included || 'N/A'}}
+								</p>
+
+								<!-- Loaner Vehicle -->
+								<p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Loaner Vehicle:</b> {{selectedProduct.loaner_vehicle || 'N/A'}}
+								</p>
+
+								<!-- Project Scope -->
+								<p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Project Scope:</b> {{selectedProduct.project_scope || 'N/A'}}
+								</p>
+
+								<!-- License Number -->
+								<p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>License Number:</b> {{selectedProduct.license_number || 'N/A'}}
+								</p>
+
+								<!-- Insurance Coverage -->
+								<p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Insurance Coverage:</b> {{selectedProduct.insurance_coverage || 'N/A'}}
+								</p>
+
+								<!-- Permit Handling -->
+								<p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Permit Handling:</b> {{selectedProduct.permit_handling || 'N/A'}}
+								</p>
+
+								<!-- Warranty Period -->
+								<p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Warranty Period:</b> {{selectedProduct.warranty_period || 'N/A'}}
+								</p>
+
+								<!-- Capacity -->
+								<p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Capacity:</b> {{selectedProduct.capacity || 'N/A'}}
+								</p>
+
+								<!-- Age Restriction -->
+								<p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Age Restriction:</b> {{selectedProduct.age_restriction || 'N/A'}}
+								</p>
+
+								<!-- Equipment Provided -->
+								<p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Equipment Provided:</b> {{selectedProduct.equipment_provided || 'N/A'}}
+								</p>
+
+								<!-- Catering Options -->
+								<p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Catering Options:</b> {{selectedProduct.catering_options || 'N/A'}}
+								</p>
+
+								<!-- Parking Availability -->
+								<p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Parking Availability:</b> {{selectedProduct.parking_availability || 'N/A'}}
+								</p>
+
+								<!-- Construction Project Type -->
+								<p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Construction Project Type:</b> {{selectedProduct.cons_project_type || 'N/A'}}
+								</p>
+
+								<!-- Service Scope -->
+								<p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Service Scope:</b> {{selectedProduct.service_scope || 'N/A'}}
+								</p>
+
+								<!-- Payment Term -->
+								<p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Payment Term:</b> {{selectedProduct.payment_term || 'N/A'}}
+								</p>
+
+								<!-- Coverage Type -->
+								<p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Coverage Type:</b> {{selectedProduct.coverage_type || 'N/A'}}
+								</p>
+
+								<!-- Policy Term -->
+								<p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Policy Term:</b> {{selectedProduct.policy_term || 'N/A'}}
+								</p>
+
+								<!-- Premium Frequency -->
+								<p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Premium Frequency:</b> {{selectedProduct.premium_frequency || 'N/A'}}
+								</p>
+
+								<!-- Deductible Amount -->
+								<p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Deductible Amount:</b> {{selectedProduct.deductible_amount || 'N/A'}}
+								</p>
+
+								<!-- Coverage Limit -->
+								<p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Coverage Limit:</b> {{selectedProduct.coverage_limit || 'N/A'}}
+								</p>
+
+								<!-- Account Type -->
+								<p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Account Type:</b> {{selectedProduct.account_type || 'N/A'}}
+								</p>
+
+								<!-- Minimum Balance -->
+								<p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Minimum Balance:</b> {{selectedProduct.minimum_balance || 'N/A'}}
+								</p>
+
+								<!-- Interest Rate -->
+								<p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Interest Rate:</b> {{selectedProduct.interest_rate || 'N/A'}}
+								</p>
+
+								<!-- Fees -->
+								<p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Fees:</b> {{selectedProduct.fees || 'N/A'}}
+								</p>
+
+								<!-- Transaction Limit -->
+								<p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Transaction Limit:</b> {{selectedProduct.transaction_limit || 'N/A'}}
+								</p>
+
+								<!-- Property Types -->
+								<p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Property Types:</b> {{selectedProduct.property_types || 'N/A'}}
+								</p>
+
+								<!-- Service Level -->
+								<p *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8"
+									class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Service Level:</b> {{selectedProduct.service_level || 'N/A'}}
+								</p>
+
+								<!-- Management Fee -->
+								<p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Management Fee:</b> {{selectedProduct.management_fee || 'N/A'}}
+								</p>
+
+								<!-- Response Time -->
+								<p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Response Time:</b> {{selectedProduct.response_time || 'N/A'}}
+								</p>
+
+								<!-- Geographic Area -->
+								<p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+									<b>Geographic Area:</b> {{selectedProduct.geographic_area || 'N/A'}}
+								</p>
+
+								<div class="mt-4 flex items-center gap-2">
 									<div class="flex items-center gap-0.5">
 										<igc-rating [value]="selectedProduct.avgRating" class="text-yellow-300"
 											disabled></igc-rating>
@@ -324,7 +622,7 @@
 										{{selectedProduct.noOfRatings}} Reviews </a>
 								</div>
 
-								<div class="mt-6 min-w-0 flex-1 space-y-3 sm:mt-0">
+								<div class="mt-2 min-w-0 flex-1 space-y-3">
 									<div class="flex items-center gap-2">
 										<p
 											class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">

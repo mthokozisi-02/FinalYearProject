@@ -74,16 +74,312 @@
                     </p>
                 </div>
                 <p class="mt-2 text-gray-500 dark:text-gray-400">
-                    <b>SELLER:</b> {{product.seller_name}}
+                    <b>Seller:</b> {{product.seller_name}}
+                </p>
+                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Service Type</b> {{product.service_type}}
+                </p>
+                <!-- Preparation Time -->
+                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Preparation Time:</b> {{product.preparation_time || 'N/A'}}
                 </p>
 
-                <p class="mt-2 text-gray-500 dark:text-gray-400">
-                    <b>DESCRIPTION: </b> {{product.description}}
+                <!-- Minimum Order -->
+                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Minimum Order:</b> {{product.minimum_order || 'N/A'}}
                 </p>
-                <div class="mt-2 flex items-center gap-2 mt-4 mb-4">
+
+                <!-- Delivery Options -->
+                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Delivery Options:</b> {{product.delivery_options || 'N/A'}}
+                </p>
+
+                <!-- Dietary Information -->
+                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Dietary Information:</b> {{product.dietary_information || 'N/A'}}
+                </p>
+
+                <!-- Product Type -->
+                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Product Type:</b> {{product.product_type || 'N/A'}}
+                </p>
+
+                <!-- Inventory Status -->
+                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Inventory Status:</b> {{product.inventory_status || 'N/A'}}
+                </p>
+
+                <!-- Shipping Options -->
+                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Shipping Options:</b> {{product.shipping_options || 'N/A'}}
+                </p>
+
+                <!-- Return Policy -->
+                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Return Policy:</b> {{product.return_policy || 'N/A'}}
+                </p>
+
+                <!-- Warranty Information -->
+                <p *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Warranty Information:</b> {{product.warranty_information || 'N/A'}}
+                </p>
+
+                <!-- Service Duration -->
+                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Service Duration:</b> {{product.service_duration || 'N/A'}}
+                </p>
+
+                <!-- Appointment -->
+                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Appointment:</b> {{product.appointment || 'N/A'}}
+                </p>
+
+                <!-- Location Type -->
+                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Location Type:</b> {{product.location_type || 'N/A'}}
+                </p>
+
+                <!-- Service Area -->
+                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Service Area:</b> {{product.service_area || 'N/A'}}
+                </p>
+
+                <!-- Qualification -->
+                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Qualification:</b> {{product.qualification || 'N/A'}}
+                </p>
+
+                <!-- Expertise Level -->
+                <p *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Expertise Level:</b> {{product.expertise_level || 'N/A'}}
+                </p>
+
+                <!-- Session Format -->
+                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Session Format:</b> {{product.session_format || 'N/A'}}
+                </p>
+
+                <!-- Language Support -->
+                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Language Support:</b> {{product.language_support || 'N/A'}}
+                </p>
+
+                <!-- Certifications -->
+                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Certifications:</b> {{product.certifications || 'N/A'}}
+                </p>
+
+                <!-- Experience Level -->
+                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Experience Level:</b> {{product.experience_level || 'N/A'}}
+                </p>
+
+                <!-- Project Type -->
+                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Project Type:</b> {{product.project_type || 'N/A'}}
+                </p>
+
+                <!-- Turnaround Time -->
+                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Turnaround Time:</b> {{product.turnaround_time || 'N/A'}}
+                </p>
+
+                <!-- Revisions Included -->
+                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Revisions Included:</b> {{product.revisions_included || 'N/A'}}
+                </p>
+
+                <!-- File Formats -->
+                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>File Formats:</b> {{product.file_formats || 'N/A'}}
+                </p>
+
+                <!-- Usage Rights -->
+                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Usage Rights:</b> {{product.usage_rights || 'N/A'}}
+                </p>
+
+                <!-- Course Format -->
+                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Course Format:</b> {{product.course_format || 'N/A'}}
+                </p>
+
+                <!-- Class Size -->
+                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Class Size:</b> {{product.class_size || 'N/A'}}
+                </p>
+
+                <!-- Materials Included -->
+                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Materials Included:</b> {{product.materials_included || 'N/A'}}
+                </p>
+
+                <!-- Prerequisites -->
+                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Prerequisites:</b> {{product.prerequisites || 'N/A'}}
+                </p>
+
+                <!-- Vehicle Type -->
+                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Vehicle Type:</b> {{product.vehicle_type || 'N/A'}}
+                </p>
+
+                <!-- Parts Included -->
+                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Parts Included:</b> {{product.parts_included || 'N/A'}}
+                </p>
+
+                <!-- Loaner Vehicle -->
+                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Loaner Vehicle:</b> {{product.loaner_vehicle || 'N/A'}}
+                </p>
+
+                <!-- Project Scope -->
+                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Project Scope:</b> {{product.project_scope || 'N/A'}}
+                </p>
+
+                <!-- License Number -->
+                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>License Number:</b> {{product.license_number || 'N/A'}}
+                </p>
+
+                <!-- Insurance Coverage -->
+                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Insurance Coverage:</b> {{product.insurance_coverage || 'N/A'}}
+                </p>
+
+                <!-- Permit Handling -->
+                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Permit Handling:</b> {{product.permit_handling || 'N/A'}}
+                </p>
+
+                <!-- Warranty Period -->
+                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Warranty Period:</b> {{product.warranty_period || 'N/A'}}
+                </p>
+
+                <!-- Capacity -->
+                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Capacity:</b> {{product.capacity || 'N/A'}}
+                </p>
+
+                <!-- Age Restriction -->
+                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Age Restriction:</b> {{product.age_restriction || 'N/A'}}
+                </p>
+
+                <!-- Equipment Provided -->
+                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Equipment Provided:</b> {{product.equipment_provided || 'N/A'}}
+                </p>
+
+                <!-- Catering Options -->
+                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Catering Options:</b> {{product.catering_options || 'N/A'}}
+                </p>
+
+                <!-- Parking Availability -->
+                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Parking Availability:</b> {{product.parking_availability || 'N/A'}}
+                </p>
+
+                <!-- Construction Project Type -->
+                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Construction Project Type:</b> {{product.cons_project_type || 'N/A'}}
+                </p>
+
+                <!-- Service Scope -->
+                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Service Scope:</b> {{product.service_scope || 'N/A'}}
+                </p>
+
+                <!-- Payment Term -->
+                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Payment Term:</b> {{product.payment_term || 'N/A'}}
+                </p>
+
+                <!-- Coverage Type -->
+                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Coverage Type:</b> {{product.coverage_type || 'N/A'}}
+                </p>
+
+                <!-- Policy Term -->
+                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Policy Term:</b> {{product.policy_term || 'N/A'}}
+                </p>
+
+                <!-- Premium Frequency -->
+                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Premium Frequency:</b> {{product.premium_frequency || 'N/A'}}
+                </p>
+
+                <!-- Deductible Amount -->
+                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Deductible Amount:</b> {{product.deductible_amount || 'N/A'}}
+                </p>
+
+                <!-- Coverage Limit -->
+                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Coverage Limit:</b> {{product.coverage_limit || 'N/A'}}
+                </p>
+
+                <!-- Account Type -->
+                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Account Type:</b> {{product.account_type || 'N/A'}}
+                </p>
+
+                <!-- Minimum Balance -->
+                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Minimum Balance:</b> {{product.minimum_balance || 'N/A'}}
+                </p>
+
+                <!-- Interest Rate -->
+                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Interest Rate:</b> {{product.interest_rate || 'N/A'}}
+                </p>
+
+                <!-- Fees -->
+                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Fees:</b> {{product.fees || 'N/A'}}
+                </p>
+
+                <!-- Transaction Limit -->
+                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Transaction Limit:</b> {{product.transaction_limit || 'N/A'}}
+                </p>
+
+                <!-- Property Types -->
+                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Property Types:</b> {{product.property_types || 'N/A'}}
+                </p>
+
+                <!-- Service Level -->
+                <p *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Service Level:</b> {{product.service_level || 'N/A'}}
+                </p>
+
+                <!-- Management Fee -->
+                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Management Fee:</b> {{product.management_fee || 'N/A'}}
+                </p>
+
+                <!-- Response Time -->
+                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Response Time:</b> {{product.response_time || 'N/A'}}
+                </p>
+
+                <!-- Geographic Area -->
+                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Geographic Area:</b> {{product.geographic_area || 'N/A'}}
+                </p>
+
+                <div class="mt-4 flex items-center gap-2">
                     <div class="flex items-center gap-0.5">
-                        <igc-rating [value]="avgRating" class="text-yellow-300" (igcChange)="ratingChanged($event);"
-                            disabled></igc-rating>
+                        <igc-rating [value]="avgRating" class="text-yellow-300" disabled></igc-rating>
                     </div>
                     <p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
                         ({{unRoundedAvgRating | number:'1.2-2'}})</p>
@@ -92,7 +388,7 @@
                         {{noOfRatings}} Reviews </a>
                 </div>
 
-                <div class="mt-6 min-w-0 flex-1 space-y-3 sm:mt-0">
+                <div class="mt-2 min-w-0 flex-1 space-y-3">
                     <div class="flex items-center gap-2">
                         <p class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
                             5</p>
@@ -182,7 +478,96 @@
         </div>
 
         <div class="bg-white border border-4 rounded-lg shadow relative mt-16">
-            <div *ngIf="product.bookable == 'true'" class="p-6 space-y-6 mt-8">
+            <div *ngIf="product.appointment == 'yes'" class="p-6 space-y-6 mt-8">
+                <form [formGroup]="bookForm" (submit)="enquire()">
+                    <div class="grid grid-cols-12 gap-6 mb-4">
+                        <div class="col-span-12 sm:col-span-6">
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name"
+                                    class="text-lg font-medium text-gray-900 block mb-2">Category</label>
+                                <input type="text" name="name" [value]="product.sub_category_name"
+                                    class="form-control text-green-700 font-bold shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    placeholder="enter your full name" id="disabled-input" aria-label="disabled input"
+                                    disabled>
+                            </div>
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Product
+                                    Name</label>
+                                <input type="text" name="name" [value]="product.name"
+                                    class="form-control shadow-sm text-green-700 font-bold bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    placeholder="enter your full name" id="disabled-input" aria-label="disabled input"
+                                    disabled>
+                            </div>
+                            <div class="col-span-6 sm:col-span-2  mb-4">
+                                <label for="category" class="text-lg font-medium text-gray-900 block mb-2">Quantity <i
+                                        style="color: grey;">(*if applicable)</i></label>
+                                <input type="number" name="quantity" id="quantity" formControlName="quantity"
+                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    placeholder="enter quantity you require" required="">
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6">
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Preferred
+                                    Location <i style="color: grey;">(*if applicable)</i></label>
+                                <input type="text" name="location" id="location"
+                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    formControlName="location" placeholder="enter preferred location" required="">
+                            </div>
+                            <div class="col-span-6 sm:col-span-2 mb-8">
+                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">
+                                    Preferred Date <i style="color: grey;">(*if applicable)</i>
+                                </label>
+
+                                <div class="flex gap-4">
+                                    <!-- Date Input -->
+                                    <input type="date" name="date" id="date"
+                                        class="w-1/2 form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 p-2.5"
+                                        formControlName="date" required>
+
+                                    <!-- Time Input -->
+                                    <input type="time" name="time" id="time"
+                                        class="w-1/2 form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-cyan-600 focus:border-cyan-600 p-2.5"
+                                        formControlName="time" required>
+                                </div>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-2 mb-4">
+                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Preferred
+                                    Payment Method <i style="color: grey;">(*if applicable)</i></label>
+                                <input type="text" name="payment" id="payment"
+                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                    formControlName="payment" maxlength="12"
+                                    placeholder="enter preferred payment method" required="">
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-12 mb-8">
+                            <label for="product-name"
+                                class="text-lg font-medium text-gray-900 block mb-2">Message</label>
+                            <textarea rows="8" type="text" name="message" id="message"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                formControlName="message" placeholder="enter your message" required=""></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-between w-full px-3 border-t border-gray-200">
+                        <div class="md:flex md:items-center">
+                            <label class="block text-gray-500 font-bold">
+                                <input class="mr-2 leading-tight" type="checkbox">
+                                <span class="text-green-700">
+                                    Send me your newsletter!
+                                </span>
+                            </label>
+                        </div>
+                        <button
+                            class="mt-4 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                            type="submit">
+                            Book Now
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="product.appointment == 'no' || product.appointment == null" class="p-6 space-y-6 mt-8">
                 <form [formGroup]="enquireForm" (submit)="enquire()">
                     <div class="grid grid-cols-12 gap-6 mb-4">
                         <div class="col-span-12 sm:col-span-6">
@@ -265,63 +650,7 @@
                         <button
                             class="mt-4 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                             type="submit">
-                            Send Message
-                        </button>
-
-                    </div>
-                </form>
-            </div>
-            <div *ngIf="product.bookable == 'false'" class="p-6 space-y-6 mt-8">
-                <form [formGroup]="enquireForm" (submit)="enquire()">
-                    <div class="grid grid-cols-12 gap-6 mb-4">
-                        <div class="col-span-12 sm:col-span-6">
-                            <div class="col-span-6 sm:col-span-2 mb-8">
-                                <label for="product-name"
-                                    class="text-lg font-medium text-gray-900 block mb-2">Category</label>
-                                <input type="text" name="name" [value]="product.sub_category_name"
-                                    class="form-control text-green-700 font-bold shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    placeholder="enter your full name" id="disabled-input" aria-label="disabled input"
-                                    disabled>
-                            </div>
-                            <div class="col-span-6 sm:col-span-2 mb-8">
-                                <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Product
-                                    Name</label>
-                                <input type="text" name="name" [value]="product.name"
-                                    class="form-control shadow-sm text-green-700 font-bold bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    placeholder="enter your full name" id="disabled-input" aria-label="disabled input"
-                                    disabled>
-                            </div>
-                            <div class="col-span-6 sm:col-span-2  mb-4">
-                                <label for="category" class="text-lg font-medium text-gray-900 block mb-2">Quantity <i
-                                        style="color: grey;">(*if applicable)</i></label>
-                                <input type="number" name="quantity" id="quantity" formControlName="quantity"
-                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    placeholder="enter quantity you require" required="">
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6">
-                            <div class="col-span-6 sm:col-span-2 mb-8">
-                                <label for="product-name"
-                                    class="text-lg font-medium text-gray-900 block mb-2">Message</label>
-                                <textarea rows="10" type="text" name="message" id="message"
-                                    class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                    formControlName="message" placeholder="enter your message" required=""></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-between w-full px-3 border-t border-gray-200">
-                        <div class="md:flex md:items-center">
-                            <label class="block text-gray-500 font-bold">
-                                <input class="mr-2 leading-tight" type="checkbox">
-                                <span class="text-green-700">
-                                    Send me your newsletter!
-                                </span>
-                            </label>
-                        </div>
-                        <button
-                            class="mt-4 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                            type="submit">
-                            Send Message
+                            Enquire Now
                         </button>
 
                     </div>

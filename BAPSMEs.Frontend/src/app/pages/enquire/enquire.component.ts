@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IgcRatingComponent, defineComponents } from 'igniteui-webcomponents';
+import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
 import { Enquire } from '../../../models/enquire';
 import { Products } from '../../../models/products';
@@ -9,6 +10,7 @@ import { Ratings } from '../../../models/ratings';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { BuyerRegistrationService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { BookService } from '../../tools/services/book.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
 import { RatingService } from '../../tools/services/rating.service';
 
@@ -46,6 +48,8 @@ export class EnquireComponent implements AfterViewInit {
 
   newEnquiry: Enquire = {} as Enquire
 
+  newBooking: Booking = {} as Booking
+
   Flowbite: any;
 
   imagePreview: string = '';
@@ -62,6 +66,12 @@ export class EnquireComponent implements AfterViewInit {
 
   public enquireForm: FormGroup;
 
+  public bookForm: FormGroup;
+
+  selectedCategoryOption: any
+
+  selectedSubCategoryOption: any
+
   fiveStar = 0;
   fourStar = 0;
   oneStar = 0;
@@ -76,7 +86,7 @@ export class EnquireComponent implements AfterViewInit {
 
   totalStars = 0
 
-  constructor(private productService: ProductsService, private enquiryService: EnquiryService, private categoryService: SubCategoriesService,
+  constructor(private productService: ProductsService, private bookingService: BookService, private enquiryService: EnquiryService, private categoryService: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
@@ -85,6 +95,14 @@ export class EnquireComponent implements AfterViewInit {
       comment: new FormControl('', [Validators.required]),
     });
     this.enquireForm = new FormGroup({
+      message: new FormControl('', [Validators.required]),
+      quantity: new FormControl(0, [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      time: new FormControl('', [Validators.required]),
+      payment: new FormControl('', [Validators.required]),
+    });
+    this.bookForm = new FormGroup({
       message: new FormControl('', [Validators.required]),
       quantity: new FormControl(0, [Validators.required]),
       location: new FormControl('', [Validators.required]),
@@ -123,6 +141,8 @@ export class EnquireComponent implements AfterViewInit {
               (x) => x.id == this.id
             );
             this.products.forEach((product: any) => {
+              this.selectedCategoryOption = product.subcategory.category_id
+              this.selectedSubCategoryOption = product.sub_category_id
               product.image_url =
                 'http://127.0.0.1:8000/storage/' + product.image_url;
               product.image_url2 =
@@ -164,7 +184,7 @@ export class EnquireComponent implements AfterViewInit {
                 }
               })
               this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
-                product.seller_name = seller.user.name
+                product.seller_name = seller.business_name
               })
               const category = this.subCategories.filter(
                 (x) => x.id == product.sub_category_id
@@ -272,6 +292,46 @@ export class EnquireComponent implements AfterViewInit {
       }
     );
     this.enquireForm.reset();
+  }
+
+  book() {
+    this.newBooking.date = this.bookForm.value.date
+    this.newBooking.time = this.bookForm.value.time
+    this.newBooking.location = this.bookForm.value.location
+    this.newBooking.payment = this.bookForm.value.payment
+    this.newBooking.quantity = this.bookForm.value.quantity
+    this.newBooking.message = this.bookForm.value.message
+    this.newBooking.product_id = this.product.id
+    this.newBooking.sub_category_id = this.product.sub_category_id
+    this.newBooking.seller_id = this.product.user_id
+    this.newBooking.user_id = this.userId
+    this.newBooking.total_price = (Number(this.product.price)) * this.newBooking.quantity
+
+    console.log('booking', this.newBooking)
+
+    this.bookingService.book(this.newBooking).subscribe(
+      (res) => {
+        console.log('res', res);
+
+        if (res.status == 'created') {
+          alert(res.message);
+          this.ngOnInit()
+          console.log(res.message);
+          this.selectedFile = null
+          this.selectedFile2 = null
+        } else {
+          console.log(res.message);
+          // Handle the error as needed
+        }
+      },
+      (error) => {
+        console.error(error.error.message);
+        console.log('error', error)
+        alert(error.error.message);
+        // Handle the error as needed
+      }
+    );
+    this.bookForm.reset();
   }
 
   onFileSelected2(event: any) {

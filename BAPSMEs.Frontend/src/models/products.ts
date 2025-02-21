@@ -14,6 +14,7 @@ export interface Products {
   image_url: any;
   image_url2: any;
   image_url3: any;
+  similarity: number
   sub_category_id: number;
   subcategory: SubCategory;
   sub_category_name: string;
@@ -46,83 +47,82 @@ export interface Products {
   status: 'Active' | 'Inactive' | 'Pending';  // Enum with default 'Active'
 
   // Service Type Details
-  serviceType: 'Product' | 'Service';         // Enum with default 'Service'
-  preparationTime?: number;                   // Nullable decimal
-  minimumOrder: number;                       // Integer with default 0
-  deliveryOptions?: string;                   // Nullable
-  dietaryInformation?: string;                // Nullable
+  service_type: 'Product' | 'Service';          // Enum with default 'Service'
+  preparation_time?: number;                    // Nullable decimal
+  minimum_order: number;                       // Integer with default 0
+  delivery_options?: string;                   // Nullable
+  dietary_information?: string;                // Nullable
 
   // Product Type Details
-  productType: 'Physical' | 'Digital';        // Enum with default 'Physical'
-  inventoryStatus: 'Available' | 'Out of Stock'; // Enum with default 'Available'
-  shippingOptions?: string;                   // Nullable
-  returnPolicy: 'Return' | 'Exchange Terms';  // Enum with default 'Return'
-  warrantyInformation?: string;               // Nullable
+  product_type: 'Physical' | 'Digital';         // Enum with default 'Physical'
+  inventory_status: 'Available' | 'Out of Stock'; // Enum with default 'Available'
+  shipping_options?: string;                   // Nullable
+  return_policy: 'Return' | 'Exchange Terms';   // Enum with default 'Return'
+  warranty_information?: string;               // Nullable
 
   // Service Details
-  serviceDuration: number;                    // Integer with default 0
-  appointment: 'yes' | 'no';                  // Enum with default 'no'
-  locationType: 'On-Site' | 'Off-Site' | 'Virtual'; // Enum with default 'On-Site'
-  serviceArea?: string;                       // Nullable
+  service_duration: number;                    // Integer with default 0
+  appointment: 'yes' | 'no';                   // Enum with default 'no'
+  location_type: 'On-Site' | 'Off-Site' | 'Virtual'; // Enum with default 'On-Site'
+  service_area?: string;                       // Nullable
   qualification?: string;                      // Nullable
-
-  expertiseLevel: 'Beginner' | 'Intermediate' | 'Advanced'; // Enum with default 'Beginner'
-  sessionFormat: 'Individual' | 'Group';      // Enum with default 'Individual'
-  languageSupport?: string;                    // Nullable
+  expertise_level: 'Beginner' | 'Intermediate' | 'Advanced'; // Enum with default 'Beginner'
+  session_format: 'Individual' | 'Group';      // Enum with default 'Individual'
+  language_support?: string;                   // Nullable
   certifications?: string;                     // Nullable
-  experienceLevel?: number;                    // Nullable integer
+  experience_level?: number;                   // Nullable integer
 
   // Project Type Details
-  projectType?: string;                       // Nullable
-  turnaroundTime?: string;                     // Nullable
-  revisionsIncluded?: string;                 // Nullable
-  fileFormats?: string;                       // Nullable
-  usageRights?: string;                       // Nullable
+  project_type?: string;                       // Nullable
+  turnaround_time?: string;                    // Nullable
+  revisions_included?: string;                 // Nullable
+  file_formats?: string;                       // Nullable
+  usage_rights?: string;                       // Nullable
 
   // Course Format Details
-  courseFormat: 'Online' | 'In-person';       // Enum with default 'Online'
-  classSize: number;                          // Integer with default 0
-  materialsIncluded?: string;                 // Nullable
+  course_format: 'Online' | 'In-person';       // Enum with default 'Online'
+  class_size: number;                          // Integer with default 0
+  materials_included?: string;                 // Nullable
   prerequisites?: string;                      // Nullable
-  vehicleType?: string;                       // Nullable
+  vehicle_type?: string;                       // Nullable
 
   // Parts & Vehicle Details
-  partsIncluded?: string;                     // Nullable
-  loanerVehicle?: string;                     // Nullable
-  projectScope?: string;                      // Nullable
-  licenseNumber?: string;                     // Nullable
-  insuranceCoverage?: string;                 // Nullable
+  parts_included?: string;                     // Nullable
+  loaner_vehicle?: string;                     // Nullable
+  project_scope?: string;                      // Nullable
+  license_number?: string;                     // Nullable
+  insurance_coverage?: string;                  // Nullable
 
   // Additional Details
-  permitHandling?: string;                    // Nullable
-  warrantyPeriod?: string;                    // Nullable
-  capacity: number;                           // Integer with default 0
-  ageRestriction: number;                     // Integer with default 0
-  equipmentProvided?: string;                 // Nullable
-  cateringOptions?: string;                   // Nullable
-  parkingAvailability?: string;               // Nullable
+  permit_handling?: string;                    // Nullable
+  warranty_period?: string;                    // Nullable
+  capacity: number;                            // Integer with default 0
+  age_restriction: number;                     // Integer with default 0
+  equipment_provided?: string;                 // Nullable
+  catering_options?: string;                   // Nullable
+  parking_availability?: string;               // Nullable
 
   // Construction Details
-  constructionProjectType: 'New Build' | 'Renovation' | 'Repair'; // Enum with default 'New Build'
-  serviceScope: 'Full Project Management' | 'Consultation-only'; // Enum with default 'Full Project Management'
-  paymentTerm: 'Milestone-based' | 'Progressive'; // Enum with default 'Milestone-based'
+  cons_project_type: 'New Build' | 'Renovation' | 'Repair'; // Enum with default 'New Build'
+  service_scope: 'Full Project Management' | 'Consultation-only'; // Enum with default 'Full Project Management'
+  payment_term: 'Milestone-based' | 'Progressive'; // Enum with default 'Milestone-based'
 
   // Insurance Details
-  coverageType: 'Property' | 'Liability' | 'Life'; // Enum with default 'Property'
-  policyTerm?: string;                        // Nullable
-  premiumFrequency?: string;                  // Nullable
-  deductibleAmount?: number;                  // Nullable decimal
-  coverageLimit?: number;                     // Nullable decimal
+  coverage_type: 'Property' | 'Liability' | 'Life'; // Enum with default 'Property'
+  policy_term?: string;                        // Nullable
+  premium_frequency?: string;                  // Nullable
+  deductible_amount?: number;                  // Nullable decimal
+  coverage_limit?: number;                     // Nullable decimal
 
   // Account Details
-  accountType: 'Personal' | 'Business' | 'investment'; // Enum with default 'Personal'
-  minimumBalance?: number;                    // Nullable decimal
-  interestRate?: number;                      // Nullable decimal
-  fees?: number;                              // Nullable decimal
-  transactionLimit?: number;                  // Nullable decimal
-
-  propertyTypes?: string;                     // Nullable
-  serviceLevel: 'Full' | 'Partial Management' | 'Basic' | 'Standard' | 'Premium'; // Enum with default 'Full'
-  managementFee: 'Percentage' | 'Flat Rate';  // Enum with default 'Percentage'
-  responseTime?: string;
+  account_type: 'Personal' | 'Business' | 'investment'; // Enum with default 'Personal'
+  minimum_balance?: number;                    // Nullable decimal
+  interest_rate?: number;                      // Nullable decimal
+  fees?: number;                               // Nullable decimal
+  transaction_limit?: number;                  // Nullable decimal
+  property_types?: string;                     // Nullable
+  service_level: 'Full' | 'Partial Management' | 'Basic' | 'Standard' | 'Premium'; // Enum with default 'Full'
+  management_fee: 'Percentage' | 'Flat Rate';  // Enum with default 'Percentage'
+  response_time?: string;
+  geographic_area?: string;
 }

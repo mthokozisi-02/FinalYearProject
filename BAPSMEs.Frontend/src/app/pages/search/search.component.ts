@@ -23,6 +23,8 @@ export class SearchComponent implements OnInit {
   totalCart = 0;
   cartTotalAmount = 0;
 
+  currentWishlist: any = [];
+
   viewProduct = false
 
   selectedProduct: Products = {} as Products;
@@ -58,6 +60,10 @@ export class SearchComponent implements OnInit {
   cart = false
 
   selectedFilterCategory: any
+
+  selectedCategoryOption: any
+
+  selectedSubCategoryOption: any
 
   constructor(
     private http: HttpClient,
@@ -214,9 +220,11 @@ export class SearchComponent implements OnInit {
 
 
   checkIfExist(item) {
-    const index = this.currentCart?.findIndex((p) => p.id === item.id);
+    this.currentWishlist = this.wishlistServie.getCurrentCart()
+    console.log('wishlist', this.currentWishlist)
+    const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
-      return this.currentCart[index].quantity;
+      return this.currentWishlist[index].quantity;
     }
     return 0;
   }
@@ -294,6 +302,9 @@ export class SearchComponent implements OnInit {
     this.viewProduct = true
     this.image = item
     this.selectedProduct = item
+    this.selectedCategoryOption = this.selectedProduct.subcategory.category_id
+    this.selectedSubCategoryOption = this.selectedProduct.sub_category_id
+
   }
 
   hideDialog() {

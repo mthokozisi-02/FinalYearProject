@@ -4,4 +4,645 @@
         <h2 class="inline-block text-2xl font-semibold text-black pb-2 mt-3 border-b-4 border-green-700">
             Recommended Products</h2>
     </div>
+
+    <div class="row overflow-hidden mt-4">
+
+        <div class="mb-4 grid mt-4 gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            @for (item of filteredProducts; track $index) {
+            <div class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div class="h-56 w-full">
+                    <a href="#"
+                        class="group relative flex h-full items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg">
+                        <img class="absolute inset-0 mx-auto w-full h-56 dark:hidden object-cover object-center transition duration-200 group-hover:scale-110"
+                            [src]="item.image_url" alt="" />
+                        <img class="absolute inset-0 mx-auto hidden w-full h-56 dark:block object-cover object-center transition duration-200 group-hover:scale-110"
+                            [src]="item.image_url" alt="" />
+
+                        <div
+                            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+                        </div>
+
+                        <span
+                            class="relative mb-2 ml-2 rounded-lg bg-green-100 px-1.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                            <b>{{item.business_name}}</b> </span>
+                    </a>
+                </div>
+                <div class="p-4">
+                    <div class="mb-2 flex items-center justify-between gap-4">
+
+                        <a href="#"
+                            class="text-xl font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{item.name}}</a>
+
+                        <div class="flex items-center justify-end gap-1">
+                            <button type="button" (click)="viewImage(item)" data-tooltip-target="tooltip-quick-look"
+                                class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="sr-only"> Quick look </span>
+                                <svg class="h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-width="2"
+                                        d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                                    <path stroke="currentColor" stroke-width="2"
+                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </button>
+                            <div id="tooltip-quick-look" role="tooltip"
+                                class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
+                                data-popper-placement="top">
+                                Quick look
+                                <div class="tooltip-arrow" data-popper-arrow=""></div>
+                            </div>
+
+                            <button type="button" (click)="addTowishList(item)"
+                                data-tooltip-target="tooltip-add-to-favorites"
+                                class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="sr-only"> Add to Wishlist </span>
+                                <svg class="h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z" />
+                                </svg>
+                            </button>
+                            <div id="tooltip-add-to-favorites" role="tooltip"
+                                class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
+                                data-popper-placement="top">
+                                Add to Wishlist
+                                <div class="tooltip-arrow" data-popper-arrow=""></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-2 flex items-center gap-2 sm:mt-0">
+                        <div class="flex items-center gap-0.5">
+                            <igc-rating [value]="item.avgRating" class="text-yellow-300" disabled></igc-rating>
+                        </div>
+                        <p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+                            {{item.unRoundedAvgRating | number:'1.2-2'}}</p>
+                        <a href="#"
+                            class="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
+                            ({{item.noOfRatings}})</a>
+                    </div>
+
+                    <ul class="mt-2 flex items-center gap-4">
+
+                        <li *ngIf="item.appointment == 'no' || item.appointment == null"
+                            class="flex items-center gap-2">
+                            <svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                            </svg>
+                            <p class="font-medium text-gray-500 dark:text-gray-400"><b>
+                                    {{checkIfExist(item)
+                                    +
+                                    ' '}}</b> in Wishlist</p>
+                        </li>
+                        <li *ngIf="item.appointment == 'no' || item.appointment == null"
+                            class="flex items-center gap-2">
+                            <svg class="h-5 w-5 text-black dark:text-black" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                    d="M8 7V6c0-.6.4-1 1-1h11c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1h-1M3 18v-7c0-.6.4-1 1-1h11c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                            </svg>
+                            <p class="font-medium text-gray-500 dark:text-gray-400">Best Price</p>
+                        </li>
+                        <li *ngIf="item.appointment == 'yes'" class="flex items-center gap-2">
+                            <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price
+                                |
+                                currency}}</p>
+                        </li>
+                        <li *ngIf="item.appointment == 'yes'" class="flex items-center gap-2">
+                            <svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                            </svg>
+                            <p class="font-medium text-gray-500 dark:text-gray-400"><b> {{checkIfExist(item)
+                                    +
+                                    ' '}}</b> in Wishlist</p>
+                        </li>
+                    </ul>
+
+                    <div *ngIf="item.appointment == 'no' || item.appointment == null"
+                        class="mt-4 flex items-center justify-between gap-4">
+                        <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price |
+                            currency}}</p>
+
+                        <button type="button" (click)="enquire(item.id)"
+                            class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="Page-1" stroke="white" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Path" fill="white" transform="translate(64.000000, 85.333333)">
+                                        <path
+                                            d="M384,1.42108547e-14 L384,298.666667 L277.333333,298.666667 L277.333333,384 L147.2,298.666667 L1.42108547e-14,298.666667 L1.42108547e-14,1.42108547e-14 L384,1.42108547e-14 Z M341.333333,42.6666667 L42.6666667,42.6666667 L42.6666667,256 L159.941531,256 L234.666667,305.002667 L234.666667,256 L341.333333,256 L341.333333,42.6666667 Z M192.935,201.066667 C199.768368,201.066667 205.414144,203.316644 209.8725,207.816667 C214.330856,212.316689 216.56,217.983299 216.56,224.816667 C216.56,231.5667 214.330856,237.191644 209.8725,241.691667 C205.414144,246.191689 199.768368,248.441667 192.935,248.441667 C185.934965,248.441667 180.226689,246.191689 175.81,241.691667 C171.393311,237.191644 169.185,231.441702 169.185,224.441667 C169.185,217.774967 171.434978,212.212522 175.935,207.754167 C180.435023,203.295811 186.101632,201.066667 192.935,201.066667 Z M202.185,65.0666667 C221.185095,65.0666667 235.643284,69.5666217 245.56,78.5666667 C254.310044,86.6500404 258.685,97.1499354 258.685,110.066667 C258.685,118.81671 256.560021,126.295802 252.31,132.504167 C248.591231,137.936485 242.320454,143.767492 233.497515,149.997322 L229.56,152.691667 C221.226667,158.275028 216.101676,162.545819 214.185,165.504167 C212.268324,168.462515 211.31,173.733295 211.31,181.316667 L211.31,186.441667 L174.435,186.441667 L174.435,175.441667 C174.435,164.85828 175.518323,157.483354 177.685,153.316667 C178.935006,150.899988 180.601656,148.754176 182.685,146.879167 L185.011529,144.940391 C185.967309,144.18359 187.103359,143.316246 188.419684,142.338357 L201.829549,132.738531 C207.493614,128.58228 211.34124,125.316679 213.3725,122.941667 C216.080847,119.774984 217.435,116.066688 217.435,111.816667 C217.435,106.483307 215.539186,102.254182 211.7475,99.1291667 C207.955814,96.004151 202.810033,94.4416667 196.31,94.4416667 C185.64328,94.4416667 172.768409,98.7332904 157.685,107.316667 L146.56,79.5666667 C165.060093,69.8999517 183.601574,65.0666667 202.185,65.0666667 Z">
+
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                            Enquire Now
+                        </button>
+                    </div>
+                    <div *ngIf="item.appointment == 'yes'" class="mt-4 flex items-center justify-between gap-4">
+                        <button type="button"
+                            class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 18 21">
+                                <path
+                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                            </svg>
+                            Book Now
+                        </button>
+                        <button type="button" (click)="enquire(item.id)"
+                            class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="Page-1" stroke="white" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Path" fill="white" transform="translate(64.000000, 85.333333)">
+                                        <path
+                                            d="M384,1.42108547e-14 L384,298.666667 L277.333333,298.666667 L277.333333,384 L147.2,298.666667 L1.42108547e-14,298.666667 L1.42108547e-14,1.42108547e-14 L384,1.42108547e-14 Z M341.333333,42.6666667 L42.6666667,42.6666667 L42.6666667,256 L159.941531,256 L234.666667,305.002667 L234.666667,256 L341.333333,256 L341.333333,42.6666667 Z M192.935,201.066667 C199.768368,201.066667 205.414144,203.316644 209.8725,207.816667 C214.330856,212.316689 216.56,217.983299 216.56,224.816667 C216.56,231.5667 214.330856,237.191644 209.8725,241.691667 C205.414144,246.191689 199.768368,248.441667 192.935,248.441667 C185.934965,248.441667 180.226689,246.191689 175.81,241.691667 C171.393311,237.191644 169.185,231.441702 169.185,224.441667 C169.185,217.774967 171.434978,212.212522 175.935,207.754167 C180.435023,203.295811 186.101632,201.066667 192.935,201.066667 Z M202.185,65.0666667 C221.185095,65.0666667 235.643284,69.5666217 245.56,78.5666667 C254.310044,86.6500404 258.685,97.1499354 258.685,110.066667 C258.685,118.81671 256.560021,126.295802 252.31,132.504167 C248.591231,137.936485 242.320454,143.767492 233.497515,149.997322 L229.56,152.691667 C221.226667,158.275028 216.101676,162.545819 214.185,165.504167 C212.268324,168.462515 211.31,173.733295 211.31,181.316667 L211.31,186.441667 L174.435,186.441667 L174.435,175.441667 C174.435,164.85828 175.518323,157.483354 177.685,153.316667 C178.935006,150.899988 180.601656,148.754176 182.685,146.879167 L185.011529,144.940391 C185.967309,144.18359 187.103359,143.316246 188.419684,142.338357 L201.829549,132.738531 C207.493614,128.58228 211.34124,125.316679 213.3725,122.941667 C216.080847,119.774984 217.435,116.066688 217.435,111.816667 C217.435,106.483307 215.539186,102.254182 211.7475,99.1291667 C207.955814,96.004151 202.810033,94.4416667 196.31,94.4416667 C185.64328,94.4416667 172.768409,98.7332904 157.685,107.316667 L146.56,79.5666667 C165.060093,69.8999517 183.601574,65.0666667 202.185,65.0666667 Z">
+
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                            Enquire Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+    </div>
+    <!-- /container -->
+
+
+    <div *ngIf="viewProduct" class="relative z-10">
+        <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 xl:items-center xl:p-0">
+
+                <section class="bg-white md:py-16 dark:bg-gray-900 antialiased">
+                    <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+                        <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+
+                            <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+                                <div id="slider"
+                                    class="flex overflow-x-scroll space-x-4 rounded-lg shadow-lg no-scrollbar">
+                                    <div class="flex-shrink-0 w-full scroll-ml-6">
+                                        <img [src]="selectedProduct.image_url" alt="Slider Image 1"
+                                            class="w-full h-[440px] object-cover rounded-lg">
+                                    </div>
+                                    <div class="flex-shrink-0 w-full scroll-ml-6">
+                                        <img [src]="selectedProduct.image_url2" alt="Slider Image 2"
+                                            class="w-full h-[440px] object-cover rounded-lg">
+                                    </div>
+                                    <div class="flex-shrink-0 w-full scroll-ml-6">
+                                        <img [src]="selectedProduct.image_url3" alt="Slider Image 3"
+                                            class="w-full h-[440px] object-cover rounded-lg">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 sm:mt-8 lg:mt-0">
+                                <span
+                                    class="mb-2 inline-block rounded bg-green-200 px-2.5 py-0.5 font-medium text-blue-800 dark:bg-green-900 dark:text-blue-300 uppercase">
+                                    {{selectedProduct.sub_category_name}} </span>
+                                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+                                    {{selectedProduct.name}}
+                                </h1>
+                                <div class="mt-2 sm:items-center sm:gap-4 sm:flex">
+                                    <p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
+                                        {{selectedProduct.price | currency}}
+                                    </p>
+                                </div>
+                                <p class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Seller:</b> {{selectedProduct.seller_name}}
+                                </p>
+                                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Service Type</b> {{selectedProduct.service_type}}
+                                </p>
+                                <!-- Preparation Time -->
+                                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Preparation Time:</b> {{selectedProduct.preparation_time || 'N/A'}}
+                                </p>
+
+                                <!-- Minimum Order -->
+                                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Minimum Order:</b> {{selectedProduct.minimum_order || 'N/A'}}
+                                </p>
+
+                                <!-- Delivery Options -->
+                                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Delivery Options:</b> {{selectedProduct.delivery_options || 'N/A'}}
+                                </p>
+
+                                <!-- Dietary Information -->
+                                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Dietary Information:</b> {{selectedProduct.dietary_information || 'N/A'}}
+                                </p>
+
+                                <!-- Product Type -->
+                                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Product Type:</b> {{selectedProduct.product_type || 'N/A'}}
+                                </p>
+
+                                <!-- Inventory Status -->
+                                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Inventory Status:</b> {{selectedProduct.inventory_status || 'N/A'}}
+                                </p>
+
+                                <!-- Shipping Options -->
+                                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Shipping Options:</b> {{selectedProduct.shipping_options || 'N/A'}}
+                                </p>
+
+                                <!-- Return Policy -->
+                                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Return Policy:</b> {{selectedProduct.return_policy || 'N/A'}}
+                                </p>
+
+                                <!-- Warranty Information -->
+                                <p *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8"
+                                    class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Warranty Information:</b> {{selectedProduct.warranty_information || 'N/A'}}
+                                </p>
+
+                                <!-- Service Duration -->
+                                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Service Duration:</b> {{selectedProduct.service_duration || 'N/A'}}
+                                </p>
+
+                                <!-- Appointment -->
+                                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Appointment:</b> {{selectedProduct.appointment || 'N/A'}}
+                                </p>
+
+                                <!-- Location Type -->
+                                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Location Type:</b> {{selectedProduct.location_type || 'N/A'}}
+                                </p>
+
+                                <!-- Service Area -->
+                                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Service Area:</b> {{selectedProduct.service_area || 'N/A'}}
+                                </p>
+
+                                <!-- Qualification -->
+                                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Qualification:</b> {{selectedProduct.qualification || 'N/A'}}
+                                </p>
+
+                                <!-- Expertise Level -->
+                                <p *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7"
+                                    class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Expertise Level:</b> {{selectedProduct.expertise_level || 'N/A'}}
+                                </p>
+
+                                <!-- Session Format -->
+                                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Session Format:</b> {{selectedProduct.session_format || 'N/A'}}
+                                </p>
+
+                                <!-- Language Support -->
+                                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Language Support:</b> {{selectedProduct.language_support || 'N/A'}}
+                                </p>
+
+                                <!-- Certifications -->
+                                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Certifications:</b> {{selectedProduct.certifications || 'N/A'}}
+                                </p>
+
+                                <!-- Experience Level -->
+                                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Experience Level:</b> {{selectedProduct.experience_level || 'N/A'}}
+                                </p>
+
+                                <!-- Project Type -->
+                                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Project Type:</b> {{selectedProduct.project_type || 'N/A'}}
+                                </p>
+
+                                <!-- Turnaround Time -->
+                                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Turnaround Time:</b> {{selectedProduct.turnaround_time || 'N/A'}}
+                                </p>
+
+                                <!-- Revisions Included -->
+                                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Revisions Included:</b> {{selectedProduct.revisions_included || 'N/A'}}
+                                </p>
+
+                                <!-- File Formats -->
+                                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>File Formats:</b> {{selectedProduct.file_formats || 'N/A'}}
+                                </p>
+
+                                <!-- Usage Rights -->
+                                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Usage Rights:</b> {{selectedProduct.usage_rights || 'N/A'}}
+                                </p>
+
+                                <!-- Course Format -->
+                                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Course Format:</b> {{selectedProduct.course_format || 'N/A'}}
+                                </p>
+
+                                <!-- Class Size -->
+                                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Class Size:</b> {{selectedProduct.class_size || 'N/A'}}
+                                </p>
+
+                                <!-- Materials Included -->
+                                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Materials Included:</b> {{selectedProduct.materials_included || 'N/A'}}
+                                </p>
+
+                                <!-- Prerequisites -->
+                                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Prerequisites:</b> {{selectedProduct.prerequisites || 'N/A'}}
+                                </p>
+
+                                <!-- Vehicle Type -->
+                                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Vehicle Type:</b> {{selectedProduct.vehicle_type || 'N/A'}}
+                                </p>
+
+                                <!-- Parts Included -->
+                                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Parts Included:</b> {{selectedProduct.parts_included || 'N/A'}}
+                                </p>
+
+                                <!-- Loaner Vehicle -->
+                                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Loaner Vehicle:</b> {{selectedProduct.loaner_vehicle || 'N/A'}}
+                                </p>
+
+                                <!-- Project Scope -->
+                                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Project Scope:</b> {{selectedProduct.project_scope || 'N/A'}}
+                                </p>
+
+                                <!-- License Number -->
+                                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>License Number:</b> {{selectedProduct.license_number || 'N/A'}}
+                                </p>
+
+                                <!-- Insurance Coverage -->
+                                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Insurance Coverage:</b> {{selectedProduct.insurance_coverage || 'N/A'}}
+                                </p>
+
+                                <!-- Permit Handling -->
+                                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Permit Handling:</b> {{selectedProduct.permit_handling || 'N/A'}}
+                                </p>
+
+                                <!-- Warranty Period -->
+                                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Warranty Period:</b> {{selectedProduct.warranty_period || 'N/A'}}
+                                </p>
+
+                                <!-- Capacity -->
+                                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Capacity:</b> {{selectedProduct.capacity || 'N/A'}}
+                                </p>
+
+                                <!-- Age Restriction -->
+                                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Age Restriction:</b> {{selectedProduct.age_restriction || 'N/A'}}
+                                </p>
+
+                                <!-- Equipment Provided -->
+                                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Equipment Provided:</b> {{selectedProduct.equipment_provided || 'N/A'}}
+                                </p>
+
+                                <!-- Catering Options -->
+                                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Catering Options:</b> {{selectedProduct.catering_options || 'N/A'}}
+                                </p>
+
+                                <!-- Parking Availability -->
+                                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Parking Availability:</b> {{selectedProduct.parking_availability || 'N/A'}}
+                                </p>
+
+                                <!-- Construction Project Type -->
+                                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Construction Project Type:</b> {{selectedProduct.cons_project_type || 'N/A'}}
+                                </p>
+
+                                <!-- Service Scope -->
+                                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Service Scope:</b> {{selectedProduct.service_scope || 'N/A'}}
+                                </p>
+
+                                <!-- Payment Term -->
+                                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Payment Term:</b> {{selectedProduct.payment_term || 'N/A'}}
+                                </p>
+
+                                <!-- Coverage Type -->
+                                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Coverage Type:</b> {{selectedProduct.coverage_type || 'N/A'}}
+                                </p>
+
+                                <!-- Policy Term -->
+                                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Policy Term:</b> {{selectedProduct.policy_term || 'N/A'}}
+                                </p>
+
+                                <!-- Premium Frequency -->
+                                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Premium Frequency:</b> {{selectedProduct.premium_frequency || 'N/A'}}
+                                </p>
+
+                                <!-- Deductible Amount -->
+                                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Deductible Amount:</b> {{selectedProduct.deductible_amount || 'N/A'}}
+                                </p>
+
+                                <!-- Coverage Limit -->
+                                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Coverage Limit:</b> {{selectedProduct.coverage_limit || 'N/A'}}
+                                </p>
+
+                                <!-- Account Type -->
+                                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Account Type:</b> {{selectedProduct.account_type || 'N/A'}}
+                                </p>
+
+                                <!-- Minimum Balance -->
+                                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Minimum Balance:</b> {{selectedProduct.minimum_balance || 'N/A'}}
+                                </p>
+
+                                <!-- Interest Rate -->
+                                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Interest Rate:</b> {{selectedProduct.interest_rate || 'N/A'}}
+                                </p>
+
+                                <!-- Fees -->
+                                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Fees:</b> {{selectedProduct.fees || 'N/A'}}
+                                </p>
+
+                                <!-- Transaction Limit -->
+                                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Transaction Limit:</b> {{selectedProduct.transaction_limit || 'N/A'}}
+                                </p>
+
+                                <!-- Property Types -->
+                                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Property Types:</b> {{selectedProduct.property_types || 'N/A'}}
+                                </p>
+
+                                <!-- Service Level -->
+                                <p *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8"
+                                    class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Service Level:</b> {{selectedProduct.service_level || 'N/A'}}
+                                </p>
+
+                                <!-- Management Fee -->
+                                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Management Fee:</b> {{selectedProduct.management_fee || 'N/A'}}
+                                </p>
+
+                                <!-- Response Time -->
+                                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Response Time:</b> {{selectedProduct.response_time || 'N/A'}}
+                                </p>
+
+                                <!-- Geographic Area -->
+                                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <b>Geographic Area:</b> {{selectedProduct.geographic_area || 'N/A'}}
+                                </p>
+
+                                <div class="mt-4 flex items-center gap-2">
+                                    <div class="flex items-center gap-0.5">
+                                        <igc-rating [value]="selectedProduct.avgRating" class="text-yellow-300"
+                                            disabled></igc-rating>
+                                    </div>
+                                    <p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+                                        ({{selectedProduct.unRoundedAvgRating | number:'1.2-2'}})</p>
+                                    <a href="#"
+                                        class="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
+                                        {{selectedProduct.noOfRatings}} Reviews </a>
+                                </div>
+
+                                <div class="mt-2 min-w-0 flex-1 space-y-3">
+                                    <div class="flex items-center gap-2">
+                                        <p
+                                            class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+                                            5</p>
+                                        <svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                                        </svg>
+                                        <div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+                                            <div class="h-1.5 rounded-full bg-yellow-300"
+                                                [style.width.%]="selectedProduct.fiveStar"></div>
+                                        </div>
+                                        <a href="#"
+                                            class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.five}}
+                                            <span class="hidden sm:inline">reviews</span></a>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <p
+                                            class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+                                            4</p>
+                                        <svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                                        </svg>
+                                        <div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+                                            <div class="h-1.5 rounded-full bg-yellow-300"
+                                                [style.width.%]="selectedProduct.fourStar"></div>
+                                        </div>
+                                        <a href="#"
+                                            class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.four}}
+                                            <span class="hidden sm:inline">reviews</span></a>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <p
+                                            class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+                                            3</p>
+                                        <svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                                        </svg>
+                                        <div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+                                            <div class="h-1.5 rounded-full bg-yellow-300"
+                                                [style.width.%]="selectedProduct.threeStar"></div>
+                                        </div>
+                                        <a href="#"
+                                            class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.three}}
+                                            <span class="hidden sm:inline">reviews</span></a>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <p
+                                            class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+                                            2</p>
+                                        <svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                                        </svg>
+                                        <div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+                                            <div class="h-1.5 rounded-full bg-yellow-300"
+                                                [style.width.%]="selectedProduct.twoStar"></div>
+                                        </div>
+                                        <a href="#"
+                                            class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.two}}
+                                            <span class="hidden sm:inline">reviews</span></a>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <p
+                                            class="w-2 shrink-0 text-start font-medium leading-none text-gray-900 dark:text-white">
+                                            1</p>
+                                        <svg class="h-4 w-4 shrink-0 text-yellow-300" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                                        </svg>
+                                        <div class="h-1.5 w-80 rounded-full bg-gray-200 dark:bg-gray-700">
+                                            <div class="h-1.5 rounded-full bg-yellow-300"
+                                                [style.width.%]="selectedProduct.oneStar"></div>
+                                        </div>
+                                        <a href="#"
+                                            class="w-8 shrink-0 text-right font-medium leading-none text-blue-700 hover:underline dark:text-blue-500 sm:w-auto sm:text-left">{{selectedProduct.one}}
+                                            <span class="hidden sm:inline">reviews</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-between p-2 items-center rounded-t border-t dark:border-gray-600">
+                        <button type="button" (click)="hideDialog()"
+                            class="text-white bg-red-700 hover:bg-gray-200 hover:text-gray-900 rounded-lg  p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="createProductModal">
+                            <i class="fa fa-close mr-2 ml-2"></i> Close
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 </div>

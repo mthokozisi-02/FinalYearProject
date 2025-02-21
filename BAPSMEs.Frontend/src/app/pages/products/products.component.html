@@ -44,49 +44,86 @@
     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
     <div class="flex-1 flex items-center space-x-2">
         <h5>
-            <span class="text-gray-500 text-2xl">All Products:</span>
+            <span class="text-gray-500 text-2xl">All Services:</span>
         </h5>
     </div>
 </div>
 
 <div *ngIf="createModal" class="py-4 md:py-4">
     <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b xl:mb-5 dark:border-gray-600">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Product</h3>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Service</h3>
     </div>
     <!-- Modal body -->
     <form [formGroup]="productForm" (submit)="addProduct()" style="padding:2vw; background-color:#f3f7f5">
         <div class="grid gap-4 mb-4 xl:grid-cols-2">
             <div>
-                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
-                    Name</label>
-                <input type="text" id="name" formControlName="name"
-                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type product name" required="">
-            </div>
-            <div>
                 <label for="category" class="block mb-2 font-medium text-gray-900 dark:text-white">Category</label>
                 <select (change)="onSelection($event)"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="">Select Category</option>
                     <option *ngFor="let category of categories" [value]="category.id">
                         {{category.name}}</option>
                 </select>
             </div>
-            <div *ngIf="showSubCategories">
-                <label for="category" class="block mb-2 font-medium text-gray-900 dark:text-white">Sub
+            <div>
+                <label for="sub_category_id" class="block mb-2 font-medium text-gray-900 dark:text-white">Sub
                     Category</label>
-                <select id="sub_category_id" formControlName="sub_category_id"
+                <select (change)="onsubSelection($event)" id="sub_category_id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="">Select Sub Category</option>
                     <option *ngFor="let category of filteredSubCategories" [value]="category.id">
                         {{category.name}}</option>
                 </select>
             </div>
-            <div>
-                <label for="brand" class="block mb-2 font-medium text-gray-900 dark:text-white">Quantity</label>
-                <input type="number" id="quantity" formControlName="quantity"
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="service_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Type</label>
+                <select formControlName="service_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="">Product/Service</option>
+                    <option value="Product">Menu Item</option>
+                    <option value="Service">Catering Service</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==1">
+                <label for="cons_project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                    Type</label>
+                <select formControlName="cons_project_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="New Build">New Build</option>
+                    <option value="Renovation">Renovation</option>
+                    <option value="Repair">Repair</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="product_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
+                    Type</label>
+                <select formControlName="product_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="">Physical/Digital</option>
+                    <option value="Product">Physical</option>
+                    <option value="Service">Digital Service</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                    Type</label>
+                <input type="text" id="project_type" formControlName="project_type"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Quantity" required="">
+                    placeholder="Specific service focus" required="">
+            </div>
+            <div *ngIf="selectedCategoryOption == 9">
+                <label for="project_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                    Scope</label>
+                <input type="text" id="project_scope" formControlName="project_scope"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Size/Type of projects handled" required="">
+            </div>
+
+            <div>
+                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Name</label>
+                <input type="text" id="name" formControlName="name"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Type product name" required="">
             </div>
             <div>
                 <label for="price" class="block mb-2 font-medium text-gray-900 dark:text-white">Price</label>
@@ -94,15 +131,440 @@
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="$0.00" required="">
             </div>
-            <div class="xl:col-span-2">
-                <label for="description"
-                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
-                <textarea id="description" formControlName="description" rows="4"
-                    class="block p-2.5 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Write product description here">
-                                    </textarea>
+            <div *ngIf="selectedSubCategoryOption ==1">
+                <label for="service_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Scope</label>
+                <select formControlName="service_scope"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Full Project Management">Full Project Management</option>
+                    <option value="Consultation-only">Consultation-only</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="preparation_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Preparation
+                    Time</label>
+                <input type="number" id="preparation_time" formControlName="preparation_time"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Time needed to prepare/deliver/mins" required="">
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="minimum_order" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
+                    Order</label>
+                <input type="number" id="minimum_order" formControlName="minimum_order"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Minimum quantity/amount required">
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="delivery_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
+                    Options</label>
+                <input type="text" id="delivery_options" formControlName="delivery_options"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Available delivery methods">
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="dietary_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Dietary
+                    Information</label>
+                <input type="text" id="dietary_information" formControlName="dietary_information"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Special dietary considerations">
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="inventory_status" class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
+                    Status</label>
+                <select formControlName="inventory_status"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Available">Available</option>
+                    <option value="Out of Stock">Out of Stock</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="shipping_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
+                    Options</label>
+                <input type="text" id="shipping_options" formControlName="shipping_options"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Available shipping methods">
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="return_policy" class="block mb-2 font-medium text-gray-900 dark:text-white">Return
+                    Policy</label>
+                <select formControlName="return_policy"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Return">Return</option>
+                    <option value="Exchange terms">Exchange terms</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                    Information</label>
+                <input type="text" id="warranty_information" formControlName="warranty_information"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Product warranty details">
+            </div>
+            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1">
+                <label for="service_duration" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Duration</label>
+                <input type="number" id="service_duration" formControlName="service_duration"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Length of service/mins">
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="location_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Location
+                    Type</label>
+                <select formControlName="location_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="On-Site">On-Site</option>
+                    <option value="Off-Site">Off-Site</option>
+                    <option value="Virtual">Virtual</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment
+                    Required</label>
+                <select formControlName="appointment"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="service_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Area</label>
+                <input type="text" id="service_area" formControlName="service_area"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Geographic coverage">
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="qualification"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Qualification</label>
+                <input type="text" id="qualification" formControlName="qualification"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Professional certifications">
+            </div>
+            <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7">
+                <label for="expertise_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Expertise
+                    Level</label>
+                <select formControlName="expertise_level"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="session_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Session
+                    Format</label>
+                <select formControlName="session_format"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Individual">Individual</option>
+                    <option value="Group">Group</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="language_support" class="block mb-2 font-medium text-gray-900 dark:text-white">Language
+                    support</label>
+                <input type="text" id="language_support" formControlName="language_support"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Language Support">
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="certifications"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Certifications</label>
+                <input type="text" id="certifications" formControlName="certifications"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Professional qualification">
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="experience_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Experience
+                    Level</label>
+                <input type="text" id="experience_level" formControlName="experience_level"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Years in practise/months">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="turnaround_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Turnaround
+                    Time</label>
+                <input type="text" id="turnaround_time" formControlName="turnaround_time"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Expected completion time">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="revisions_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Revisions
+                    Included</label>
+                <input type="text" id="revisions_included" formControlName="revisions_included"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Number of revisions">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="file_formats" class="block mb-2 font-medium text-gray-900 dark:text-white">File
+                    formats</label>
+                <input type="text" id="file_formats" formControlName="file_formats"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Available output formats">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="usage_rights" class="block mb-2 font-medium text-gray-900 dark:text-white">Usage
+                    Rights</label>
+                <input type="text" id="usage_rights" formControlName="usage_rights"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Client usage permissions">
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="course_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Course
+                    Format</label>
+                <select formControlName="course_format"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Online">Online</option>
+                    <option value="In-Person">In-Person</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="class_size" class="block mb-2 font-medium text-gray-900 dark:text-white">Class Size</label>
+                <input type="number" id="class_size" formControlName="class_size"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Maximum number of students">
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="materials_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Materials
+                    Included</label>
+                <input type="string" id="materials_included" formControlName="materials_included"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="What`s provided">
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="prerequisites"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Prerequisites</label>
+                <input type="string" id="prerequisites" formControlName="prerequisites"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Required knowledge/skills">
+            </div>
+
+
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="vehicle_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Vehicle
+                    Types</label>
+                <input type="text" id="vehicle_type" formControlName="vehicle_type"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Supported vehicle categories">
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Level</label>
+                <select formControlName="service_level"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Basic">Basic</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                    Offered</label>
+                <input type="text" id="warranty_information" formControlName="warranty_information"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Service guarantees">
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="parts_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Parts
+                    Included</label>
+                <input type="text" id="parts_included" formControlName="parts_included"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="What`s covered">
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="loaner_vehicle" class="block mb-2 font-medium text-gray-900 dark:text-white">Loaner
+                    Vehicle</label>
+                <input type="text" id="loaner_vehicle" formControlName="loaner_vehicle"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Availability and conditions">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9">
+                <label for="license_number" class="block mb-2 font-medium text-gray-900 dark:text-white">License
+                    Number</label>
+                <input type="text" id="license_number" formControlName="license_number"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Professional licenses">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9">
+                <label for="insurance_coverage" class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance
+                    Coverage</label>
+                <input type="text" id="insurance_coverage" formControlName="insurance_coverage"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Liability insurance details">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9">
+                <label for="permit_handling" class="block mb-2 font-medium text-gray-900 dark:text-white">Permit
+                    Handling</label>
+                <input type="text" id="permit_handling" formControlName="permit_handling"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Permit acquisition services">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1">
+                <label for="warranty_period" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                    Period</label>
+                <input type="text" id="warranty_period" formControlName="warranty_period"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Work guarantee duration">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="capacity" class="block mb-2 font-medium text-gray-900 dark:text-white">Capacity</label>
+                <input type="number" id="capacity" formControlName="capacity"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Maimum number of guests">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="age_restriction" class="block mb-2 font-medium text-gray-900 dark:text-white">Age
+                    Restrictions</label>
+                <input type="number" id="age_restriction" formControlName="age_restriction"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Applicable age limits">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="equipment_provided" class="block mb-2 font-medium text-gray-900 dark:text-white">Equipment
+                    Provided</label>
+                <input type="text" id="equipment_provided" formControlName="equipment_provided"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Included amenities">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="catering_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Catering
+                    Options</label>
+                <select formControlName="catering_options"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Food">Food</option>
+                    <option value="Beverage Policies">Beverage Policies</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="parking_availability" class="block mb-2 font-medium text-gray-900 dark:text-white">Parking
+                    Availability</label>
+                <input type="text" id="parking_availability" formControlName="parking_availability"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Parking information">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==1">
+                <label for="payment_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Payment
+                    Terms</label>
+                <select formControlName="payment_term"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Milestone-based">Milestone-based</option>
+                    <option value="Progressive">Progressive</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="coverage_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
+                    Type</label>
+                <select formControlName="coverage_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Property">Property</option>
+                    <option value="Liability">Liability</option>
+                    <option value="Life">Life</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="policy_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Policy
+                    Term</label>
+                <input type="text" id="policy_term" formControlName="policy_term"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Length of coverage period">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="premium_frequency" class="block mb-2 font-medium text-gray-900 dark:text-white">Premium
+                    Frequency</label>
+                <input type="text" id="premium_frequency" formControlName="premium_frequency"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Payment schedule options">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="deductible_amount" class="block mb-2 font-medium text-gray-900 dark:text-white">Deductible
+                    Amount</label>
+                <input type="number" id="deductible_amount" formControlName="deductible_amount"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Payment schedule options">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="coverage_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
+                    Limit</label>
+                <input type="number" id="coverage_limit" formControlName="coverage_limit"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Maximum payout amount">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="account_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Account
+                    Type</label>
+                <select formControlName="account_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Personal">Property</option>
+                    <option value="Business">Business</option>
+                    <option value="Investment">Investment</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="minimum_balance" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
+                    Balance</label>
+                <input type="number" id="minimum_balance" formControlName="minimum_balance"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Required minimum balance">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="interest_rate" class="block mb-2 font-medium text-gray-900 dark:text-white">Interest
+                    Rate</label>
+                <input type="number" id="interest_rate" formControlName="interest_rate"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="APY/APR">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="fees" class="block mb-2 font-medium text-gray-900 dark:text-white">Fees</label>
+                <input type="number" id="fees" formControlName="fees"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Associated charges">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="transaction_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Transaction
+                    Limit</label>
+                <input type="number" id="transaction_limit" formControlName="transaction_limit"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Daily/Weekly limits">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="property_types" class="block mb-2 font-medium text-gray-900 dark:text-white">Property
+                    Types</label>
+                <input type="text" id="property_types" formControlName="property_types"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="What types of properties managed">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Level</label>
+                <select formControlName="service_level"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Full">Full</option>
+                    <option value="Partial Management">Partial Management</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="geographic_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Geographic
+                    Area</label>
+                <input type="text" id="geographic_area" formControlName="geographic_area"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Service coverage area">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="management_fee" class="block mb-2 font-medium text-gray-900 dark:text-white">Management
+                    Fee</label>
+                <input type="number" id="management_fee" formControlName="management_fee"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Percentage/Flat rate">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="response_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Response
+                    Time</label>
+                <input type="text" id="response_time" formControlName="response_time"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Emergency response guarantee">
             </div>
         </div>
+
+
         <div class="mb-4">
             <span class="block mb-2 font-medium text-gray-900 dark:text-white">Product
                 Images</span>
@@ -168,8 +630,7 @@
         </div>
         <div class="items-center space-y-4 xl:flex xl:space-y-0 xl:space-x-4">
             <button type="submit" data-modal-target="createProductModal" data-modal-toggle="createProductModal"
-                class="w-full justify-center text-white inline-flex bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-primary-800"
-                [disabled]="!productForm.valid">Add
+                class="w-full justify-center text-white inline-flex bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-primary-800">Add
                 Product</button>
             <button type="button" (click)="clear()"
                 class="w-full justify-center text-white inline-flex bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancel</button>
@@ -210,25 +671,494 @@
                         {{category.name}}</option>
                 </select>
             </div>
-            <div>
-                <label for="brand" class="block mb-2 font-medium text-gray-900 dark:text-white">Quantity</label>
-                <input type="number" id="quantity" formControlName="quantity"
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="service_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Type</label>
+                <select formControlName="service_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="">Product/Service</option>
+                    <option value="Product">Menu Item</option>
+                    <option value="Service">Catering Service</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==1">
+                <label for="cons_project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                    Type</label>
+                <select formControlName="cons_project_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="New Build">New Build</option>
+                    <option value="Renovation">Renovation</option>
+                    <option value="Repair">Repair</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="product_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
+                    Type</label>
+                <select formControlName="product_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="">Physical/Digital</option>
+                    <option value="Product">Physical</option>
+                    <option value="Service">Digital Service</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                    Type</label>
+                <input type="text" id="project_type" formControlName="project_type"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Quantity" required="">
+                    placeholder="Specific service focus" required="">
+            </div>
+            <div *ngIf="selectedCategoryOption == 9">
+                <label for="project_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                    Scope</label>
+                <input type="text" id="project_scope" formControlName="project_scope"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Size/Type of projects handled" required="">
+            </div>
+
+            <div>
+                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Name</label>
+                <input type="text" id="name" formControlName="name"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Type product name" required="">
             </div>
             <div>
                 <label for="price" class="block mb-2 font-medium text-gray-900 dark:text-white">Price</label>
                 <input type="number" id="price" formControlName="price"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="$2999" required="">
+                    placeholder="$0.00" required="">
             </div>
-            <div class="xl:col-span-2">
-                <label for="description"
-                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
-                <textarea id="description" formControlName="description" rows="4"
-                    class="block p-2.5 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Write product description here">
-                                </textarea>
+            <div *ngIf="selectedSubCategoryOption ==1">
+                <label for="service_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Scope</label>
+                <select formControlName="service_scope"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Full Project Management">Full Project Management</option>
+                    <option value="Consultation-only">Consultation-only</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="preparation_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Preparation
+                    Time</label>
+                <input type="number" id="preparation_time" formControlName="preparation_time"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Time needed to prepare/deliver/mins" required="">
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="minimum_order" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
+                    Order</label>
+                <input type="number" id="minimum_order" formControlName="minimum_order"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Minimum quantity/amount required">
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="delivery_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
+                    Options</label>
+                <input type="text" id="delivery_options" formControlName="delivery_options"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Available delivery methods">
+            </div>
+            <div *ngIf="selectedCategoryOption == 2">
+                <label for="dietary_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Dietary
+                    Information</label>
+                <input type="text" id="dietary_information" formControlName="dietary_information"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Special dietary considerations">
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="inventory_status" class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
+                    Status</label>
+                <select formControlName="inventory_status"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Available">Available</option>
+                    <option value="Out of Stock">Out of Stock</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="shipping_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
+                    Options</label>
+                <input type="text" id="shipping_options" formControlName="shipping_options"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Available shipping methods">
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="return_policy" class="block mb-2 font-medium text-gray-900 dark:text-white">Return
+                    Policy</label>
+                <select formControlName="return_policy"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Return">Return</option>
+                    <option value="Exchange terms">Exchange terms</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3">
+                <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                    Information</label>
+                <input type="text" id="warranty_information" formControlName="warranty_information"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Product warranty details">
+            </div>
+            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1">
+                <label for="service_duration" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Duration</label>
+                <input type="number" id="service_duration" formControlName="service_duration"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Length of service/mins">
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="location_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Location
+                    Type</label>
+                <select formControlName="location_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="On-Site">On-Site</option>
+                    <option value="Off-Site">Off-Site</option>
+                    <option value="Virtual">Virtual</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment
+                    Required</label>
+                <select formControlName="appointment"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="service_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Area</label>
+                <input type="text" id="service_area" formControlName="service_area"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Geographic coverage">
+            </div>
+            <div *ngIf="selectedCategoryOption == 4">
+                <label for="qualification"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Qualification</label>
+                <input type="text" id="qualification" formControlName="qualification"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Professional certifications">
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="expertise_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Expertise
+                    Level</label>
+                <select formControlName="expertise_level"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="session_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Session
+                    Format</label>
+                <select formControlName="session_format"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Individual">Individual</option>
+                    <option value="Group">Group</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="language_support" class="block mb-2 font-medium text-gray-900 dark:text-white">Language
+                    support</label>
+                <input type="text" id="language_support" formControlName="language_support"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Language Support">
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="certifications"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Certifications</label>
+                <input type="text" id="certifications" formControlName="certifications"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Professional qualification">
+            </div>
+            <div *ngIf="selectedCategoryOption == 5">
+                <label for="experience_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Experience
+                    Level</label>
+                <input type="text" id="experience_level" formControlName="experience_level"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Years in practise/months">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="turnaround_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Turnaround
+                    Time</label>
+                <input type="text" id="turnaround_time" formControlName="turnaround_time"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Expected completion time">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="revisions_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Revisions
+                    Included</label>
+                <input type="text" id="revisions_included" formControlName="revisions_included"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Number of revisions">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="file_formats" class="block mb-2 font-medium text-gray-900 dark:text-white">File
+                    formats</label>
+                <input type="text" id="file_formats" formControlName="file_formats"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Available output formats">
+            </div>
+            <div *ngIf="selectedCategoryOption == 6">
+                <label for="usage_rights" class="block mb-2 font-medium text-gray-900 dark:text-white">Usage
+                    Rights</label>
+                <input type="text" id="usage_rights" formControlName="usage_rights"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Client usage permissions">
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="course_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Course
+                    Format</label>
+                <select formControlName="course_format"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Online">Online</option>
+                    <option value="In-Person">In-Person</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="class_size" class="block mb-2 font-medium text-gray-900 dark:text-white">Class Size</label>
+                <input type="number" id="class_size" formControlName="class_size"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Maximum number of students">
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="materials_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Materials
+                    Included</label>
+                <input type="string" id="materials_included" formControlName="materials_included"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="What`s provided">
+            </div>
+            <div *ngIf="selectedCategoryOption == 7">
+                <label for="prerequisites"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Prerequisites</label>
+                <input type="string" id="prerequisites" formControlName="prerequisites"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Required knowledge/skills">
+            </div>
+
+
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="vehicle_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Vehicle
+                    Types</label>
+                <input type="text" id="vehicle_type" formControlName="vehicle_type"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Supported vehicle categories">
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Level</label>
+                <select formControlName="service_level"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Basic">Basic</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8">
+                <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                    Offered</label>
+                <input type="text" id="warranty_information" formControlName="warranty_information"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Service guarantees">
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="parts_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Parts
+                    Included</label>
+                <input type="text" id="parts_included" formControlName="parts_included"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="What`s covered">
+            </div>
+            <div *ngIf="selectedCategoryOption == 8">
+                <label for="loaner_vehicle" class="block mb-2 font-medium text-gray-900 dark:text-white">Loaner
+                    Vehicle</label>
+                <input type="text" id="loaner_vehicle" formControlName="loaner_vehicle"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Availability and conditions">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9">
+                <label for="license_number" class="block mb-2 font-medium text-gray-900 dark:text-white">License
+                    Number</label>
+                <input type="text" id="license_number" formControlName="license_number"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Professional licenses">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9">
+                <label for="insurance_coverage" class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance
+                    Coverage</label>
+                <input type="text" id="insurance_coverage" formControlName="insurance_coverage"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Liability insurance details">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9">
+                <label for="permit_handling" class="block mb-2 font-medium text-gray-900 dark:text-white">Permit
+                    Handling</label>
+                <input type="text" id="permit_handling" formControlName="permit_handling"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Permit acquisition services">
+            </div>
+            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1">
+                <label for="warranty_period" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                    Period</label>
+                <input type="text" id="warranty_period" formControlName="warranty_period"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Work guarantee duration">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="capacity" class="block mb-2 font-medium text-gray-900 dark:text-white">Capacity</label>
+                <input type="number" id="capacity" formControlName="capacity"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Maimum number of guests">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="age_restriction" class="block mb-2 font-medium text-gray-900 dark:text-white">Age
+                    Restrictions</label>
+                <input type="number" id="age_restriction" formControlName="age_restriction"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Applicable age limits">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="equipment_provided" class="block mb-2 font-medium text-gray-900 dark:text-white">Equipment
+                    Provided</label>
+                <input type="text" id="equipment_provided" formControlName="equipment_provided"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Included amenities">
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="catering_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Catering
+                    Options</label>
+                <select formControlName="catering_options"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Food">Food</option>
+                    <option value="Beverage Policies">Beverage Policies</option>
+                </select>
+            </div>
+            <div *ngIf="selectedCategoryOption ==10">
+                <label for="parking_availability" class="block mb-2 font-medium text-gray-900 dark:text-white">Parking
+                    Availability</label>
+                <input type="text" id="parking_availability" formControlName="parking_availability"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Parking information">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==1">
+                <label for="payment_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Payment
+                    Terms</label>
+                <select formControlName="payment_term"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Milestone-based">Milestone-based</option>
+                    <option value="Progressive">Progressive</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="coverage_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
+                    Type</label>
+                <select formControlName="coverage_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Property">Property</option>
+                    <option value="Liability">Liability</option>
+                    <option value="Life">Life</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="policy_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Policy
+                    Term</label>
+                <input type="text" id="policy_term" formControlName="policy_term"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Length of coverage period">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="premium_frequency" class="block mb-2 font-medium text-gray-900 dark:text-white">Premium
+                    Frequency</label>
+                <input type="text" id="premium_frequency" formControlName="premium_frequency"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Payment schedule options">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="deductible_amount" class="block mb-2 font-medium text-gray-900 dark:text-white">Deductible
+                    Amount</label>
+                <input type="number" id="deductible_amount" formControlName="deductible_amount"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Payment schedule options">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==2">
+                <label for="coverage_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
+                    Limit</label>
+                <input type="number" id="coverage_limit" formControlName="coverage_limit"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Maximum payout amount">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="account_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Account
+                    Type</label>
+                <select formControlName="account_type"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Personal">Property</option>
+                    <option value="Business">Business</option>
+                    <option value="Investment">Investment</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="minimum_balance" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
+                    Balance</label>
+                <input type="number" id="minimum_balance" formControlName="minimum_balance"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Required minimum balance">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="interest_rate" class="block mb-2 font-medium text-gray-900 dark:text-white">Interest
+                    Rate</label>
+                <input type="number" id="interest_rate" formControlName="interest_rate"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="APY/APR">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="fees" class="block mb-2 font-medium text-gray-900 dark:text-white">Fees</label>
+                <input type="number" id="fees" formControlName="fees"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Associated charges">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==3">
+                <label for="transaction_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Transaction
+                    Limit</label>
+                <input type="number" id="transaction_limit" formControlName="transaction_limit"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Daily/Weekly limits">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="property_types" class="block mb-2 font-medium text-gray-900 dark:text-white">Property
+                    Types</label>
+                <input type="text" id="property_types" formControlName="property_types"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="What types of properties managed">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                    Level</label>
+                <select formControlName="service_level"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Full">Full</option>
+                    <option value="Partial Management">Partial Management</option>
+                </select>
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="geographic_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Geographic
+                    Area</label>
+                <input type="text" id="geographic_area" formControlName="geographic_area"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Service coverage area">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="management_fee" class="block mb-2 font-medium text-gray-900 dark:text-white">Management
+                    Fee</label>
+                <input type="number" id="management_fee" formControlName="management_fee"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Percentage/Flat rate">
+            </div>
+            <div *ngIf="selectedSubCategoryOption ==4">
+                <label for="response_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Response
+                    Time</label>
+                <input type="text" id="response_time" formControlName="response_time"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Emergency response guarantee">
             </div>
         </div>
         <div class="items-center space-y-4 xl:flex xl:space-y-0 xl:space-x-4">
@@ -251,7 +1181,7 @@
                     <i class="fa fa-search mr-3"></i>
                 </div>
                 <input type="text" #filter id="simple-search" (input)="searchProducts(filter.value)"
-                    placeholder="Search for products" required=""
+                    placeholder="Search for services" required=""
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 <button type="submit" (click)="searchProducts(filter.value)"
                     class="absolute top-0 end-0 p-2.5 font-medium h-full text-white bg-green-700 rounded-e-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
@@ -270,7 +1200,7 @@
         <button type="button" id="createProductButton" (click)="showModal()"
             class="flex items-center justify-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-primary-800">
             <i class="fa fa-plus mr-3"></i>
-            Add product
+            Add Service
         </button>
     </div>
 </div>
@@ -281,9 +1211,7 @@
             <tr>
                 <th scope="col" class="p-4">Product</th>
                 <th scope="col" class="p-4">Category</th>
-                <th scope="col" class="p-4">Description</th>
                 <th scope="col" class="p-4">Price</th>
-                <th scope="col" class="p-4">Quantity</th>
                 <th scope="col" class="p-4">Image</th>
                 <th scope="col" class="p-4">Created On</th>
                 <th scope="col" class="p-4">Last Update</th>
@@ -303,11 +1231,7 @@
                         class="bg-green-100 text-primary-800 font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-primary-300">{{item.sub_category_name}}</span>
                 </td>
                 <td class="px-4 py-3">
-                    {{item.description | truncate:4 }}</td>
-                <td class="px-4 py-3">
                     {{item.price | currency}}</td>
-                <td class="px-4 py-3">
-                    {{item.quantity}}</td>
                 <td class="px-4 py-3"><img [src]="item?.image_url" class="w-16 md:w-32 max-w-full max-h-full">
                 </td>
                 <td class="px-4 py-3">{{
@@ -362,21 +1286,50 @@
                     <form [formGroup]="productForm" (submit)="updateProduct()">
                         <div class="grid gap-4 mb-4 xl:grid-cols-2">
                             <div>
-                                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
-                                    Name</label>
-                                <span class="text-green-700">{{selectedProduct.name}}</span>
-                                <hr>
-                            </div>
-                            <div>
                                 <label for="category"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Category</label>
                                 <span class="text-green-700">{{selectedProduct.sub_category_name}}</span>
                                 <hr>
                             </div>
+                            <div *ngIf="selectedCategoryOption == 2">
+                                <label for="service_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.service_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==1">
+                                <label for="cons_project_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.cons_project_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 3">
+                                <label for="product_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Product
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.product_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 6">
+                                <label for="project_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.project_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 9">
+                                <label for="project_scope"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Project
+                                    Scope</label>
+                                <span class="text-green-700">{{selectedProduct.project_scope}}</span>
+                                <hr>
+                            </div>
                             <div>
-                                <label for="brand"
-                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Quantity</label>
-                                <span class="text-green-700">{{selectedProduct.quantity}}</span>
+                                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                                    Name</label>
+                                <span class="text-green-700">{{selectedProduct.name}}</span>
                                 <hr>
                             </div>
                             <div>
@@ -385,15 +1338,393 @@
                                 <span class="text-green-700">{{selectedProduct.price | currency}}</span>
                                 <hr>
                             </div>
-                            <div class="xl:col-span-2">
-                                <label for="description"
-                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
+                            <div *ngIf="selectedSubCategoryOption ==1">
+                                <label for="service_scope"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                                    Scope</label>
+                                <span class="text-green-700">{{selectedProduct.service_scope}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 2">
+                                <label for="preparation_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Preparation
+                                    Time</label>
+                                <span class="text-green-700">{{selectedProduct.preparation_time}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 2">
+                                <label for="minimum_order"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
+                                    Order</label>
+                                <span class="text-green-700">{{selectedProduct.minimum_order}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 2">
+                                <label for="delivery_options"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
+                                    Options</label>
+                                <span class="text-green-700">{{selectedProduct.delivery_options}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 2">
+                                <label for="dietary_information"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Dietary
+                                    Information</label>
+                                <span class="text-green-700">{{selectedProduct.dietary_information}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 3">
+                                <label for="inventory_status"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
+                                    Status</label>
+                                <span class="text-green-700">{{selectedProduct.inventory_status}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 3">
+                                <label for="shipping_options"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
+                                    Options</label>
+                                <span class="text-green-700">{{selectedProduct.shipping_options}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 3">
+                                <label for="return_policy"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Return
+                                    Policy</label>
+                                <span class="text-green-700">{{selectedProduct.return_policy}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8">
+                                <label for="warranty_information"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                                    Information</label>
+                                <span class="text-green-700">{{selectedProduct.warranty_information}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1">
+                                <label for="service_duration"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                                    Duration</label>
+                                <span class="text-green-700">{{selectedProduct.service_duration}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 4">
+                                <label for="location_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Location
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.location_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 4">
+                                <label for="appointment"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment
+                                    Required</label>
+                                <span class="text-green-700">{{selectedProduct.appointment}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 4">
+                                <label for="service_area"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                                    Area</label>
+                                <span class="text-green-700">{{selectedProduct.service_area}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 4">
+                                <label for="qualification"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Qualification</label>
+                                <span class="text-green-700">{{selectedProduct.qualification}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7">
+                                <label for="expertise_level"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Expertise
+                                    Level</label>
+                                <span class="text-green-700">{{selectedProduct.expertise_level}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 5">
+                                <label for="session_format"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Session
+                                    Format</label>
+                                <span class="text-green-700">{{selectedProduct.session_format}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 5">
+                                <label for="language_support"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Language
+                                    support</label>
+                                <span class="text-green-700">{{selectedProduct.language_support}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 5">
+                                <label for="certifications"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Certifications</label>
+                                <span class="text-green-700">{{selectedProduct.certifications}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 5">
+                                <label for="experience_level"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Experience
+                                    Level</label>
+                                <span class="text-green-700">{{selectedProduct.experience_level}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 6">
+                                <label for="turnaround_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Turnaround
+                                    Time</label>
+                                <span class="text-green-700">{{selectedProduct.turnaround_time}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 6">
+                                <label for="revisions_included"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Revisions
+                                    Included</label>
+                                <span class="text-green-700">{{selectedProduct.revisions_included}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 6">
+                                <label for="file_formats"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">File
+                                    formats</label>
+                                <span class="text-green-700">{{selectedProduct.file_formats}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 6">
+                                <label for="usage_rights"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Usage
+                                    Rights</label>
+                                <span class="text-green-700">{{selectedProduct.usage_rights}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 7">
+                                <label for="course_format"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Course
+                                    Format</label>
+                                <span class="text-green-700">{{selectedProduct.course_format}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 7">
+                                <label for="class_size"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Class Size</label>
+                                <span class="text-green-700">{{selectedProduct.class_size}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 7">
+                                <label for="materials_included"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Materials
+                                    Included</label>
+                                <span class="text-green-700">{{selectedProduct.materials_included}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 7">
+                                <label for="prerequisites"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Prerequisites</label>
+                                <span class="text-green-700">{{selectedProduct.prerequisites}}</span>
+                                <hr>
+                            </div>
 
-                                <ng-container
-                                    *ngFor="let chunk of splitDescription(selectedProduct.description, 18); let first = first">
-                                    <span class="text-green-700">{{ chunk }}</span>
-                                    <hr>
-                                </ng-container>
+
+                            <div *ngIf="selectedCategoryOption == 8">
+                                <label for="vehicle_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Vehicle
+                                    Types</label>
+                                <span class="text-green-700">{{selectedProduct.vehicle_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8">
+                                <label for="service_level"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                                    Level</label>
+                                <span class="text-green-700">{{selectedProduct.service_level}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 8">
+                                <label for="warranty_information"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                                    Offered</label>
+                                <span class="text-green-700">{{selectedProduct.warranty_information}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 8">
+                                <label for="parts_included"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Parts
+                                    Included</label>
+                                <span class="text-green-700">{{selectedProduct.parts_included}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption == 8">
+                                <label for="loaner_vehicle"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Loaner
+                                    Vehicle</label>
+                                <span class="text-green-700">{{selectedProduct.loaner_vehicle}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==9">
+                                <label for="license_number"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">License
+                                    Number</label>
+                                <span class="text-green-700">{{selectedProduct.license_number}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==9">
+                                <label for="insurance_coverage"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance
+                                    Coverage</label>
+                                <span class="text-green-700">{{selectedProduct.insurance_coverage}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==9">
+                                <label for="permit_handling"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Permit
+                                    Handling</label>
+                                <span class="text-green-700">{{selectedProduct.permit_handling}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1">
+                                <label for="warranty_period"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                                    Period</label>
+                                <span class="text-green-700">{{selectedProduct.warranty_period}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==10">
+                                <label for="capacity"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Capacity</label>
+                                <span class="text-green-700">{{selectedProduct.capacity}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==10">
+                                <label for="age_restriction"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Age
+                                    Restrictions</label>
+                                <span class="text-green-700">{{selectedProduct.age_restriction}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==10">
+                                <label for="equipment_provided"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Equipment
+                                    Provided</label>
+                                <span class="text-green-700">{{selectedProduct.equipment_provided}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==10">
+                                <label for="catering_options"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Catering
+                                    Options</label>
+                                <span class="text-green-700">{{selectedProduct.catering_options}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedCategoryOption ==10">
+                                <label for="parking_availability"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Parking
+                                    Availability</label>
+                                <span class="text-green-700">{{selectedProduct.parking_availability}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==1">
+                                <label for="payment_term"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Payment
+                                    Terms</label>
+                                <span class="text-green-700">{{selectedProduct.payment_term}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==2">
+                                <label for="coverage_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.coverage_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==2">
+                                <label for="policy_term"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Policy
+                                    Term</label>
+                                <span class="text-green-700">{{selectedProduct.policy_term}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==2">
+                                <label for="premium_frequency"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Premium
+                                    Frequency</label>
+                                <span class="text-green-700">{{selectedProduct.premium_frequency}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==2">
+                                <label for="deductible_amount"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Deductible
+                                    Amount</label>
+                                <span class="text-green-700">{{selectedProduct.deductible_amount}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==2">
+                                <label for="coverage_limit"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
+                                    Limit</label>
+                                <span class="text-green-700">{{selectedProduct.coverage_limit}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==3">
+                                <label for="account_type"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Account
+                                    Type</label>
+                                <span class="text-green-700">{{selectedProduct.account_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==3">
+                                <label for="minimum_balance"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
+                                    Balance</label>
+                                <span class="text-green-700">{{selectedProduct.minimum_balance}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==3">
+                                <label for="interest_rate"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Interest
+                                    Rate</label>
+                                <span class="text-green-700">{{selectedProduct.interest_rate}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==3">
+                                <label for="fees"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Fees</label>
+                                <span class="text-green-700">{{selectedProduct.fees}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==3">
+                                <label for="transaction_limit"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Transaction
+                                    Limit</label>
+                                <span class="text-green-700">{{selectedProduct.transaction_limit}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==4">
+                                <label for="property_types"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Property
+                                    Types</label>
+                                <span class="text-green-700">{{selectedProduct.property_types}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==4">
+                                <label for="geographic_area"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Geographic
+                                    Area</label>
+                                <span class="text-green-700">{{selectedProduct.geographic_area}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==4">
+                                <label for="management_fee"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Management
+                                    Fee</label>
+                                <span class="text-green-700">{{selectedProduct.management_fee}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedSubCategoryOption ==4">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Response
+                                    Time</label>
+                                <span class="text-green-700">{{selectedProduct.response_time}}</span>
+                                <hr>
                             </div>
 
                         </div>
