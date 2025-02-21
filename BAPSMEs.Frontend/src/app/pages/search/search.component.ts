@@ -7,7 +7,9 @@ import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { CartService, ProductsService, SearchService, SellerRegistrationService, SubCategoriesService, WishListService } from '../../tools/services';
+import { BookService } from '../../tools/services/book.service';
 import { CategoriesService } from '../../tools/services/categories.service';
+import { EnquiryService } from '../../tools/services/enquiry.service';
 
 
 @Component({
@@ -65,6 +67,8 @@ export class SearchComponent implements OnInit {
 
   selectedSubCategoryOption: any
 
+  notifications = []
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -74,7 +78,9 @@ export class SearchComponent implements OnInit {
     private cartService: CartService,
     private productService: ProductsService,
     private wishlistServie: WishListService,
-    private sellerService: SellerRegistrationService
+    private sellerService: SellerRegistrationService,
+    private enquiryService: EnquiryService,
+    private bookingService: BookService
   ) { }
 
   ngOnInit(): void {
@@ -82,7 +88,23 @@ export class SearchComponent implements OnInit {
 
     this.role = sessionStorage.getItem('loggedUserRole') || '{}';
 
-
+    this.enquiryService.getSellerEnquiries().subscribe((res) => {
+      console.log('enquiries', res.data)
+      res.data.filter(x => x.received == "false").forEach(enquiry => {
+        enquiry.type = 'New Enquiry'
+        this.notifications = []
+        this.notifications = [...this.notifications, enquiry]
+      })
+      console.log('notifications', this.notifications)
+    });
+    this.bookingService.getSellerBookings().subscribe((res) => {
+      console.log('bookings', res.data)
+      res.data.filter(x => x.received == "false").forEach(booking => {
+        booking.type = 'New Booking'
+        this.notifications = [...this.notifications, booking]
+      })
+      console.log('notifications', this.notifications)
+    });
 
     this.cartService.updateTotal.subscribe((resp) => {
       if (resp) {

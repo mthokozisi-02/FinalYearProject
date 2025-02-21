@@ -85,25 +85,31 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 							<i class="fa fa-bell"></i>
 							<span>Notifications</span>
-							<div class="qty bg-blue-600">{{ wishlistCount}}</div>
+							<div class="qty bg-blue-600">{{ notifications.length}}</div>
 						</a>
 						<div class="cart-dropdown">
 							<div>
 
-								@for (item of wishlist; track $index) {
+								@for (item of notifications; track $index) {
 
 								<div class="product-widget border border-gray-200 shadow-md">
-									<div class="ml-3 p-4 overflow-hidden">
-										<p class="font-medium text-gray-900">Jan Doe</p>
+									<div *ngIf="item.type == 'New Enquiry'" class="p-2 bg-blue-100 overflow-hidden">
+										<p class="font-medium text-gray-900">{{item.type}}</p>
 										<p class="max-w-xs text-sm text-gray-500 truncate">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet,
-											laborum?
+											{{item.user.name}} at {{item.created_at | date : 'MMM d, y'}}
 										</p>
 									</div>
-									<button class="delete bg-red-700" (click)="removeItemFromWishlist(item)"><i
-											class="fa fa-close"></i></button>
+								</div>
+								<div class="product-widget border border-gray-200 shadow-md">
+									<div *ngIf="item.type == 'New Enquiry'" class="p-2 bg-blue-100 overflow-hidden">
+										<p class="font-medium text-gray-900">{{item.type}}</p>
+										<p class="max-w-xs text-sm text-gray-500 truncate">
+											{{item.user.name}} at {{item.created_at | date : 'MMM d, y'}}
+										</p>
+									</div>
 								</div>
 								}
+
 							</div>
 						</div>
 					</div>
