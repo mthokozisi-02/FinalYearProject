@@ -81,6 +81,33 @@
 						</div>
 					</div>
 
+					<div class="ml-8 dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<i class="fa fa-bell"></i>
+							<span>Notifications</span>
+							<div class="qty bg-blue-600">{{ wishlistCount}}</div>
+						</a>
+						<div class="cart-dropdown">
+							<div>
+
+								@for (item of wishlist; track $index) {
+
+								<div class="product-widget border border-gray-200 shadow-md">
+									<div class="ml-3 p-4 overflow-hidden">
+										<p class="font-medium text-gray-900">Jan Doe</p>
+										<p class="max-w-xs text-sm text-gray-500 truncate">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet,
+											laborum?
+										</p>
+									</div>
+									<button class="delete bg-red-700" (click)="removeItemFromWishlist(item)"><i
+											class="fa fa-close"></i></button>
+								</div>
+								}
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<!-- /ACCOUNT -->
