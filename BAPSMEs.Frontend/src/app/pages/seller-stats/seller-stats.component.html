@@ -166,7 +166,6 @@
                         <th scope="col" class="p-4">Enquiry</th>
                         <th scope="col" class="p-4">Urgency</th>
                         <th scope="col" class="p-4">Date</th>
-                        <th scope="col" class="p-4"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -200,15 +199,6 @@
                             {{item.urgency_level}}</td>
                         <td class="px-4 py-3">
                             {{item.created_at | date : 'MMM d, y'}}</td>
-                        <td class="px-4 py-3">
-                            <div class="flex items-center space-x-4">
-                                <button type="button" (click)="view(item)" data-modal-target="viewProductModal"
-                                    data-modal-toggle="viewProductModal" aria-controls="drawer-read-product-advanced"
-                                    class="py-2 px-3 flex items-center font-medium text-center text-white focus:outline-none bg-blue-700 rounded-lg border border-blue-700 hover:bg-white hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-700 dark:bg-blue-800 dark:text-blue-400 dark:border-blue-600 dark:hover:text-white dark:hover:bg-blue-700">
-                                    Read
-                                </button>
-                            </div>
-                        </td>
                     </tr>
                 </tbody>
             </table>

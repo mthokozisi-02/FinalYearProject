@@ -16,6 +16,10 @@ export class SellerEnquiriesComponent {
 
   enquiries: Enquire[] = []
 
+  selectedSubCategoryOption: any
+
+  selectedCategoryOption: any
+
   viewEnquiry = false;
 
   viewEnquiries = false
@@ -106,13 +110,16 @@ export class SellerEnquiriesComponent {
     this.selectedEnquiry = item
     this.viewEnquiry = true
     this.viewEnquiries = false
+    this.selectedSubCategoryOption = item.sub_category_id
+    this.selectedCategoryOption = item.sub_category.category_id
 
-    if (item.received == false) {
+    if (item.received == 'false') {
       this.Received(item)
     }
   }
 
   Received(item: any) {
+    console.log('entereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
     this.enquiryService
       .updateStatus(item.id)
       .subscribe(

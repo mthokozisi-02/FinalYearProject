@@ -6,10 +6,12 @@ import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
+import { Roles } from '../../tools/models';
 import { CartService, ProductsService, SearchService, SellerRegistrationService, SubCategoriesService, WishListService } from '../../tools/services';
 import { BookService } from '../../tools/services/book.service';
 import { CategoriesService } from '../../tools/services/categories.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
+import { SharedService } from '../../tools/services/shared.service';
 
 
 @Component({
@@ -80,7 +82,8 @@ export class SearchComponent implements OnInit {
     private wishlistServie: WishListService,
     private sellerService: SellerRegistrationService,
     private enquiryService: EnquiryService,
-    private bookingService: BookService
+    private bookingService: BookService,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -88,23 +91,25 @@ export class SearchComponent implements OnInit {
 
     this.role = sessionStorage.getItem('loggedUserRole') || '{}';
 
-    this.enquiryService.getSellerEnquiries().subscribe((res) => {
-      console.log('enquiries', res.data)
-      this.notifications = []
-      res.data.filter(x => x.received == "false").forEach(enquiry => {
-        enquiry.type = 'New Enquiry'
-        this.notifications = [...this.notifications, enquiry]
-      })
-      console.log('notifications', this.notifications)
-    });
-    this.bookingService.getSellerBookings().subscribe((res) => {
-      console.log('bookings', res.data)
-      res.data.filter(x => x.received == "false").forEach(booking => {
-        booking.type = 'New Booking'
-        this.notifications = [...this.notifications, booking]
-      })
-      console.log('notifications', this.notifications)
-    });
+    if (this.role == Roles.SELLER) {
+      this.enquiryService.getSellerEnquiries().subscribe((res) => {
+        console.log('enquiries', res.data)
+        this.notifications = []
+        res.data.filter(x => x.received == "false").forEach(enquiry => {
+          enquiry.type = 'New Enquiry'
+          this.notifications = [...this.notifications, enquiry]
+        })
+        console.log('notifications', this.notifications)
+      });
+      this.bookingService.getSellerBookings().subscribe((res) => {
+        console.log('bookings', res.data)
+        res.data.filter(x => x.received == "false").forEach(booking => {
+          booking.type = 'New Booking'
+          this.notifications = [...this.notifications, booking]
+        })
+        console.log('notifications', this.notifications)
+      });
+    }
 
     this.cartService.updateTotal.subscribe((resp) => {
       if (resp) {
@@ -197,7 +202,8 @@ export class SearchComponent implements OnInit {
 
   addTowishList(item) {
     this.cartService.success('Item added to wishlist');
-    return this.wishlistServie.addToCart(item, item.price, 1)
+    this.wishlistServie.addToCart(item, item.price, 1)
+    this.sharedService.triggerRefresh();
   }
 
   searchProducts(item: any) {
@@ -243,7 +249,6 @@ export class SearchComponent implements OnInit {
 
   checkIfExist(item) {
     this.currentWishlist = this.wishlistServie.getCurrentCart()
-    console.log('wishlist', this.currentWishlist)
     const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
       return this.currentWishlist[index].quantity;
@@ -306,6 +311,7 @@ export class SearchComponent implements OnInit {
 
 
   getWishListItems() {
+    console.log('counttttttttttttttttttttttttttttttttttttttttttttttttttttttt')
     this.wishlistServie.updateTotal.subscribe((resp) => {
       if (resp) {
         this.wishlist = this.wishlistServie.getCurrentCart();
@@ -318,6 +324,7 @@ export class SearchComponent implements OnInit {
 
   removeItemFromWishlist(item) {
     this.wishlistServie.removeFromCart(item)
+    this.sharedService.triggerRefresh();
   }
 
   viewImage(item: any) {

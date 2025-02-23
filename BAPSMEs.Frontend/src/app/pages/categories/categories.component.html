@@ -1,6 +1,6 @@
 <!-- SECTION -->
-<div class="2xl:section 2xl:mx-auto lg:py-5 lg:px-18 md:py-10 md:px-10 py-7 px-2">
-	<div class="mb-4">
+<div class="2xl:section 2xl:mx-auto lg:py-5 lg:px-18 md:py-10 md:px-10 py-7 px-2 overflow-hidden">
+	<div class="mb-4" data-aos="fade-right">
 		<h2 class="inline-block text-2xl font-semibold text-black pb-2 mt-3 border-b-4 border-green-700">
 			Diaspora Services</h2>
 	</div>
@@ -9,7 +9,7 @@
 
 		@for (item of subCategories; track $index) {
 
-		<div class="col-md-4 col-xs-6">
+		<div class="col-md-4 col-xs-6" data-aos="fade-up">
 			<div class="shop border-solid border-1 border-green-500 shadow-xl">
 				<div class="shop-img">
 					<img [src]="item.image_url" alt="">

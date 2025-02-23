@@ -357,6 +357,10 @@ export class EnquireComponent implements AfterViewInit {
     this.newEnquiry.experience_level = this.enquireForm.value.experience_level;
     this.newEnquiry.learning_goals = this.enquireForm.value.learning_goals;
 
+    this.newEnquiry.property_information = this.enquireForm.value.property_information;
+    this.newEnquiry.additional_information = this.enquireForm.value.additional_information;
+    this.newEnquiry.preferred_time_frame = this.enquireForm.value.preferred_time_frame;
+
     // Automotive
 
     this.newEnquiry.product_id = this.product.id

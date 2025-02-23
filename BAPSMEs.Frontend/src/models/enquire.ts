@@ -72,7 +72,7 @@ export interface Enquire {
 
     // Automotive fields
     vehicle_information?: string;
-    serviceType_interest?: string;
+    service_type_interest?: string;
     preferred_time_frame?: string;
 
     // Home fields

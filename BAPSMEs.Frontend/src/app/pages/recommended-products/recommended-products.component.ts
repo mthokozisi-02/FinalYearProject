@@ -8,6 +8,7 @@ import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { CartService, ProductsService, SearchService, SellerRegistrationService, SubCategoriesService, WishListService } from '../../tools/services';
 import { CategoriesService } from '../../tools/services/categories.service';
+import { SharedService } from '../../tools/services/shared.service';
 
 @Component({
   selector: 'app-recommended-products',
@@ -76,15 +77,18 @@ export class RecommendedProductsComponent implements OnInit {
     private productService: ProductsService,
     private wishlistServie: WishListService,
     private sellerService: SellerRegistrationService,
-    private wishlistService: WishListService
-  ) { }
+    private wishlistService: WishListService,
+    private sharedService: SharedService
+  ) {
+    this.sharedService.getRefreshObservable().subscribe(() => {
+      this.refresh();
+    });
+  }
 
   ngOnInit(): void {
     this.getWishListItems()
 
     this.role = sessionStorage.getItem('loggedUserRole') || '{}';
-
-
 
     this.cartService.updateTotal.subscribe((resp) => {
       if (resp) {
@@ -98,16 +102,27 @@ export class RecommendedProductsComponent implements OnInit {
     this.cartTotalAmount = this.cartService.getTotal();
     this.currentCart = this.currentCart.slice(0, 2);
 
+
+
     this.categoryService.getAllList().subscribe((res) => {
       this.categories = res.data;
       console.log('categories:', this.categories);
     });
+    this.refresh();
 
+    this.subCategoryService.getAllList().subscribe((res) => {
+      this.subCategories = res.data;
+      this.filteredSubCategories = this.subCategories
+      console.log('sub categories:', this.subCategories);
+    })
+  }
+
+  refresh() {
     this.wishlist = this.wishlistService.getCurrentCart()
-    console.log(' enetered wishlist', this.wishlist)
-    this.id = this.wishlist[this.wishlist.length - 1].id;
+    console.log('forrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr enetered wishlist', this.wishlist)
 
     if (this.wishlist.length != 0) {
+      this.id = this.wishlist[this.wishlist.length - 1].id;
       this.subCategoryService.getAllList().subscribe((res) => {
         this.subCategories = res.data;
         console.log('categories:', this.subCategories);
@@ -168,6 +183,7 @@ export class RecommendedProductsComponent implements OnInit {
       });
     }
     else {
+      console.log('enterrrrrrrrrrrrrrrrrrrrr')
       this.subCategoryService.getAllList().subscribe((res) => {
         this.subCategories = res.data;
         console.log('categories:', this.subCategories);
@@ -226,14 +242,6 @@ export class RecommendedProductsComponent implements OnInit {
         });
       });
     }
-
-
-
-    this.subCategoryService.getAllList().subscribe((res) => {
-      this.subCategories = res.data;
-      this.filteredSubCategories = this.subCategories
-      console.log('sub categories:', this.subCategories);
-    })
   }
 
   updateCart(item: any) {
@@ -263,7 +271,6 @@ export class RecommendedProductsComponent implements OnInit {
 
   checkIfExist(item) {
     this.currentWishlist = this.wishlistServie.getCurrentCart()
-    console.log('wishlist', this.currentWishlist)
     const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
       return this.currentWishlist[index].quantity;

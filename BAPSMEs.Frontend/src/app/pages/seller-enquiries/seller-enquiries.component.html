@@ -106,58 +106,244 @@
     <form style="padding:2vw; background-color:#f3f7f5">
         <div class="grid grid-cols-12 gap-6 mb-4">
             <div class="col-span-8">
-                <div class="grid grid-cols-12">
-                    <div class="col-span-6 p-6 space-y-6">
-                        <div>
-                            <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
-                                Name</label>
-                            <span class="text-green-700">{{selectedEnquiry.product_name}}</span>
+                <div class="grid gap-4 mb-4 xl:grid-cols-2">
+                    <div>
+                        <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Category</label>
+                        <span class="text-green-700">{{selectedEnquiry.sub_category_name}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Product
+                            Name</label>
+                        <span class="text-green-700">{{selectedEnquiry.product_name}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="preferred_contact_method"
+                            class="block mb-2 font-medium text-gray-900 dark:text-white">Preferred Contact
+                            Method</label>
+                        <span class="text-green-700">{{selectedEnquiry.preferred_contact_method}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="enquiry_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Enquiry
+                            Type</label>
+                        <span class="text-green-700">{{selectedEnquiry.enquiry_type}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="urgency_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Urgency
+                            Level</label>
+                        <span class="text-green-700">{{selectedEnquiry.urgency_level}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 2">
+                        <label for="insurance_type"
+                            class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance Type</label>
+                        <span class="text-green-700">{{selectedEnquiry.insurance_type}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 1 || selectedCategoryOption == 6">
+                        <label for="project_details" class="text-lg font-medium text-gray-900 block mb-2">Project
+                            Details</label>
+                        <span class="text-green-700">{{selectedEnquiry.project_details}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 1">
+                        <label for="payment_schedule" class="text-lg font-medium text-gray-900 block mb-2">Payment
+                            Schedule</label>
+                        <span class="text-green-700">{{selectedEnquiry.payment_schedule}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 4">
+                        <label for="preferred_location" class="text-lg font-medium text-gray-900 block mb-2">Preferred
+                            Location</label>
+                        <span class="text-green-700">{{selectedEnquiry.preferred_location}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedSubCategoryOption == 3">
+                        <label for="service_interest" class="text-lg font-medium text-gray-900 block mb-2">Service
+                            Interest</label>
+                        <span class="text-green-700">{{selectedEnquiry.service_interest}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 3">
+                        <label for="account_requirements" class="text-lg font-medium text-gray-900 block mb-2">Account
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedEnquiry.account_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 3">
+                        <label for="transaction_requirements"
+                            class="text-lg font-medium text-gray-900 block mb-2">Transaction Requirements</label>
+                        <span class="text-green-700">{{selectedEnquiry.transaction_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 3 || selectedCategoryOption == 5">
+                        <label for="documentation_needed"
+                            class="text-lg font-medium text-gray-900 block mb-2">Documentation Needed</label>
+                        <span class="text-green-700">{{selectedEnquiry.documentation_needed}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedSubCategoryOption == 4">
+                        <label for="management_duration" class="text-lg font-medium text-gray-900 block mb-2">Management
+                            Duration</label>
+                        <span class="text-green-700">{{selectedEnquiry.management_duration}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 6">
+                        <label for="style_references" class="text-lg font-medium text-gray-900 block mb-2">Style
+                            References</label>
+                        <span class="text-green-700">{{selectedEnquiry.style_references}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 2">
+                        <label for="cuisine_preference" class="text-lg font-medium text-gray-900 block mb-2">Cuisine
+                            Preference</label>
+                        <span class="text-green-700">{{selectedEnquiry.cuisine_preference}}</span>
+                        <hr>
+                    </div>
+                    <div
+                        *ngIf="selectedSubCategoryOption == 1 || selectedSubCategoryOption == 9 || selectedSubCategoryOption == 4 || selectedCategoryOption == 2|| selectedCategoryOption == 4 || selectedCategoryOption == 5 || selectedCategoryOption == 6">
+                        <label for="budget_range" class="text-lg font-medium text-gray-900 block mb-2">Budget
+                            Range</label>
+                        <span class="text-green-700">{{selectedEnquiry.budget_range}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 2">
+                        <label for="special_occasion_details"
+                            class="text-lg font-medium text-gray-900 block mb-2">Special Occasion Details</label>
+                        <span class="text-green-700">{{selectedEnquiry.special_occasion_details}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedCategoryOption == 3">
+                        <label for="price_range" class="text-lg font-medium text-gray-900 block mb-2">Price
+                            Range</label>
+                        <span class="text-green-700">{{selectedEnquiry.price_range}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 7">
+                        <label for="availability_requirements"
+                            class="text-lg font-medium text-gray-900 block mb-2">Availability Requirements</label>
+                        <span class="text-green-700">{{selectedEnquiry.availability_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 3">
+                        <label for="customization_needs"
+                            class="text-lg font-medium text-gray-900 block mb-2">Customization Needs</label>
+                        <span class="text-green-700">{{selectedEnquiry.customization_needs}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedCategoryOption == 4 || selectedCategoryOption == 5">
+                        <label for="service_requirements" class="text-lg font-medium text-gray-900 block mb-2">Service
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedEnquiry.service_requirements}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="area_of_interest" class="text-lg font-medium text-gray-900 block mb-2">Subject/Area
+                            of Interest</label>
+                        <span class="text-green-700">{{selectedEnquiry.area_of_interest}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="experience_level" class="text-lg font-medium text-gray-900 block mb-2">Experience
+                            Level</label>
+                        <span class="text-green-700">{{selectedEnquiry.experience_level}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="learning_goals" class="text-lg font-medium text-gray-900 block mb-2">Learning
+                            Goals</label>
+                        <span class="text-green-700">{{selectedEnquiry.learning_goals}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedCategoryOption == 8">
+                        <label for="vehicle_information" class="text-lg font-medium text-gray-900 block mb-2">Vehicle
+                            Information</label>
+                        <span class="text-green-700">{{selectedEnquiry.vehicle_information}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 8">
+                        <label for="service_type_interest" class="text-lg font-medium text-gray-900 block mb-2">Service
+                            Type Interest</label>
+                        <span class="text-green-700">{{selectedEnquiry.service_type_interest}}</span>
+                        <hr>
+                    </div>
+                    <div
+                        *ngIf="selectedSubCategoryOption == 1 || selectedCategoryOption == 9 || selectedSubCategoryOption == 4 || selectedCategoryOption == 2|| selectedCategoryOption == 4 || selectedCategoryOption == 5 || selectedCategoryOption == 6 || selectedCategoryOption == 8">
+                        <label for="preferred_time_frame" class="text-lg font-medium text-gray-900 block mb-2">Timeline
+                            Preference</label>
+                        <span class="text-green-700">{{selectedEnquiry.preferred_time_frame}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedCategoryOption == 9">
+                        <label for="project_type" class="text-lg font-medium text-gray-900 block mb-2">Project
+                            Type</label>
+                        <span class="text-green-700">{{selectedEnquiry.project_type}}</span>
+                        <hr>
+                    </div>
+                    <div
+                        *ngIf="selectedSubCategoryOption == 1 || selectedSubCategoryOption == 4 || selectedCategoryOption == 9">
+                        <label for="property_information" class="text-lg font-medium text-gray-900 block mb-2">Property
+                            Details</label>
+                        <span class="text-green-700">{{selectedEnquiry.property_information}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="event_type" class="text-lg font-medium text-gray-900 block mb-2">Event
+                            Type</label>
+                        <span class="text-green-700">{{selectedEnquiry.event_type}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="guest_information" class="text-lg font-medium text-gray-900 block mb-2">Guest
+                            Information</label>
+                        <span class="text-green-700">{{selectedEnquiry.guest_information}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="special_requirements" class="text-lg font-medium text-gray-900 block mb-2">Special
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedEnquiry.special_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">
+                            Preferred Date <i style="color: grey;">(*if applicable)</i>
+                        </label>
+
+                        <div class="flex gap-4">
+                            <!-- Date Input -->
+                            <span class="text-green-700">{{selectedEnquiry.preferred_date}}</span>
                             <hr>
-                        </div>
-                        <div>
-                            <label for="category"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Category</label>
-                            <span class="text-green-700">{{selectedEnquiry.sub_category_name}}</span>
-                            <hr>
-                        </div>
-                        <div>
-                            <label for="category"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Quantity</label>
-                            <span class="text-green-700">{{selectedEnquiry.quantity}}</span>
+
+                            <!-- Time Input -->
+                            <span class="text-green-700">{{selectedEnquiry.preferred_time}}</span>
                             <hr>
                         </div>
                     </div>
-                    <div class="col-span-6 p-6 space-y-6">
-                        <div>
-                            <label for="category"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Price</label>
-                            <span class="text-green-700">{{selectedEnquiry.total_price | currency}}</span>
-                            <hr>
-                        </div>
-                        <div>
-                            <label for="category"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Date</label>
-                            <span class="text-green-700">{{selectedEnquiry.date | date : 'MMM d, y'}}</span>
-                            <hr>
-                        </div>
-                        <div>
-                            <label for="category"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Time</label>
-                            <span class="text-green-700">{{selectedEnquiry.time}}</span>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="col-span-12 p-6 space-y-6">
-                        <div class="xl:col-span-2">
-                            <label for="description"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
-                            <ng-container
-                                *ngFor="let chunk of splitDescription(selectedEnquiry.message, 13); let first = first">
-                                <span class="text-green-700">{{ chunk }}</span>
-                                <hr>
-                            </ng-container>
-                        </div>
-                    </div>
+
+
+                </div>
+                <div class="col-span-6 sm:col-span-2  mb-4">
+                    <label for="additional_information" class="text-lg font-medium text-gray-900 block mb-2">Additional
+                        Information</label>
+                    <ng-container
+                        *ngFor="let chunk of splitDescription(selectedEnquiry.additional_information, 13); let first = first">
+                        <span class="text-green-700">{{ chunk }}</span>
+                        <hr>
+                    </ng-container>
                 </div>
             </div>
             <div class="col-span-4 border border-4 rounded-lg shadow p-6 space-y-6">
