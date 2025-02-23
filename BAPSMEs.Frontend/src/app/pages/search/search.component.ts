@@ -267,7 +267,7 @@ export class SearchComponent implements OnInit {
     console.log(this.selectedCategory)
     console.log(this.products)
 
-    this.filteredProducts = this.products.filter(x => x.subcategory.id == this.selectedCategory)
+    this.filteredProducts = this.products.filter(x => x.subcategory.category_id == this.selectedCategory)
     console.log(this.filteredProducts)
 
     // this.filteredSubCategories = this.subCategories.filter(x => x.category_id == selectedCategory)
