@@ -1,7 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IgcRatingComponent, defineComponents } from 'igniteui-webcomponents';
 import { Observable } from 'rxjs';
 import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
@@ -12,18 +11,14 @@ import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { BuyerRegistrationService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
 import { BookService } from '../../tools/services/book.service';
-import { EnquiryService } from '../../tools/services/enquiry.service';
 import { RatingService } from '../../tools/services/rating.service';
 
-defineComponents(IgcRatingComponent);
-
 @Component({
-  selector: 'app-enquire',
-  templateUrl: './enquire.component.html',
-  styleUrl: './enquire.component.css'
+  selector: 'app-book',
+  templateUrl: './book.component.html',
+  styleUrl: './book.component.css'
 })
-export class EnquireComponent implements AfterViewInit {
-
+export class BookComponent {
 
   product: Products = {} as Products
 
@@ -89,7 +84,7 @@ export class EnquireComponent implements AfterViewInit {
 
   totalStars = 0
 
-  constructor(private productService: ProductsService, private bookingService: BookService, private enquiryService: EnquiryService, private subCatgeorySevice: SubCategoriesService,
+  constructor(private productService: ProductsService, private bookingService: BookService, private subCatgeorySevice: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
@@ -97,75 +92,52 @@ export class EnquireComponent implements AfterViewInit {
     this.ratingForm = new FormGroup({
       comment: new FormControl('', [Validators.required]),
     });
-    this.enquireForm = new FormGroup({
-      // Core fields
+
+    this.bookForm = new FormGroup({
+
       preferred_contact_method: new FormControl(''),
       payment_method: new FormControl(''),
-      enquiry_type: new FormControl(''),
-      urgency_level: new FormControl(''),
-      additional_information: new FormControl(''),
-      preferred_time: new FormControl(''),
-      preferred_date: new FormControl(''),
-
-      // Construction fields
+      booking_status: new FormControl('Pending'),
       project_details: new FormControl(''),
+      property_address: new FormControl(''),
+      project_timeline: new FormControl(''),
       payment_schedule: new FormControl(''),
-
-      // Insurance and Banking fields
-      preferred_location: new FormControl(''),
-      insurance_type: new FormControl(''),
-
-      // Common service fields
-      service_interest: new FormControl(''),
-      account_requirements: new FormControl(''),
-      transaction_requirements: new FormControl(''),
-      documentation_needed: new FormControl(''),
-
-      // Property fields
+      appointment_type: new FormControl(''),
       management_duration: new FormControl(''),
-
-      // Food and Beverage fields
-      cuisine_preference: new FormControl(''),
-      budget_range: new FormControl(''),
-      special_occasion_details: new FormControl(''),
-
-      // Retail fields
-      price_range: new FormControl(''),
-      availability_requirements: new FormControl(''),
-      customization_needs: new FormControl(''),
-
-      // Services fields
-      service_requirements: new FormControl(''),
-
-      // Creative Service fields
-      style_references: new FormControl(''),
-
-      // Education fields
-      area_of_interest: new FormControl(''),
-      experience_level: new FormControl(''),
-      learning_goals: new FormControl(''),
-
-      // Automotive fields
-      vehicle_information: new FormControl(''),
-      service_type_interest: new FormControl(''), // Fixed typo: serviceType_interest -> service_type_interest
-      preferred_time_frame: new FormControl(''),
-
-      // Home fields
+      number_of_people: new FormControl(''),
+      special_request: new FormControl(''),
+      dietary_requirements: new FormControl(''),
+      table_preferences: new FormControl(''),
+      quantity: new FormControl(''),
+      size: new FormControl(''),
+      shipping_options: new FormControl(''),
+      address: new FormControl(''),
+      equipment_requirements: new FormControl(''),
+      service_duration: new FormControl(''),
+      location_type: new FormControl(''),
+      special_instructions: new FormControl(''),
+      project_scope: new FormControl(''),
+      required_documentation: new FormControl(''),
+      timeline_requirements: new FormControl(''),
       project_type: new FormControl(''),
-      property_information: new FormControl(''),
-
-      // Entertainment fields
+      deliverable_format: new FormControl(''),
+      revision_requirements: new FormControl(''),
+      style_preference: new FormControl(''),
+      skill_level: new FormControl(''),
+      schedule_requirements: new FormControl(''),
+      class_size: new FormControl(''),
+      prerequisites: new FormControl(''),
+      vehicle_information: new FormControl(''),
+      service_type: new FormControl(''),
+      preferred_date: new FormControl(''),
+      preferred_time: new FormControl(''),
+      property_type: new FormControl(''),
+      budget_range: new FormControl(''),
+      number_of_guests: new FormControl(''),
       event_type: new FormControl(''),
-      guest_information: new FormControl(''),
-      special_requirements: new FormControl('')
-    });
-    this.bookForm = new FormGroup({
-      message: new FormControl('', [Validators.required]),
-      quantity: new FormControl(0, [Validators.required]),
-      location: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required]),
-      time: new FormControl('', [Validators.required]),
-      payment: new FormControl('', [Validators.required]),
+      duration: new FormControl(''),
+      special_requirements: new FormControl(''),
+      additional_information: new FormControl(''),
     });
   }
 
@@ -308,60 +280,50 @@ export class EnquireComponent implements AfterViewInit {
     this.ratingForm.reset();
   }
 
-  enquire() {
-    this.newEnquiry.preferred_date = this.enquireForm.value.preferred_date
-    this.newEnquiry.preferred_time = this.enquireForm.value.preferred_date
-    this.newEnquiry.preferred_location = this.enquireForm.value.preferred_location
-    this.newEnquiry.payment_method = this.enquireForm.value.payment_method
+  book() {
+    this.newBooking.preferred_date = this.bookForm.value.preferred_date;
+    this.newBooking.preferred_time = this.bookForm.value.preferred_time;
+    this.newBooking.payment_method = this.bookForm.value.payment_method;
+    this.newBooking.booking_status = this.bookForm.value.booking_status;
+    this.newBooking.project_details = this.bookForm.value.project_details;
+    this.newBooking.property_address = this.bookForm.value.property_address;
+    this.newBooking.project_timeline = this.bookForm.value.project_timeline;
+    this.newBooking.payment_schedule = this.bookForm.value.payment_schedule;
+    this.newBooking.appointment_type = this.bookForm.value.appointment_type;
+    this.newBooking.management_duration = this.bookForm.value.management_duration;
+    this.newBooking.number_of_people = this.bookForm.value.number_of_people;
+    this.newBooking.special_request = this.bookForm.value.special_request;
+    this.newBooking.dietary_requirements = this.bookForm.value.dietary_requirements;
+    this.newBooking.table_preferences = this.bookForm.value.table_preferences;
+    this.newBooking.quantity = this.bookForm.value.quantity;
+    this.newBooking.size = this.bookForm.value.size;
+    this.newBooking.shipping_options = this.bookForm.value.shipping_options;
+    this.newBooking.address = this.bookForm.value.address;
+    this.newBooking.equipment_requirements = this.bookForm.value.equipment_requirements;
+    this.newBooking.service_duration = this.bookForm.value.service_duration;
+    this.newBooking.location_type = this.bookForm.value.location_type;
+    this.newBooking.special_instructions = this.bookForm.value.special_instructions;
+    this.newBooking.project_scope = this.bookForm.value.project_scope;
+    this.newBooking.required_documentation = this.bookForm.value.required_documentation;
+    this.newBooking.timeline_requirements = this.bookForm.value.timeline_requirements;
+    this.newBooking.project_type = this.bookForm.value.project_type;
+    this.newBooking.deliverable_format = this.bookForm.value.deliverable_format;
+    this.newBooking.revision_requirements = this.bookForm.value.revision_requirements;
+    this.newBooking.style_preference = this.bookForm.value.style_preference;
+    this.newBooking.skill_level = this.bookForm.value.skill_level;
+    this.newBooking.schedule_requirements = this.bookForm.value.schedule_requirements;
+    this.newBooking.class_size = this.bookForm.value.class_size;
+    this.newBooking.prerequisites = this.bookForm.value.prerequisites;
+    this.newBooking.vehicle_information = this.bookForm.value.vehicle_information;
+    this.newBooking.service_type = this.bookForm.value.service_type;
+    this.newBooking.property_type = this.bookForm.value.property_type;
+    this.newBooking.budget_range = this.bookForm.value.budget_range;
+    this.newBooking.number_of_guests = this.bookForm.value.number_of_guests;
+    this.newBooking.event_type = this.bookForm.value.event_type;
+    this.newBooking.duration = this.bookForm.value.duration;
+    this.newBooking.special_requirements = this.bookForm.value.special_requirements;
+    this.newBooking.additional_information = this.bookForm.value.additional_information;
 
-    // Core fields
-    this.newEnquiry.preferred_date = this.enquireForm.value.preferred_date;
-    this.newEnquiry.preferred_time = this.enquireForm.value.preferred_time;
-    this.newEnquiry.preferred_location = this.enquireForm.value.preferred_location;
-    this.newEnquiry.payment_method = this.enquireForm.value.payment_method;
-
-    // Construction fields
-    this.newEnquiry.project_details = this.enquireForm.value.project_details;
-    this.newEnquiry.payment_schedule = this.enquireForm.value.payment_schedule;
-
-    // Insurance and Banking fields
-    this.newEnquiry.insurance_type = this.enquireForm.value.insurance_type;
-
-    // Common service fields
-    this.newEnquiry.service_interest = this.enquireForm.value.service_interest;
-    this.newEnquiry.account_requirements = this.enquireForm.value.account_requirements;
-    this.newEnquiry.transaction_requirements = this.enquireForm.value.transaction_requirements;
-    this.newEnquiry.documentation_needed = this.enquireForm.value.documentation_needed;
-
-    // Property fields
-    this.newEnquiry.management_duration = this.enquireForm.value.management_duration;
-
-    // Food and Beverage fields
-    this.newEnquiry.cuisine_preference = this.enquireForm.value.cuisine_preference;
-    this.newEnquiry.budget_range = this.enquireForm.value.budget_range;
-    this.newEnquiry.special_occasion_details = this.enquireForm.value.special_occasion_details;
-
-    // Retail fields
-    this.newEnquiry.price_range = this.enquireForm.value.price_range;
-    this.newEnquiry.availability_requirements = this.enquireForm.value.availability_requirements;
-    this.newEnquiry.customization_needs = this.enquireForm.value.customization_needs;
-
-    // Services fields
-    this.newEnquiry.service_requirements = this.enquireForm.value.service_requirements;
-
-    // Creative Service fields
-    this.newEnquiry.style_references = this.enquireForm.value.style_references;
-
-    // Education fields
-    this.newEnquiry.area_of_interest = this.enquireForm.value.area_of_interest;
-    this.newEnquiry.experience_level = this.enquireForm.value.experience_level;
-    this.newEnquiry.learning_goals = this.enquireForm.value.learning_goals;
-
-    this.newEnquiry.property_information = this.enquireForm.value.property_information;
-    this.newEnquiry.additional_information = this.enquireForm.value.additional_information;
-    this.newEnquiry.preferred_time_frame = this.enquireForm.value.preferred_time_frame;
-
-    // Automotive
 
     this.newEnquiry.product_id = this.product.id
     this.newEnquiry.sub_category_id = this.product.sub_category_id
@@ -369,9 +331,9 @@ export class EnquireComponent implements AfterViewInit {
     this.newEnquiry.user_id = this.userId
     this.newEnquiry.total_price = (Number(this.product.price))
 
-    console.log('enquiry', this.newEnquiry)
+    console.log('booking', this.newBooking)
 
-    this.enquiryService.enquire(this.newEnquiry).subscribe(
+    this.bookingService.book(this.newBooking).subscribe(
       (res) => {
         console.log('res', res);
 
@@ -379,8 +341,6 @@ export class EnquireComponent implements AfterViewInit {
           alert(res.message);
           this.ngOnInit()
           console.log(res.message);
-          this.selectedFile = null
-          this.selectedFile2 = null
         } else {
           console.log(res.message);
           // Handle the error as needed
@@ -396,45 +356,6 @@ export class EnquireComponent implements AfterViewInit {
     this.enquireForm.reset();
   }
 
-  book() {
-    this.newBooking.date = this.bookForm.value.date
-    this.newBooking.time = this.bookForm.value.time
-    this.newBooking.location = this.bookForm.value.location
-    this.newBooking.payment = this.bookForm.value.payment
-    this.newBooking.quantity = this.bookForm.value.quantity
-    this.newBooking.message = this.bookForm.value.message
-    this.newBooking.product_id = this.product.id
-    this.newBooking.sub_category_id = this.product.sub_category_id
-    this.newBooking.seller_id = this.product.user_id
-    this.newBooking.user_id = this.userId
-    this.newBooking.total_price = (Number(this.product.price)) * this.newBooking.quantity
-
-    console.log('booking', this.newBooking)
-
-    this.bookingService.book(this.newBooking).subscribe(
-      (res) => {
-        console.log('res', res);
-
-        if (res.status == 'created') {
-          alert(res.message);
-          this.ngOnInit()
-          console.log(res.message);
-          this.selectedFile = null
-          this.selectedFile2 = null
-        } else {
-          console.log(res.message);
-          // Handle the error as needed
-        }
-      },
-      (error) => {
-        console.error(error.error.message);
-        console.log('error', error)
-        alert(error.error.message);
-        // Handle the error as needed
-      }
-    );
-    this.bookForm.reset();
-  }
 
   onFileSelected2(event: any) {
     console.log('2')

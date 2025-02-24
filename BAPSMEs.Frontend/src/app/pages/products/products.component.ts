@@ -76,6 +76,8 @@ export class ProductsComponent implements OnInit {
 
   showSubCategories = false
 
+  serviceType: any
+
   role: any
 
   showProducts = false
@@ -184,13 +186,9 @@ export class ProductsComponent implements OnInit {
       this.productForm.value.category = this.categories[0].name
     });
 
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    console.log('subCategories:', this.subCategories);
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-      console.log('subCategories:', this.subCategories_);
-    });
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
     this.filteredSubCategories = this.subCategories_.filter(x => x.category_id == Number(this.selectedCategoryOption))
+
     this.selectedSubCategoryOption = 1
 
     this.productService.getSellerProducts(this.user).subscribe((res) => {
@@ -378,11 +376,11 @@ export class ProductsComponent implements OnInit {
     formData.append('image_url2', this.selectedFile2, this.selectedFile2.name);
     formData.append('image_url3', this.selectedFile3, this.selectedFile3.name);
     formData.append('user_id', this.user);
-    if (this.productForm.value.sub_category_id == 5 || this.productForm.value.sub_category_id == 17 || this.productForm.value.sub_category_id == 18 || this.productForm.value.sub_category_id == 22 || this.productForm.value.sub_category_id == 21 || this.productForm.value.sub_category_id == 1) {
-      formData.append('bookable', 'true');
-    } else {
-      formData.append('bookable', 'false');
-    }
+    // if (this.productForm.value.sub_category_id == 5 || this.productForm.value.sub_category_id == 17 || this.productForm.value.sub_category_id == 18 || this.productForm.value.sub_category_id == 22 || this.productForm.value.sub_category_id == 21 || this.productForm.value.sub_category_id == 1) {
+    //   formData.append('bookable', 'true');
+    // } else {
+    //   formData.append('bookable', 'false');
+    // }
 
     this.productService.create(formData).subscribe(
       (res) => {

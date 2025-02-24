@@ -15,47 +15,47 @@ export class EquipmentCategoriesComponent {
 
   ngOnInit() {
 
-    this.productList = JSON.parse(localStorage.getItem('foodnBeverageSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('foodnBeverageSubCategories'));
   }
 
   showFoodnBeverage() {
-    this.productList = JSON.parse(localStorage.getItem('foodnBeverageSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('foodnBeverageSubCategories'));
   }
 
   showRetail() {
-    this.productList = JSON.parse(localStorage.getItem('retailSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('retailSubCategories'));
   }
 
   showServices() {
-    this.productList = JSON.parse(localStorage.getItem('servicesSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('servicesSubCategories'));
   }
 
   showProfessionalServices() {
-    this.productList = JSON.parse(localStorage.getItem('professionalServicesSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('professionalServicesSubCategories'));
   }
 
   showCreativeServices() {
-    this.productList = JSON.parse(localStorage.getItem('creativeServicesSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('creativeServicesSubCategories'));
   }
 
   showEducation() {
-    this.productList = JSON.parse(localStorage.getItem('educationSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('educationSubCategories'));
   }
 
   showAutomotive() {
-    this.productList = JSON.parse(localStorage.getItem('automotiveSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('automotiveSubCategories'));
   }
 
   showHomeImprovement() {
-    this.productList = JSON.parse(localStorage.getItem('homeImprovementSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('homeImprovementSubCategories'));
   }
 
   showEntertainment() {
-    this.productList = JSON.parse(localStorage.getItem('entertainmentSubCategories'));
+    this.productList = JSON.parse(sessionStorage.getItem('entertainmentSubCategories'));
   }
 
   showHealth() {
-    JSON.parse(localStorage.getItem('healthSubCategories'));
+    JSON.parse(sessionStorage.getItem('healthSubCategories'));
   }
 
   goToCategoryProducts(id: any) {

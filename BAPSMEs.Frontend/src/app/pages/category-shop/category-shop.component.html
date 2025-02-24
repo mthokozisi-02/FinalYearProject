@@ -84,7 +84,7 @@
 
                     <ul class="mt-2 flex items-center gap-4">
 
-                        <li *ngIf="item.appointment == 'no' || item.appointment == null"
+                        <li *ngIf="item.appointment == 'no' || item.appointment == null && item.service_type == 'Service'"
                             class="flex items-center gap-2">
                             <svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" fill="none" viewBox="0 0 24 24">
@@ -92,11 +92,30 @@
                                     stroke-width="2"
                                     d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
                             </svg>
-                            <p class="font-medium text-gray-500 dark:text-gray-400"><b> {{checkIfExist(item)
+                            <p (change)="ngOnInit()" class="font-medium text-gray-500 dark:text-gray-400"><b>
+                                    {{checkIfExist(item)
                                     +
                                     ' '}}</b> in Wishlist</p>
                         </li>
-                        <li *ngIf="item.appointment == 'no' || item.appointment == null"
+                        <li *ngIf="item.appointment == 'yes' || item.service_type == 'Product'"
+                            class="flex items-center gap-2">
+                            <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price
+                                |
+                                currency}}</p>
+                        </li>
+                        <li *ngIf="item.service_type == 'Product'" class="flex items-center gap-2">
+                            <svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                            </svg>
+                            <p (change)="ngOnInit()" class="font-medium text-gray-500 dark:text-gray-400"><b>
+                                    {{checkCart(item)
+                                    +
+                                    ' '}}</b> in Cart</p>
+                        </li>
+                        <li *ngIf="item.appointment == 'no' || item.appointment == null && item.service_type == 'Service'"
                             class="flex items-center gap-2">
                             <svg class="h-5 w-5 text-black dark:text-black" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -104,11 +123,6 @@
                                     d="M8 7V6c0-.6.4-1 1-1h11c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1h-1M3 18v-7c0-.6.4-1 1-1h11c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
                             </svg>
                             <p class="font-medium text-gray-500 dark:text-gray-400">Best Price</p>
-                        </li>
-                        <li *ngIf="item.appointment == 'yes'" class="flex items-center gap-2">
-                            <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price
-                                |
-                                currency}}</p>
                         </li>
                         <li *ngIf="item.appointment == 'yes'" class="flex items-center gap-2">
                             <svg class=" h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -123,8 +137,8 @@
                         </li>
                     </ul>
 
-                    <div *ngIf="item.appointment == 'no' || item.appointment == null"
-                        class="mt-4 flex items-center justify-between gap-4">
+                    <div *ngIf="item.appointment == 'no' || item.appointment == null && item.service_type == 'Service'"
+                        class="mt-4 flex items-center justify-between gap-2">
                         <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{item.price |
                             currency}}</p>
 
@@ -144,14 +158,10 @@
                             Enquire Now
                         </button>
                     </div>
-                    <div *ngIf="item.appointment == 'yes'" class="mt-4 flex items-center justify-between gap-4">
-                        <button type="button" (click)="enquire(item.id)"
+                    <div *ngIf="item.appointment == 'yes'" class="mt-4 flex items-center justify-between gap-2">
+                        <button type="button"
                             class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 18 21">
-                                <path
-                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
-                            </svg>
+                            <i class="fa fa-book-dead text-white mr-2"></i>
                             Book Now
                         </button>
                         <button type="button" (click)="enquire(item.id)"
@@ -168,6 +178,32 @@
                                 </g>
                             </svg>
                             Enquire Now
+                        </button>
+                    </div>
+                    <div *ngIf="item.service_type == 'Product'" class="mt-4 flex items-center justify-between gap-2">
+                        <button type="button" (click)="updateCart(item)"
+                            class="inline-flex items-center rounded-lg bg-orange-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-800 focus:outline-none focus:ring-4  focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+                            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 18 21">
+                                <path
+                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                            </svg>
+                            Add To Cart
+                        </button>
+                        <button type="button" (click)="enquire(item.id)"
+                            class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <svg class="-ms-2 me-2" width="20px" height="20px" viewBox="0 0 512 512" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="Page-1" stroke="white" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Path" fill="white" transform="translate(64.000000, 85.333333)">
+                                        <path
+                                            d="M384,1.42108547e-14 L384,298.666667 L277.333333,298.666667 L277.333333,384 L147.2,298.666667 L1.42108547e-14,298.666667 L1.42108547e-14,1.42108547e-14 L384,1.42108547e-14 Z M341.333333,42.6666667 L42.6666667,42.6666667 L42.6666667,256 L159.941531,256 L234.666667,305.002667 L234.666667,256 L341.333333,256 L341.333333,42.6666667 Z M192.935,201.066667 C199.768368,201.066667 205.414144,203.316644 209.8725,207.816667 C214.330856,212.316689 216.56,217.983299 216.56,224.816667 C216.56,231.5667 214.330856,237.191644 209.8725,241.691667 C205.414144,246.191689 199.768368,248.441667 192.935,248.441667 C185.934965,248.441667 180.226689,246.191689 175.81,241.691667 C171.393311,237.191644 169.185,231.441702 169.185,224.441667 C169.185,217.774967 171.434978,212.212522 175.935,207.754167 C180.435023,203.295811 186.101632,201.066667 192.935,201.066667 Z M202.185,65.0666667 C221.185095,65.0666667 235.643284,69.5666217 245.56,78.5666667 C254.310044,86.6500404 258.685,97.1499354 258.685,110.066667 C258.685,118.81671 256.560021,126.295802 252.31,132.504167 C248.591231,137.936485 242.320454,143.767492 233.497515,149.997322 L229.56,152.691667 C221.226667,158.275028 216.101676,162.545819 214.185,165.504167 C212.268324,168.462515 211.31,173.733295 211.31,181.316667 L211.31,186.441667 L174.435,186.441667 L174.435,175.441667 C174.435,164.85828 175.518323,157.483354 177.685,153.316667 C178.935006,150.899988 180.601656,148.754176 182.685,146.879167 L185.011529,144.940391 C185.967309,144.18359 187.103359,143.316246 188.419684,142.338357 L201.829549,132.738531 C207.493614,128.58228 211.34124,125.316679 213.3725,122.941667 C216.080847,119.774984 217.435,116.066688 217.435,111.816667 C217.435,106.483307 215.539186,102.254182 211.7475,99.1291667 C207.955814,96.004151 202.810033,94.4416667 196.31,94.4416667 C185.64328,94.4416667 172.768409,98.7332904 157.685,107.316667 L146.56,79.5666667 C165.060093,69.8999517 183.601574,65.0666667 202.185,65.0666667 Z">
+
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                            Enquire
                         </button>
                     </div>
                 </div>

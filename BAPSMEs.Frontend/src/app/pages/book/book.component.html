@@ -481,9 +481,9 @@
         </div>
 
         <div class="bg-white border border-4 rounded-lg shadow relative mt-16">
-            <div class="p-6 space-y-6 mt-8">
-                <form [formGroup]="enquireForm" (submit)="enquire()">
-                    <div class="grid gap-4 mb-4 xl:grid-cols-2">
+            <div *ngIf="product.name == 'yes'" class="p-6 space-y-6 mt-8">
+                <form [formGroup]="bookForm" (submit)="book()">
+                    <div class="grid grid-cols-12 gap-6 mb-4">
                         <div>
                             <label for="product-name"
                                 class="text-lg font-medium text-gray-900 block mb-2">Category</label>
@@ -512,39 +512,42 @@
                             </select>
                         </div>
                         <div>
-                            <label for="enquiry_type"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Enquiry Type</label>
-                            <select formControlName="enquiry_type"
+                            <label for="payment_method"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white">Preferred Payment
+                                Method</label>
+                            <select formControlName="payment_method"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="General">General</option>
-                                <option value="Specific Service">Specific Service</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Swipe">Swipe</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Ecocash">Ecocash</option>
                             </select>
                         </div>
-                        <div>
-                            <label for="urgency_level"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Urgency Level</label>
-                            <select formControlName="urgency_level"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="Very Urgent">Very Urgent</option>
-                                <option value="Not Urgent">Not Urgent</option>
-                            </select>
-                        </div>
-                        <div *ngIf="selectedSubCategoryOption == 2">
-                            <label for="insurance_type"
-                                class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance Type</label>
-                            <select formControlName="insurance_type"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="Very Urgent">Life</option>
-                                <option value="Not Urgent">Property</option>
-                            </select>
-                        </div>
-                        <div *ngIf="selectedSubCategoryOption == 1 || selectedCategoryOption == 6">
+
+
+                        <div *ngIf="selectedSubCategoryOption == 1">
                             <label for="project_details" class="text-lg font-medium text-gray-900 block mb-2">Project
                                 Details</label>
                             <input type="text" name="project_details" id="project_details"
                                 formControlName="project_details"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter project details" required="">
+                                placeholder="project details" required="">
+                        </div>
+                        <div *ngIf="selectedSubCategoryOption == 1 || selectedSubCategoryOption == 4">
+                            <label for="property_address" class="text-lg font-medium text-gray-900 block mb-2">Property
+                                Address</label>
+                            <input type="text" name="property_address" id="property_address"
+                                formControlName="property_address"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="property address" required="">
+                        </div>
+                        <div *ngIf="selectedSubCategoryOption == 1">
+                            <label for="project_timeline" class="text-lg font-medium text-gray-900 block mb-2">Project
+                                Timeline</label>
+                            <input type="text" name="project_timeline" id="project_timeline"
+                                formControlName="project_timeline"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="project timeline" required="">
                         </div>
                         <div *ngIf="selectedSubCategoryOption == 1">
                             <label for="payment_schedule" class="text-lg font-medium text-gray-900 block mb-2">Payment
@@ -552,48 +555,18 @@
                             <input type="text" name="payment_schedule" id="payment_schedule"
                                 formControlName="payment_schedule"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter payment schedule" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 4">
-                            <label for="preferred_location"
-                                class="text-lg font-medium text-gray-900 block mb-2">Preferred Location</label>
-                            <input type="text" name="preferred_location" id="preferred_location"
-                                formControlName="preferred_location"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter preferred location" required="">
+                                placeholder="payment schedule" required="">
                         </div>
 
-                        <div *ngIf="selectedSubCategoryOption == 3">
-                            <label for="service_interest" class="text-lg font-medium text-gray-900 block mb-2">Service
-                                Interest</label>
-                            <input type="text" name="service_interest" id="service_interest"
-                                formControlName="service_interest"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter service interest" required="">
-                        </div>
-                        <div *ngIf="selectedSubCategoryOption == 3">
-                            <label for="account_requirements"
-                                class="text-lg font-medium text-gray-900 block mb-2">Account Requirements</label>
-                            <input type="text" name="account_requirements" id="account_requirements"
-                                formControlName="account_requirements"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter account requirements" required="">
-                        </div>
-                        <div *ngIf="selectedSubCategoryOption == 3">
-                            <label for="transaction_requirements"
-                                class="text-lg font-medium text-gray-900 block mb-2">Transaction Requirements</label>
-                            <input type="text" name="transaction_requirements" id="transaction_requirements"
-                                formControlName="transaction_requirements"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter transaction requirements" required="">
-                        </div>
-                        <div *ngIf="selectedSubCategoryOption == 3 || selectedCategoryOption == 5">
-                            <label for="documentation_needed"
-                                class="text-lg font-medium text-gray-900 block mb-2">Documentation Needed</label>
-                            <input type="text" name="documentation_needed" id="documentation_needed"
-                                formControlName="documentation_needed"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter documentation needed" required="">
+
+                        <div *ngIf="selectedSubCategoryOption == 2 || selectedSubCategoryOption == 3">
+                            <label for="appointment_type"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment Type</label>
+                            <select formControlName="appointment_type"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="Physical">Physical</option>
+                                <option value="Online">Online</option>
+                            </select>
                         </div>
 
 
@@ -603,98 +576,195 @@
                             <input type="text" name="management_duration" id="management_duration"
                                 formControlName="management_duration"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter management duration" required="">
+                                placeholder="management duration" required="">
+                        </div>
+
+
+                        <div *ngIf="selectedCategoryOption == 2">
+                            <label for="number_of_people" class="text-lg font-medium text-gray-900 block mb-2">Number of
+                                People</label>
+                            <input type="number" name="number_of_people" id="number_of_people"
+                                formControlName="number_of_people"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="project timeline" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 2">
+                            <label for="special_request" class="text-lg font-medium text-gray-900 block mb-2">Special
+                                Request</label>
+                            <input type="string" name="special_request" id="special_request"
+                                formControlName="special_request"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="special request" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 2">
+                            <label for="dietary_requirements"
+                                class="text-lg font-medium text-gray-900 block mb-2">Dietary Requirements</label>
+                            <input type="string" name="dietary_requirements" id="dietary_requirements"
+                                formControlName="dietary_requirements"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="dietary requirements" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 2">
+                            <label for="table_preferences" class="text-lg font-medium text-gray-900 block mb-2">Table
+                                Preferences</label>
+                            <input type="string" name="table_preferences" id="table_preferences"
+                                formControlName="table_preferences"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="table preferences" required="">
+                        </div>
+
+
+                        <div *ngIf="selectedCategoryOption == 3">
+                            <label for="quantity" class="text-lg font-medium text-gray-900 block mb-2">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" formControlName="quantity"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="number of items" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 3">
+                            <label for="size" class="text-lg font-medium text-gray-900 block mb-2">Size</label>
+                            <input type="string" name="size" id="size" formControlName="size"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="size of the products" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 3">
+                            <label for="shipping_options"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping Options</label>
+                            <select formControlName="shipping_options"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="Delivery">Delivery</option>
+                                <option value="Pickup">Pickup</option>
+                            </select>
+                        </div>
+
+
+                        <div *ngIf="selectedCategoryOption == 4">
+                            <label for="address" class="text-lg font-medium text-gray-900 block mb-2">Address</label>
+                            <input type="string" name="address" id="address" formControlName="address"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="location for event" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 4">
+                            <label for="equipment_requirements"
+                                class="text-lg font-medium text-gray-900 block mb-2">Equipment Requirements</label>
+                            <input type="string" name="equipment_requirements" id="equipment_requirements"
+                                formControlName="equipment_requirements"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="required equipment" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 4">
+                            <label for="service_duration" class="text-lg font-medium text-gray-900 block mb-2">Service
+                                Duration</label>
+                            <input type="string" name="service_duration" id="service_duration"
+                                formControlName="service_duration"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="duration of the service" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 4">
+                            <label for="location_type"
+                                class="block mb-2 font-medium text-gray-900 dark:text-white">Location Type</label>
+                            <select formControlName="location_type"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option value="High Density">High Density</option>
+                                <option value="Medium Density">Medium Density</option>
+                                <option value="Low Density">Low Density</option>
+                            </select>
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 4">
+                            <label for="special_instructions"
+                                class="text-lg font-medium text-gray-900 block mb-2">Special Instructions</label>
+                            <input type="string" name="special_instructions" id="special_instructions"
+                                formControlName="special_instructions"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="special instruction" required="">
+                        </div>
+
+
+                        <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 9">
+                            <label for="project_scope" class="text-lg font-medium text-gray-900 block mb-2">Project
+                                Scope</label>
+                            <input type="string" name="project_scope" id="project_scope" formControlName="project_scope"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="project scope" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 5">
+                            <label for="required_documentation"
+                                class="text-lg font-medium text-gray-900 block mb-2">Required Documentation</label>
+                            <input type="string" name="required_documentation" id="required_documentation"
+                                formControlName="required_documentation"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="required documentation" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 9">
+                            <label for="timeline_requirements"
+                                class="text-lg font-medium text-gray-900 block mb-2">Timeline Requirements</label>
+                            <input type="string" name="timeline_requirements" id="timeline_requirements"
+                                formControlName="timeline_requirements"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="timeline requirements" required="">
+                        </div>
+
+
+                        <div *ngIf="selectedCategoryOption == 6">
+                            <label for="project_type" class="text-lg font-medium text-gray-900 block mb-2">Project
+                                Type</label>
+                            <input type="string" name="project_type" id="project_type" formControlName="project_type"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="project type" required="">
                         </div>
                         <div *ngIf="selectedCategoryOption == 6">
-                            <label for="style_references" class="text-lg font-medium text-gray-900 block mb-2">Style
-                                References</label>
-                            <input type="text" name="style_references" id="style_references"
-                                formControlName="style_references"
+                            <label for="deliverable_format"
+                                class="text-lg font-medium text-gray-900 block mb-2">Deliverable Format</label>
+                            <input type="string" name="deliverable_format" id="deliverable_format"
+                                formControlName="deliverable_format"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter style references" required="">
+                                placeholder="deliverable format" required="">
                         </div>
-                        <div *ngIf="selectedCategoryOption == 2">
-                            <label for="cuisine_preference" class="text-lg font-medium text-gray-900 block mb-2">Cuisine
+                        <div *ngIf="selectedCategoryOption == 6">
+                            <label for="revision_requirements"
+                                class="text-lg font-medium text-gray-900 block mb-2">Revision Requirements</label>
+                            <input type="string" name="revision_requirements" id="revision_requirements"
+                                formControlName="revision_requirements"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="revision requirements" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 6 || selectedCategoryOption == 3">
+                            <label for="style_preference" class="text-lg font-medium text-gray-900 block mb-2">Style
                                 Preference</label>
-                            <input type="text" name="cuisine_preference" id="cuisine_preference"
-                                formControlName="cuisine_preference"
+                            <input type="string" name="style_preference" id="style_preference"
+                                formControlName="style_preference"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter cuisine preference" required="">
-                        </div>
-                        <div
-                            *ngIf="selectedSubCategoryOption == 1 || selectedSubCategoryOption == 9 || selectedSubCategoryOption == 4 || selectedCategoryOption == 2|| selectedCategoryOption == 4 || selectedCategoryOption == 5 || selectedCategoryOption == 6">
-                            <label for="budget_range" class="text-lg font-medium text-gray-900 block mb-2">Budget
-                                Range</label>
-                            <input type="text" name="budget_range" id="budget_range" formControlName="budget_range"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter budget range" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 2">
-                            <label for="special_occasion_details"
-                                class="text-lg font-medium text-gray-900 block mb-2">Special Occasion Details</label>
-                            <input type="text" name="special_occasion_details" id="special_occasion_details"
-                                formControlName="special_occasion_details"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter special occasion details" required="">
-                        </div>
-
-                        <div *ngIf="selectedCategoryOption == 3">
-                            <label for="price_range" class="text-lg font-medium text-gray-900 block mb-2">Price
-                                Range</label>
-                            <input type="text" name="price_range" id="price_range" formControlName="price_range"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your price range" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 7">
-                            <label for="availability_requirements"
-                                class="text-lg font-medium text-gray-900 block mb-2">Availability Requirements</label>
-                            <input type="text" name="availability_requirements" id="availability_requirements"
-                                formControlName="availability_requirements"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter availability requirements" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 3">
-                            <label for="customization_needs"
-                                class="text-lg font-medium text-gray-900 block mb-2">Customization Needs</label>
-                            <input type="text" name="customization_needs" id="customization_needs"
-                                formControlName="customization_needs"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter customization needs" required="">
-                        </div>
-
-                        <div *ngIf="selectedCategoryOption == 4 || selectedCategoryOption == 5">
-                            <label for="service_requirements"
-                                class="text-lg font-medium text-gray-900 block mb-2">Service Requirements</label>
-                            <input type="text" name="service_requirements" id="service_requirements"
-                                formControlName="service_requirements"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter service requirements" required="">
+                                placeholder="style_preference" required="">
                         </div>
 
 
                         <div *ngIf="selectedCategoryOption == 7">
-                            <label for="area_of_interest"
-                                class="text-lg font-medium text-gray-900 block mb-2">Subject/Area of Interest</label>
-                            <input type="text" name="area_of_interest" id="area_of_interest"
-                                formControlName="area_of_interest"
+                            <label for="skill_level" class="text-lg font-medium text-gray-900 block mb-2">Skill
+                                Level</label>
+                            <input type="string" name="skill_level" id="skill_level" formControlName="skill_level"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter subject/area of interest" required="">
+                                placeholder="skill_level" required="">
                         </div>
                         <div *ngIf="selectedCategoryOption == 7">
-                            <label for="experience_level"
-                                class="text-lg font-medium text-gray-900 block mb-2">Experience Level</label>
-                            <input type="text" name="experience_level" id="experience_level"
-                                formControlName="experience_level"
+                            <label for="schedule_requirements"
+                                class="text-lg font-medium text-gray-900 block mb-2">Schedule Requirements</label>
+                            <input type="string" name="schedule_requirements" id="schedule_requirements"
+                                formControlName="schedule_requirements"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter experience level" required="">
+                                placeholder="requirements of the schedule" required="">
                         </div>
                         <div *ngIf="selectedCategoryOption == 7">
-                            <label for="learning_goals" class="text-lg font-medium text-gray-900 block mb-2">Learning
-                                Goals</label>
-                            <input type="text" name="learning_goals" id="learning_goals"
-                                formControlName="learning_goals"
+                            <label for="class_size" class="text-lg font-medium text-gray-900 block mb-2">Class
+                                Size</label>
+                            <input type="number" name="class_size" id="class_size" formControlName="class_size"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your learning  goals" required="">
+                                placeholder="number of pupils" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 7">
+                            <label for="prerequisites" class="text-lg font-medium text-gray-900 block mb-2">Class
+                                Size</label>
+                            <input type="text" name="prerequisites" id="prerequisites" formControlName="prerequisites"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="prerequisites" required="">
                         </div>
 
                         <div *ngIf="selectedCategoryOption == 8">
@@ -703,67 +773,17 @@
                             <input type="text" name="vehicle_information" id="vehicle_information"
                                 formControlName="vehicle_information"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your vehicle information" required="">
+                                placeholder="vehicle information" required="">
                         </div>
                         <div *ngIf="selectedCategoryOption == 8">
-                            <label for="service_type_interest"
-                                class="text-lg font-medium text-gray-900 block mb-2">Service Type Interest</label>
-                            <input type="text" name="service_type_interest" id="service_type_interest"
-                                formControlName="service_type_interest"
+                            <label for="service_type" class="text-lg font-medium text-gray-900 block mb-2">Service
+                                Type</label>
+                            <input type="text" name="service_type" id="service_type" formControlName="service_type"
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter service type interest" required="">
+                                placeholder="type of service required" required="">
                         </div>
                         <div
-                            *ngIf="selectedSubCategoryOption == 1 || selectedCategoryOption == 9 || selectedSubCategoryOption == 4 || selectedCategoryOption == 2|| selectedCategoryOption == 4 || selectedCategoryOption == 5 || selectedCategoryOption == 6 || selectedCategoryOption == 8">
-                            <label for="preferred_time_frame"
-                                class="text-lg font-medium text-gray-900 block mb-2">Timeline Preference</label>
-                            <input type="text" name="preferred_time_frame" id="preferred_time_frame"
-                                formControlName="preferred_time_frame"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your preferred time frame" required="">
-                        </div>
-
-                        <div *ngIf="selectedCategoryOption == 9">
-                            <label for="project_type" class="text-lg font-medium text-gray-900 block mb-2">Project
-                                Type</label>
-                            <input type="text" name="project_type" id="project_type" formControlName="project_type"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter project type" required="">
-                        </div>
-                        <div
-                            *ngIf="selectedSubCategoryOption == 1 || selectedSubCategoryOption == 4 || selectedCategoryOption == 9">
-                            <label for="property_information"
-                                class="text-lg font-medium text-gray-900 block mb-2">Property Details</label>
-                            <input type="text" name="property_information" id="property_information"
-                                formControlName="property_information"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter property information" required="">
-                        </div>
-
-                        <div *ngIf="selectedCategoryOption == 10">
-                            <label for="event_type" class="text-lg font-medium text-gray-900 block mb-2">Event
-                                Type</label>
-                            <input type="text" name="event_type" id="event_type" formControlName="event_type"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your event type" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 10">
-                            <label for="guest_information" class="text-lg font-medium text-gray-900 block mb-2">Guest
-                                Information</label>
-                            <input type="text" name="guest_information" id="guest_information"
-                                formControlName="guest_information"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your guest information" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 10">
-                            <label for="special_requirements"
-                                class="text-lg font-medium text-gray-900 block mb-2">Special Requirements</label>
-                            <input type="text" name="special_requirements" id="special_requirements"
-                                formControlName="special_requirements"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                placeholder="enter your special requirements" required="">
-                        </div>
-                        <div *ngIf="selectedCategoryOption == 10">
+                            *ngIf="selectedSubCategoryOption == 2 || selectedCategoryOption == 10 || selectedSubCategoryOption == 3 || selectedCategoryOption == 8">
                             <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">
                                 Preferred Date <i style="color: grey;">(*if applicable)</i>
                             </label>
@@ -782,14 +802,61 @@
                         </div>
 
 
-                    </div>
-                    <div class="col-span-6 sm:col-span-2  mb-4">
-                        <label for="additional_information"
-                            class="text-lg font-medium text-gray-900 block mb-2">Additional Information</label>
-                        <textarea rows="2" type="text" name="message" id="message"
-                            class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                            formControlName="additional_information" placeholder="enter your additional information"
-                            required=""></textarea>
+                        <div *ngIf="selectedCategoryOption == 9">
+                            <label for="property_type" class="text-lg font-medium text-gray-900 block mb-2">Property
+                                Type</label>
+                            <input type="text" name="property_type" id="property_type" formControlName="property_type"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="type of property" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 9">
+                            <label for="budget_range" class="text-lg font-medium text-gray-900 block mb-2">Budget
+                                Range</label>
+                            <input type="text" name="budget_range" id="budget_range" formControlName="budget_range"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="whats your budget" required="">
+                        </div>
+
+
+
+                        <div *ngIf="selectedCategoryOption == 10">
+                            <label for="number_of_guests" class="text-lg font-medium text-gray-900 block mb-2">Number of
+                                Guests</label>
+                            <input type="number" name="number_of_guests" id="number_of_guests"
+                                formControlName="number_of_guests"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="number of guests" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 10">
+                            <label for="event_type" class="text-lg font-medium text-gray-900 block mb-2">Event
+                                Type</label>
+                            <input type="string" name="event_type" id="event_type" formControlName="event_type"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="type of the event" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 10">
+                            <label for="duration" class="text-lg font-medium text-gray-900 block mb-2">Duration</label>
+                            <input type="string" name="duration" id="duration" formControlName="duration"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="duration of the event" required="">
+                        </div>
+                        <div *ngIf="selectedCategoryOption == 10">
+                            <label for="special_requirements"
+                                class="text-lg font-medium text-gray-900 block mb-2">Special Requirements</label>
+                            <input type="string" name="special_requirements" id="special_requirements"
+                                formControlName="special_requirements"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                placeholder="any special requirements" required="">
+                        </div>
+
+                        <div>
+                            <label for="additional_information-name"
+                                class="text-lg font-medium text-gray-900 block mb-2">Additional Information</label>
+                            <textarea rows="8" type="text" name="additional_information" id="additional_information"
+                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                formControlName="additional_information" placeholder="additional information"
+                                required=""></textarea>
+                        </div>
                     </div>
                     <div class="flex justify-between w-full px-3 border-t border-gray-200">
                         <div class="md:flex md:items-center">
@@ -803,7 +870,7 @@
                         <button
                             class="mt-4 shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                             type="submit">
-                            Enquire Now
+                            Book Now
                         </button>
 
                     </div>

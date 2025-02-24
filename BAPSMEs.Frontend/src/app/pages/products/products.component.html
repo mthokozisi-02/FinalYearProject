@@ -73,17 +73,16 @@
                         {{category.name}}</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
-                <label for="service_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
-                    Type</label>
-                <select formControlName="service_type"
+            <div>
+                <label for="service_type"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Service/Product</label>
+                <select formControlName="service_type" [(ngModel)]="serviceType"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="">Product/Service</option>
-                    <option value="Product">Menu Item</option>
-                    <option value="Service">Catering Service</option>
+                    <option value="Product">Product</option>
+                    <option value="Service">Service</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==1">
+            <div *ngIf="selectedSubCategoryOption ==1 && serviceType == 'Service'">
                 <label for="cons_project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                     Type</label>
                 <select formControlName="cons_project_type"
@@ -93,24 +92,24 @@
                     <option value="Repair">Repair</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
-                <label for="product_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
+                <label for="product_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Product/Service
                     Type</label>
                 <select formControlName="product_type"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="">Physical/Digital</option>
-                    <option value="Product">Physical</option>
-                    <option value="Service">Digital Service</option>
+                    <option value="Physical">Physical</option>
+                    <option value="Digital">Digital Service</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                     Type</label>
                 <input type="text" id="project_type" formControlName="project_type"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Specific service focus" required="">
             </div>
-            <div *ngIf="selectedCategoryOption == 9">
+            <div *ngIf="selectedCategoryOption == 9 && serviceType == 'Service'">
                 <label for="project_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                     Scope</label>
                 <input type="text" id="project_scope" formControlName="project_scope"
@@ -119,7 +118,7 @@
             </div>
 
             <div>
-                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">
                     Name</label>
                 <input type="text" id="name" formControlName="name"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -131,7 +130,7 @@
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="$0.00" required="">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==1">
+            <div *ngIf="selectedSubCategoryOption ==1 && serviceType == 'Service'">
                 <label for="service_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Scope</label>
                 <select formControlName="service_scope"
@@ -140,35 +139,35 @@
                     <option value="Consultation-only">Consultation-only</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 && serviceType == 'Service'">
                 <label for="preparation_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Preparation
-                    Time</label>
+                    Time <i style="color: grey;">(*hours)</i></label>
                 <input type="number" id="preparation_time" formControlName="preparation_time"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Time needed to prepare/deliver/mins" required="">
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 || serviceType == 'Product'">
                 <label for="minimum_order" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
                     Order</label>
                 <input type="number" id="minimum_order" formControlName="minimum_order"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Minimum quantity/amount required">
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 || serviceType == 'Product'">
                 <label for="delivery_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
                     Options</label>
                 <input type="text" id="delivery_options" formControlName="delivery_options"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Available delivery methods">
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 && serviceType == 'Service'">
                 <label for="dietary_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Dietary
                     Information</label>
                 <input type="text" id="dietary_information" formControlName="dietary_information"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Special dietary considerations">
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="inventory_status" class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
                     Status</label>
                 <select formControlName="inventory_status"
@@ -177,14 +176,16 @@
                     <option value="Out of Stock">Out of Stock</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="shipping_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
                     Options</label>
-                <input type="text" id="shipping_options" formControlName="shipping_options"
-                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Available shipping methods">
+                <select formControlName="shipping_options"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Delivery">Delivery</option>
+                    <option value="Pickup">Pickup</option>
+                </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="return_policy" class="block mb-2 font-medium text-gray-900 dark:text-white">Return
                     Policy</label>
                 <select formControlName="return_policy"
@@ -193,21 +194,21 @@
                     <option value="Exchange terms">Exchange terms</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                     Information</label>
                 <input type="text" id="warranty_information" formControlName="warranty_information"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Product warranty details">
             </div>
-            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1">
+            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1 && serviceType == 'Service'">
                 <label for="service_duration" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Duration</label>
                 <input type="number" id="service_duration" formControlName="service_duration"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Length of service/mins">
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
                 <label for="location_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Location
                     Type</label>
                 <select formControlName="location_type"
@@ -217,30 +218,29 @@
                     <option value="Virtual">Virtual</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
-                <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment
-                    Required</label>
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
+                <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Bookable</label>
                 <select formControlName="appointment"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
                 <label for="service_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Area</label>
                 <input type="text" id="service_area" formControlName="service_area"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Geographic coverage">
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
                 <label for="qualification"
                     class="block mb-2 font-medium text-gray-900 dark:text-white">Qualification</label>
                 <input type="text" id="qualification" formControlName="qualification"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Professional certifications">
             </div>
-            <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="expertise_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Expertise
                     Level</label>
                 <select formControlName="expertise_level"
@@ -250,7 +250,7 @@
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="session_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Session
                     Format</label>
                 <select formControlName="session_format"
@@ -259,56 +259,56 @@
                     <option value="Group">Group</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="language_support" class="block mb-2 font-medium text-gray-900 dark:text-white">Language
                     support</label>
                 <input type="text" id="language_support" formControlName="language_support"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Language Support">
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="certifications"
                     class="block mb-2 font-medium text-gray-900 dark:text-white">Certifications</label>
                 <input type="text" id="certifications" formControlName="certifications"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Professional qualification">
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="experience_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Experience
                     Level</label>
                 <input type="text" id="experience_level" formControlName="experience_level"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Years in practise/months">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="turnaround_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Turnaround
                     Time</label>
                 <input type="text" id="turnaround_time" formControlName="turnaround_time"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Expected completion time">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="revisions_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Revisions
                     Included</label>
                 <input type="text" id="revisions_included" formControlName="revisions_included"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Number of revisions">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="file_formats" class="block mb-2 font-medium text-gray-900 dark:text-white">File
                     formats</label>
                 <input type="text" id="file_formats" formControlName="file_formats"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Available output formats">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="usage_rights" class="block mb-2 font-medium text-gray-900 dark:text-white">Usage
                     Rights</label>
                 <input type="text" id="usage_rights" formControlName="usage_rights"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Client usage permissions">
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="course_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Course
                     Format</label>
                 <select formControlName="course_format"
@@ -317,20 +317,20 @@
                     <option value="In-Person">In-Person</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="class_size" class="block mb-2 font-medium text-gray-900 dark:text-white">Class Size</label>
                 <input type="number" id="class_size" formControlName="class_size"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Maximum number of students">
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="materials_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Materials
                     Included</label>
                 <input type="string" id="materials_included" formControlName="materials_included"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="What`s provided">
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="prerequisites"
                     class="block mb-2 font-medium text-gray-900 dark:text-white">Prerequisites</label>
                 <input type="string" id="prerequisites" formControlName="prerequisites"
@@ -338,15 +338,14 @@
                     placeholder="Required knowledge/skills">
             </div>
 
-
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="vehicle_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Vehicle
                     Types</label>
                 <input type="text" id="vehicle_type" formControlName="vehicle_type"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Supported vehicle categories">
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Level</label>
                 <select formControlName="service_level"
@@ -356,76 +355,76 @@
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                     Offered</label>
                 <input type="text" id="warranty_information" formControlName="warranty_information"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Service guarantees">
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="parts_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Parts
                     Included</label>
                 <input type="text" id="parts_included" formControlName="parts_included"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="What`s covered">
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="loaner_vehicle" class="block mb-2 font-medium text-gray-900 dark:text-white">Loaner
                     Vehicle</label>
                 <input type="text" id="loaner_vehicle" formControlName="loaner_vehicle"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Availability and conditions">
             </div>
-            <div *ngIf="selectedCategoryOption ==9">
+            <div *ngIf="selectedCategoryOption ==9 && serviceType == 'Service'">
                 <label for="license_number" class="block mb-2 font-medium text-gray-900 dark:text-white">License
                     Number</label>
                 <input type="text" id="license_number" formControlName="license_number"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Professional licenses">
             </div>
-            <div *ngIf="selectedCategoryOption ==9">
+            <div *ngIf="selectedCategoryOption ==9 && serviceType == 'Service'">
                 <label for="insurance_coverage" class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance
                     Coverage</label>
                 <input type="text" id="insurance_coverage" formControlName="insurance_coverage"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Liability insurance details">
             </div>
-            <div *ngIf="selectedCategoryOption ==9">
+            <div *ngIf="selectedCategoryOption ==9 && serviceType == 'Service'">
                 <label for="permit_handling" class="block mb-2 font-medium text-gray-900 dark:text-white">Permit
                     Handling</label>
                 <input type="text" id="permit_handling" formControlName="permit_handling"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Permit acquisition services">
             </div>
-            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1">
+            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1 && serviceType == 'Service'">
                 <label for="warranty_period" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                     Period</label>
                 <input type="text" id="warranty_period" formControlName="warranty_period"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Work guarantee duration">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="capacity" class="block mb-2 font-medium text-gray-900 dark:text-white">Capacity</label>
                 <input type="number" id="capacity" formControlName="capacity"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Maimum number of guests">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="age_restriction" class="block mb-2 font-medium text-gray-900 dark:text-white">Age
                     Restrictions</label>
                 <input type="number" id="age_restriction" formControlName="age_restriction"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Applicable age limits">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="equipment_provided" class="block mb-2 font-medium text-gray-900 dark:text-white">Equipment
                     Provided</label>
                 <input type="text" id="equipment_provided" formControlName="equipment_provided"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Included amenities">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="catering_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Catering
                     Options</label>
                 <select formControlName="catering_options"
@@ -434,14 +433,14 @@
                     <option value="Beverage Policies">Beverage Policies</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="parking_availability" class="block mb-2 font-medium text-gray-900 dark:text-white">Parking
                     Availability</label>
                 <input type="text" id="parking_availability" formControlName="parking_availability"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Parking information">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==1">
+            <div *ngIf="selectedSubCategoryOption ==1 && serviceType == 'Service'">
                 <label for="payment_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Payment
                     Terms</label>
                 <select formControlName="payment_term"
@@ -450,7 +449,7 @@
                     <option value="Progressive">Progressive</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="coverage_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
                     Type</label>
                 <select formControlName="coverage_type"
@@ -460,35 +459,35 @@
                     <option value="Life">Life</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="policy_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Policy
                     Term</label>
                 <input type="text" id="policy_term" formControlName="policy_term"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Length of coverage period">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="premium_frequency" class="block mb-2 font-medium text-gray-900 dark:text-white">Premium
                     Frequency</label>
                 <input type="text" id="premium_frequency" formControlName="premium_frequency"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Payment schedule options">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="deductible_amount" class="block mb-2 font-medium text-gray-900 dark:text-white">Deductible
                     Amount</label>
                 <input type="number" id="deductible_amount" formControlName="deductible_amount"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Payment schedule options">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="coverage_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
                     Limit</label>
                 <input type="number" id="coverage_limit" formControlName="coverage_limit"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Maximum payout amount">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="account_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Account
                     Type</label>
                 <select formControlName="account_type"
@@ -498,41 +497,41 @@
                     <option value="Investment">Investment</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="minimum_balance" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
                     Balance</label>
                 <input type="number" id="minimum_balance" formControlName="minimum_balance"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Required minimum balance">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="interest_rate" class="block mb-2 font-medium text-gray-900 dark:text-white">Interest
                     Rate</label>
                 <input type="number" id="interest_rate" formControlName="interest_rate"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="APY/APR">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="fees" class="block mb-2 font-medium text-gray-900 dark:text-white">Fees</label>
                 <input type="number" id="fees" formControlName="fees"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Associated charges">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="transaction_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Transaction
                     Limit</label>
                 <input type="number" id="transaction_limit" formControlName="transaction_limit"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Daily/Weekly limits">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="property_types" class="block mb-2 font-medium text-gray-900 dark:text-white">Property
                     Types</label>
                 <input type="text" id="property_types" formControlName="property_types"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="What types of properties managed">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Level</label>
                 <select formControlName="service_level"
@@ -541,26 +540,33 @@
                     <option value="Partial Management">Partial Management</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="geographic_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Geographic
                     Area</label>
                 <input type="text" id="geographic_area" formControlName="geographic_area"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Service coverage area">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="management_fee" class="block mb-2 font-medium text-gray-900 dark:text-white">Management
                     Fee</label>
                 <input type="number" id="management_fee" formControlName="management_fee"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Percentage/Flat rate">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="response_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Response
                     Time</label>
                 <input type="text" id="response_time" formControlName="response_time"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Emergency response guarantee">
+            </div>
+            <div *ngIf="serviceType == 'Product'">
+                <label for="description"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
+                <input type="text" id="description" formControlName="description"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Product descriptions">
             </div>
         </div>
 
@@ -671,17 +677,17 @@
                         {{category.name}}</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div>
                 <label for="service_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Type</label>
-                <select formControlName="service_type"
+                <select formControlName="service_type" [(ngModel)]="serviceType"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="">Product/Service</option>
-                    <option value="Product">Menu Item</option>
-                    <option value="Service">Catering Service</option>
+                    <option value="Product">Product</option>
+                    <option value="Service">Service</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==1">
+            <div *ngIf="selectedSubCategoryOption ==1 && serviceType == 'Service'">
                 <label for="cons_project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                     Type</label>
                 <select formControlName="cons_project_type"
@@ -691,8 +697,8 @@
                     <option value="Repair">Repair</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
-                <label for="product_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Product
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
+                <label for="product_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Product/Service
                     Type</label>
                 <select formControlName="product_type"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -701,14 +707,14 @@
                     <option value="Service">Digital Service</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="project_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                     Type</label>
                 <input type="text" id="project_type" formControlName="project_type"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Specific service focus" required="">
             </div>
-            <div *ngIf="selectedCategoryOption == 9">
+            <div *ngIf="selectedCategoryOption == 9 && serviceType == 'Service'">
                 <label for="project_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                     Scope</label>
                 <input type="text" id="project_scope" formControlName="project_scope"
@@ -717,7 +723,7 @@
             </div>
 
             <div>
-                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
+                <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">
                     Name</label>
                 <input type="text" id="name" formControlName="name"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -729,7 +735,7 @@
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="$0.00" required="">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==1">
+            <div *ngIf="selectedSubCategoryOption ==1 && serviceType == 'Service'">
                 <label for="service_scope" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Scope</label>
                 <select formControlName="service_scope"
@@ -738,35 +744,35 @@
                     <option value="Consultation-only">Consultation-only</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 && serviceType == 'Service'">
                 <label for="preparation_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Preparation
                     Time <i style="color: grey;">(*hours)</i></label>
                 <input type="number" id="preparation_time" formControlName="preparation_time"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Time needed to prepare/deliver/mins" required="">
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 || serviceType == 'Product'">
                 <label for="minimum_order" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
                     Order</label>
                 <input type="number" id="minimum_order" formControlName="minimum_order"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Minimum quantity/amount required">
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 || serviceType == 'Product'">
                 <label for="delivery_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
                     Options</label>
                 <input type="text" id="delivery_options" formControlName="delivery_options"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Available delivery methods">
             </div>
-            <div *ngIf="selectedCategoryOption == 2">
+            <div *ngIf="selectedCategoryOption == 2 && serviceType == 'Service'">
                 <label for="dietary_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Dietary
                     Information</label>
                 <input type="text" id="dietary_information" formControlName="dietary_information"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Special dietary considerations">
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="inventory_status" class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
                     Status</label>
                 <select formControlName="inventory_status"
@@ -775,14 +781,14 @@
                     <option value="Out of Stock">Out of Stock</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="shipping_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
                     Options</label>
                 <input type="text" id="shipping_options" formControlName="shipping_options"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Available shipping methods">
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="return_policy" class="block mb-2 font-medium text-gray-900 dark:text-white">Return
                     Policy</label>
                 <select formControlName="return_policy"
@@ -791,21 +797,21 @@
                     <option value="Exchange terms">Exchange terms</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3">
+            <div *ngIf="selectedCategoryOption == 3 || serviceType == 'Product'">
                 <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                     Information</label>
                 <input type="text" id="warranty_information" formControlName="warranty_information"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Product warranty details">
             </div>
-            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1">
+            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1 && serviceType == 'Service'">
                 <label for="service_duration" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Duration</label>
                 <input type="number" id="service_duration" formControlName="service_duration"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Length of service/mins">
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
                 <label for="location_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Location
                     Type</label>
                 <select formControlName="location_type"
@@ -815,30 +821,29 @@
                     <option value="Virtual">Virtual</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
-                <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment
-                    Required</label>
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
+                <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Bookable</label>
                 <select formControlName="appointment"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
                 <label for="service_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Area</label>
                 <input type="text" id="service_area" formControlName="service_area"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Geographic coverage">
             </div>
-            <div *ngIf="selectedCategoryOption == 4">
+            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
                 <label for="qualification"
                     class="block mb-2 font-medium text-gray-900 dark:text-white">Qualification</label>
                 <input type="text" id="qualification" formControlName="qualification"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Professional certifications">
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="expertise_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Expertise
                     Level</label>
                 <select formControlName="expertise_level"
@@ -848,7 +853,7 @@
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="session_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Session
                     Format</label>
                 <select formControlName="session_format"
@@ -857,56 +862,56 @@
                     <option value="Group">Group</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="language_support" class="block mb-2 font-medium text-gray-900 dark:text-white">Language
                     support</label>
                 <input type="text" id="language_support" formControlName="language_support"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Language Support">
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="certifications"
                     class="block mb-2 font-medium text-gray-900 dark:text-white">Certifications</label>
                 <input type="text" id="certifications" formControlName="certifications"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Professional qualification">
             </div>
-            <div *ngIf="selectedCategoryOption == 5">
+            <div *ngIf="selectedCategoryOption == 5 && serviceType == 'Service'">
                 <label for="experience_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Experience
                     Level</label>
                 <input type="text" id="experience_level" formControlName="experience_level"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Years in practise/months">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="turnaround_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Turnaround
                     Time</label>
                 <input type="text" id="turnaround_time" formControlName="turnaround_time"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Expected completion time">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="revisions_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Revisions
                     Included</label>
                 <input type="text" id="revisions_included" formControlName="revisions_included"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Number of revisions">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="file_formats" class="block mb-2 font-medium text-gray-900 dark:text-white">File
                     formats</label>
                 <input type="text" id="file_formats" formControlName="file_formats"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Available output formats">
             </div>
-            <div *ngIf="selectedCategoryOption == 6">
+            <div *ngIf="selectedCategoryOption == 6 && serviceType == 'Service'">
                 <label for="usage_rights" class="block mb-2 font-medium text-gray-900 dark:text-white">Usage
                     Rights</label>
                 <input type="text" id="usage_rights" formControlName="usage_rights"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Client usage permissions">
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="course_format" class="block mb-2 font-medium text-gray-900 dark:text-white">Course
                     Format</label>
                 <select formControlName="course_format"
@@ -915,20 +920,20 @@
                     <option value="In-Person">In-Person</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="class_size" class="block mb-2 font-medium text-gray-900 dark:text-white">Class Size</label>
                 <input type="number" id="class_size" formControlName="class_size"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Maximum number of students">
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="materials_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Materials
                     Included</label>
                 <input type="string" id="materials_included" formControlName="materials_included"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="What`s provided">
             </div>
-            <div *ngIf="selectedCategoryOption == 7">
+            <div *ngIf="selectedCategoryOption == 7 && serviceType == 'Service'">
                 <label for="prerequisites"
                     class="block mb-2 font-medium text-gray-900 dark:text-white">Prerequisites</label>
                 <input type="string" id="prerequisites" formControlName="prerequisites"
@@ -936,15 +941,14 @@
                     placeholder="Required knowledge/skills">
             </div>
 
-
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="vehicle_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Vehicle
                     Types</label>
                 <input type="text" id="vehicle_type" formControlName="vehicle_type"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Supported vehicle categories">
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Level</label>
                 <select formControlName="service_level"
@@ -954,76 +958,76 @@
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="warranty_information" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                     Offered</label>
                 <input type="text" id="warranty_information" formControlName="warranty_information"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Service guarantees">
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="parts_included" class="block mb-2 font-medium text-gray-900 dark:text-white">Parts
                     Included</label>
                 <input type="text" id="parts_included" formControlName="parts_included"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="What`s covered">
             </div>
-            <div *ngIf="selectedCategoryOption == 8">
+            <div *ngIf="selectedCategoryOption == 8 && serviceType == 'Service'">
                 <label for="loaner_vehicle" class="block mb-2 font-medium text-gray-900 dark:text-white">Loaner
                     Vehicle</label>
                 <input type="text" id="loaner_vehicle" formControlName="loaner_vehicle"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Availability and conditions">
             </div>
-            <div *ngIf="selectedCategoryOption ==9">
+            <div *ngIf="selectedCategoryOption ==9 && serviceType == 'Service'">
                 <label for="license_number" class="block mb-2 font-medium text-gray-900 dark:text-white">License
                     Number</label>
                 <input type="text" id="license_number" formControlName="license_number"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Professional licenses">
             </div>
-            <div *ngIf="selectedCategoryOption ==9">
+            <div *ngIf="selectedCategoryOption ==9 && serviceType == 'Service'">
                 <label for="insurance_coverage" class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance
                     Coverage</label>
                 <input type="text" id="insurance_coverage" formControlName="insurance_coverage"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Liability insurance details">
             </div>
-            <div *ngIf="selectedCategoryOption ==9">
+            <div *ngIf="selectedCategoryOption ==9 && serviceType == 'Service'">
                 <label for="permit_handling" class="block mb-2 font-medium text-gray-900 dark:text-white">Permit
                     Handling</label>
                 <input type="text" id="permit_handling" formControlName="permit_handling"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Permit acquisition services">
             </div>
-            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1">
+            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1 && serviceType == 'Service'">
                 <label for="warranty_period" class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                     Period</label>
                 <input type="text" id="warranty_period" formControlName="warranty_period"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Work guarantee duration">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="capacity" class="block mb-2 font-medium text-gray-900 dark:text-white">Capacity</label>
                 <input type="number" id="capacity" formControlName="capacity"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Maimum number of guests">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="age_restriction" class="block mb-2 font-medium text-gray-900 dark:text-white">Age
                     Restrictions</label>
                 <input type="number" id="age_restriction" formControlName="age_restriction"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Applicable age limits">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="equipment_provided" class="block mb-2 font-medium text-gray-900 dark:text-white">Equipment
                     Provided</label>
                 <input type="text" id="equipment_provided" formControlName="equipment_provided"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Included amenities">
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="catering_options" class="block mb-2 font-medium text-gray-900 dark:text-white">Catering
                     Options</label>
                 <select formControlName="catering_options"
@@ -1032,14 +1036,14 @@
                     <option value="Beverage Policies">Beverage Policies</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption ==10">
+            <div *ngIf="selectedCategoryOption ==10 && serviceType == 'Service'">
                 <label for="parking_availability" class="block mb-2 font-medium text-gray-900 dark:text-white">Parking
                     Availability</label>
                 <input type="text" id="parking_availability" formControlName="parking_availability"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Parking information">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==1">
+            <div *ngIf="selectedSubCategoryOption ==1 && serviceType == 'Service'">
                 <label for="payment_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Payment
                     Terms</label>
                 <select formControlName="payment_term"
@@ -1048,7 +1052,7 @@
                     <option value="Progressive">Progressive</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="coverage_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
                     Type</label>
                 <select formControlName="coverage_type"
@@ -1058,35 +1062,35 @@
                     <option value="Life">Life</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="policy_term" class="block mb-2 font-medium text-gray-900 dark:text-white">Policy
                     Term</label>
                 <input type="text" id="policy_term" formControlName="policy_term"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Length of coverage period">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="premium_frequency" class="block mb-2 font-medium text-gray-900 dark:text-white">Premium
                     Frequency</label>
                 <input type="text" id="premium_frequency" formControlName="premium_frequency"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Payment schedule options">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="deductible_amount" class="block mb-2 font-medium text-gray-900 dark:text-white">Deductible
                     Amount</label>
                 <input type="number" id="deductible_amount" formControlName="deductible_amount"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Payment schedule options">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==2">
+            <div *ngIf="selectedSubCategoryOption ==2 && serviceType == 'Service'">
                 <label for="coverage_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
                     Limit</label>
                 <input type="number" id="coverage_limit" formControlName="coverage_limit"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Maximum payout amount">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="account_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Account
                     Type</label>
                 <select formControlName="account_type"
@@ -1096,41 +1100,41 @@
                     <option value="Investment">Investment</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="minimum_balance" class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
                     Balance</label>
                 <input type="number" id="minimum_balance" formControlName="minimum_balance"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Required minimum balance">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="interest_rate" class="block mb-2 font-medium text-gray-900 dark:text-white">Interest
                     Rate</label>
                 <input type="number" id="interest_rate" formControlName="interest_rate"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="APY/APR">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="fees" class="block mb-2 font-medium text-gray-900 dark:text-white">Fees</label>
                 <input type="number" id="fees" formControlName="fees"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Associated charges">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==3">
+            <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
                 <label for="transaction_limit" class="block mb-2 font-medium text-gray-900 dark:text-white">Transaction
                     Limit</label>
                 <input type="number" id="transaction_limit" formControlName="transaction_limit"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Daily/Weekly limits">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="property_types" class="block mb-2 font-medium text-gray-900 dark:text-white">Property
                     Types</label>
                 <input type="text" id="property_types" formControlName="property_types"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="What types of properties managed">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="service_level" class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                     Level</label>
                 <select formControlName="service_level"
@@ -1139,26 +1143,33 @@
                     <option value="Partial Management">Partial Management</option>
                 </select>
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="geographic_area" class="block mb-2 font-medium text-gray-900 dark:text-white">Geographic
                     Area</label>
                 <input type="text" id="geographic_area" formControlName="geographic_area"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Service coverage area">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="management_fee" class="block mb-2 font-medium text-gray-900 dark:text-white">Management
                     Fee</label>
                 <input type="number" id="management_fee" formControlName="management_fee"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Percentage/Flat rate">
             </div>
-            <div *ngIf="selectedSubCategoryOption ==4">
+            <div *ngIf="selectedSubCategoryOption ==4 && serviceType == 'Service'">
                 <label for="response_time" class="block mb-2 font-medium text-gray-900 dark:text-white">Response
                     Time</label>
                 <input type="text" id="response_time" formControlName="response_time"
                     class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Emergency response guarantee">
+            </div>
+            <div *ngIf="serviceType == 'Product'">
+                <label for="description"
+                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
+                <input type="text" id="description" formControlName="description"
+                    class="form-control bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Product descriptions">
             </div>
         </div>
         <div class="items-center space-y-4 xl:flex xl:space-y-0 xl:space-x-4">

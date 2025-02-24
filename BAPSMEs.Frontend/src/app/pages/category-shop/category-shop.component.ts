@@ -67,12 +67,7 @@ export class CategoryShopComponent implements OnInit {
     this.id = this.actRoute.snapshot.params['id'];
 
 
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    console.log('subCategories:', this.subCategories);
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-      console.log('subCategories:', this.subCategories_);
-    });
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;
@@ -156,6 +151,15 @@ export class CategoryShopComponent implements OnInit {
     const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
       return this.currentWishlist[index].quantity;
+    }
+    return 0;
+  }
+
+  checkCart(item) {
+    this.currentCart = this.cartService.getCurrentCart()
+    const index = this.currentCart?.findIndex((p) => p.id === item.id);
+    if (index >= 0) {
+      return this.currentCart[index].quantity;
     }
     return 0;
   }

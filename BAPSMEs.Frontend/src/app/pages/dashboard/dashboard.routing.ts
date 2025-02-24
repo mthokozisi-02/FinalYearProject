@@ -3,6 +3,7 @@ import { ProductsComponent } from '../products/products.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { SellerEnquiriesComponent } from '../seller-enquiries/seller-enquiries.component';
 import { SellerOrdersComponent } from '../seller-orders/seller-orders.component';
+import { SellerPaymentsComponent } from '../seller-payments/seller-payments.component';
 import { SellerStatsComponent } from '../seller-stats/seller-stats.component';
 import { DashboardComponent } from './dashboard.component';
 
@@ -20,6 +21,10 @@ const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent
+            },
+            {
+                path: 'payments',
+                component: SellerPaymentsComponent
             },
             {
                 path: 'orders',

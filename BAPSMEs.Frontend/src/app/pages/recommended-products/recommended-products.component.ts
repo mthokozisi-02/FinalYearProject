@@ -112,10 +112,7 @@ export class RecommendedProductsComponent implements OnInit {
     });
     this.refresh();
 
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-    });
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
   }
 
   refresh() {
@@ -228,7 +225,7 @@ export class RecommendedProductsComponent implements OnInit {
     this.cartService.success('product added')
     this.cartService.addToCart(item, item.price, 1);
 
-    this.checkIfExist(item);
+    this.checkCart(item);
   }
 
   addTowishList(item) {
@@ -254,6 +251,15 @@ export class RecommendedProductsComponent implements OnInit {
     const index = this.currentWishlist?.findIndex((p) => p.id === item.id);
     if (index >= 0) {
       return this.currentWishlist[index].quantity;
+    }
+    return 0;
+  }
+
+  checkCart(item) {
+    this.currentCart = this.cartService.getCurrentCart()
+    const index = this.currentCart?.findIndex((p) => p.id === item.id);
+    if (index >= 0) {
+      return this.currentCart[index].quantity;
     }
     return 0;
   }

@@ -65,6 +65,8 @@ import { TruncatePipe } from './truncate.pipe';
 import { RecommendedProductsComponent } from './pages/recommended-products/recommended-products.component';
 import { EventsComponent } from './pages/events/events.component';
 import { AdminEnquiriesComponent } from './pages/admin-enquiries/admin-enquiries.component';
+import { SellerPaymentsComponent } from './pages/seller-payments/seller-payments.component';
+import { BookComponent } from './pages/book/book.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +120,9 @@ import { AdminEnquiriesComponent } from './pages/admin-enquiries/admin-enquiries
     TruncatePipe,
     RecommendedProductsComponent,
     EventsComponent,
-    AdminEnquiriesComponent
+    AdminEnquiriesComponent,
+    SellerPaymentsComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,

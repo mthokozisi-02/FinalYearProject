@@ -90,7 +90,7 @@ class SubCategoryFactory extends Factory
     {
         return $this->afterMaking(function ($record) {
             $record['category_id'] = 2;
-            $record['name'] = 'Specialty Food Shops';
+            $record['name'] = 'Grocery Shops';
             $record['description'] = 'Powerful tools that uses a chisel and either compressed air or an electric motor to break through hard materials like concrete or rock.';
             $record['image_url'] = 'subCategories/specialties.png';
         });
@@ -137,9 +137,9 @@ class SubCategoryFactory extends Factory
     {
         return $this->afterMaking(function ($record) {
             $record['category_id'] = 3;
-            $record['name'] = 'Antique Stores';
+            $record['name'] = 'Electronic Products';
             $record['description'] = 'Equipment used in the liberation and reduction of the size of the ore.';
-            $record['image_url'] = 'subCategories/antiqueshops.png';
+            $record['image_url'] = 'subCategories/videographers.png';
         });
     }
     public function Vintageclothingboutiques()

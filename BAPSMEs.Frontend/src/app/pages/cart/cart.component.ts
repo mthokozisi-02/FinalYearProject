@@ -54,16 +54,11 @@ export class CartComponent {
     if (sessionStorage.length == 0 || this.role != Roles.BUYER) {
       this.router.navigate(['/login']);
     }
-    console.log('cart', this.cartService.getCurrentCart());
+    console.log('cart:::::::::::::::::::::', this.cartService.getCurrentCart());
 
     this.cartItems = this.cartService.getCurrentCart();
 
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    console.log('subCategories:', this.subCategories);
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-      console.log('subCategories:', this.subCategories_);
-    });
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
 
     this.productService.getAllList().subscribe((res) => {
       this.unfilteredProducts = res.data.filter(
@@ -71,7 +66,7 @@ export class CartComponent {
       );
       this.unfilteredProducts.forEach((product: any) => {
         product.image_url =
-          'https://orezon.co.zw/storage/app/public/' + product.image_url;
+          'http://127.0.0.1:8000/storage/app/public/' + product.image_url;
         const category = this.subCategories_.filter(
           (x) => x.id == product.sub_category_id
         );

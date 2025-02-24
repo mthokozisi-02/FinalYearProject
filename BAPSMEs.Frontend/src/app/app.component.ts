@@ -42,18 +42,20 @@ export class AppComponent {
     this.subCategories.forEach(category => {
       category.forEach(cat => {
         cat.image_url = 'http://127.0.0.1:8000/storage/' + cat.image_url;
+        sessionStorage.setItem('subCategories', JSON.stringify(category));
       });
 
-      localStorage.setItem('foodnBeverageSubCategories', JSON.stringify(category.filter((x) => x.category_id == 2)));
-      localStorage.setItem('retailSubCategories', JSON.stringify(category.filter((x) => x.category_id == 3)));
-      localStorage.setItem('servicesSubCategories', JSON.stringify(category.filter((x) => x.category_id == 4)));
-      localStorage.setItem('professionalServicesSubCategories', JSON.stringify(category.filter((x) => x.category_id == 5)));
-      localStorage.setItem('creativeServicesSubCategories', JSON.stringify(category.filter((x) => x.category_id == 6)));
-      localStorage.setItem('educationSubCategories', JSON.stringify(category.filter((x) => x.category_id == 7)));
-      localStorage.setItem('automotiveSubCategories', JSON.stringify(category.filter((x) => x.category_id == 8)));
-      localStorage.setItem('homeImprovementSubCategories', JSON.stringify(category.filter((x) => x.category_id == 9)));
-      localStorage.setItem('entertainmentSubCategories', JSON.stringify(category.filter((x) => x.category_id == 10)));
-      localStorage.setItem('healthSubCategories', JSON.stringify(category.filter((x) => x.category_id == 11)));
+      sessionStorage.setItem('foodnBeverageSubCategories', JSON.stringify(category.filter((x) => x.category_id == 2)));
+      sessionStorage.setItem('retailSubCategories', JSON.stringify(category.filter((x) => x.category_id == 3)));
+      sessionStorage.setItem('servicesSubCategories', JSON.stringify(category.filter((x) => x.category_id == 4)));
+      sessionStorage.setItem('professionalServicesSubCategories', JSON.stringify(category.filter((x) => x.category_id == 5)));
+      sessionStorage.setItem('creativeServicesSubCategories', JSON.stringify(category.filter((x) => x.category_id == 6)));
+      sessionStorage.setItem('educationSubCategories', JSON.stringify(category.filter((x) => x.category_id == 7)));
+      sessionStorage.setItem('automotiveSubCategories', JSON.stringify(category.filter((x) => x.category_id == 8)));
+      sessionStorage.setItem('homeImprovementSubCategories', JSON.stringify(category.filter((x) => x.category_id == 9)));
+      sessionStorage.setItem('entertainmentSubCategories', JSON.stringify(category.filter((x) => x.category_id == 10)));
+      sessionStorage.setItem('healthSubCategories', JSON.stringify(category.filter((x) => x.category_id == 11)));
+
     });
 
   }

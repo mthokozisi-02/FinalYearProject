@@ -61,12 +61,7 @@ export class AdminOrdersComponent {
         this.sellers = res.data;
         console.log('sellers:', res.data);
 
-        this.subCategories = this.subCatgeorySevice.subCategories;
-        console.log('subCategories:', this.subCategories);
-        this.subCategories.forEach(category => {
-          this.subCategories_ = category;
-          console.log('subCategories:', this.subCategories_);
-        });
+        this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
 
         this.orderService.getAllList().subscribe((res) => {
           this.orders = res.data;

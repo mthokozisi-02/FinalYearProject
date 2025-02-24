@@ -25,7 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => 'admin@ore-zone.co.zw',
+            'email' => 'admin@nust.ac.zw',
             'role' => 'admin',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('admin1234'),

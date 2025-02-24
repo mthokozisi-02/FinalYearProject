@@ -51,12 +51,7 @@ export class SellerOrdersComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    console.log('subCategories:', this.subCategories);
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-      console.log('subCategories:', this.subCategories_);
-    });
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
 
     this.orderService.getSellerOrders().subscribe((res) => {
       this.orders = res.data;

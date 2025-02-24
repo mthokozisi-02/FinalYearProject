@@ -22,24 +22,22 @@ export class CategoriesComponent {
   ) { }
 
   ngOnInit(): void {
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-      this.unfilteredSubCategories = this.subCategories_.filter((x) => x.category_id == 1);
-      this.unfilteredSubCategories.filter(x => x.id == 1).forEach(cat => {
-        cat.image_url = 'assets/img/construction.jpg';
-      })
-      this.unfilteredSubCategories.filter(x => x.id == 2).forEach(cat => {
-        cat.image_url = 'assets/img/insurance.png';
-      })
-      this.unfilteredSubCategories.filter(x => x.id == 3).forEach(cat => {
-        cat.image_url = 'assets/img/banking.png';
-      })
-      this.unfilteredSubCategories.filter(x => x.id == 4).forEach(cat => {
-        cat.image_url = 'assets/img/property.png';
-      })
-      console.log('subCategories:', this.unfilteredSubCategories);
-    });
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+
+    this.unfilteredSubCategories = this.subCategories_.filter((x) => x.category_id == 1);
+    this.unfilteredSubCategories.filter(x => x.id == 1).forEach(cat => {
+      cat.image_url = 'assets/img/construction.jpg';
+    })
+    this.unfilteredSubCategories.filter(x => x.id == 2).forEach(cat => {
+      cat.image_url = 'assets/img/insurance.png';
+    })
+    this.unfilteredSubCategories.filter(x => x.id == 3).forEach(cat => {
+      cat.image_url = 'assets/img/banking.png';
+    })
+    this.unfilteredSubCategories.filter(x => x.id == 4).forEach(cat => {
+      cat.image_url = 'assets/img/property.png';
+    })
+    console.log('subCategories:', this.unfilteredSubCategories);
   }
 
   goToCategoryProducts(id: any) {

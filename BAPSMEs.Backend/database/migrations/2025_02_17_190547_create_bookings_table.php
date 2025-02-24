@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('payment_schedule')->nullable();
 
             //insurance and banking
-            $table->string('location')->nullable();
             $table->enum('appointment_type',['Physical', 'Online'])->default('Physical')->nullable();
 
             //property
@@ -45,10 +44,14 @@ return new class extends Migration
             $table->integer('quantity')->default(0)->nullable();
             $table->string('size')->nullable();
             $table->string('style')->nullable();
+            $table->enum('shipping_options', ['Delivery', 'Pickup'])->nullable();
 
             //services
             $table->string('address')->nullable();
             $table->string('equipment_requirements')->nullable();
+            $table->string('service_duration')->nullable();
+            $table->enum('location_type', ['High Density', 'Medium Density', 'Low Density'])->nullable();
+            $table->string('special_instructions')->nullable();
 
             //professional_services
             $table->string('project_scope')->nullable();
@@ -56,6 +59,7 @@ return new class extends Migration
             $table->string('timeline_requirements')->nullable();
 
             //creative services
+            $table->string('project_type')->nullable();
             $table->string('deliverable_format')->nullable();
             $table->string('revision_requirements')->nullable();
             $table->string('style_preference')->nullable();
@@ -63,6 +67,8 @@ return new class extends Migration
             //education
             $table->string('skill_level')->nullable();
             $table->string('schedule_requirements')->nullable();
+            $table->integer('class_size')->nullable();
+            $table->string('prerequisites')->nullable();
 
             //automotive
             $table->string('vehicle_information')->nullable();
@@ -72,7 +78,6 @@ return new class extends Migration
 
             //home improvement
             $table->string('property_type')->nullable();
-            $table->string('timeline_constraints')->nullable();
             $table->string('budget_range')->nullable();
 
             //entertainment
@@ -80,6 +85,7 @@ return new class extends Migration
             $table->string('event_type')->nullable();
             $table->string('duration')->nullable();
             $table->string('special_requirements')->nullable();
+
 
 
             $table->string('additional_information')->nullable();

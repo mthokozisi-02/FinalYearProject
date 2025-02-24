@@ -266,6 +266,15 @@ export class SearchComponent implements OnInit {
 
   }
 
+  checkCart(item) {
+    this.currentCart = this.cartService.getCurrentCart()
+    const index = this.currentCart?.findIndex((p) => p.id === item.id);
+    if (index >= 0) {
+      return this.currentCart[index].quantity;
+    }
+    return 0;
+  }
+
   goToCategoryProducts(item: any) {
     const selectedCategory = (item.target as HTMLSelectElement).value;
 
