@@ -1,4 +1,5 @@
 import { Buyer } from "./buyer";
+import { User } from "./user";
 
 export interface Booking {
     id?: number; // Optional for new entries
@@ -21,7 +22,11 @@ export interface Booking {
     buyer_name: string;
     buyer_email: string;
     buyer_pic: any;
+    seller_name: string;
+    seller_email: string;
+    seller_pic: any;
     buyer_phone: string;
     buyer_country: string;
-    buyer: Buyer
+    buyer: Buyer;
+    user: User
 }

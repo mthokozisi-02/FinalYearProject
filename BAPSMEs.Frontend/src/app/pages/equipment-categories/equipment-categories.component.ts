@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SubCategory } from '../../../models/sub-category';
-import { SubCategoriesService } from '../../tools/services';
 
 @Component({
   selector: 'app-equipment-categories',
@@ -11,103 +9,53 @@ import { SubCategoriesService } from '../../tools/services';
 export class EquipmentCategoriesComponent {
   productList: any = [];
 
-  subCategories: SubCategory[] = [];
-
-  foodnBeverageSubCategories: SubCategory[] = [];
-
-  retailSubCategories: SubCategory[] = [];
-
-  servicesSubCategories: SubCategory[] = [];
-
-  professionalServicesSubCategories: SubCategory[] = [];
-
-  creativeServicesSubCategories: SubCategory[] = [];
-
-  educationSubCategories: SubCategory[] = [];
-
-  automotiveSubCategories: SubCategory[] = [];
-
-  homeimprovementSubCategories: SubCategory[] = [];
-
-  entertainmentSubCategories: SubCategory[] = [];
-
-  healthSubCategories: SubCategory[] = [];
-
   constructor(
     private router: Router,
-    private subCatgeorySevice: SubCategoriesService
   ) { }
 
   ngOnInit() {
-    this.subCatgeorySevice.getAllList().subscribe((res) => {
-      this.subCategories = res.data;
-      this.subCategories.forEach(cat => {
-        cat.image_url = 'http://127.0.0.1:8000/storage/' + cat.image_url;
-      });
 
-      this.foodnBeverageSubCategories = res.data.filter((x) => x.category_id == 2);
-      this.retailSubCategories = res.data.filter((x) => x.category_id == 3);
-      this.servicesSubCategories = res.data.filter((x) => x.category_id == 4);
-      this.professionalServicesSubCategories = res.data.filter((x) => x.category_id == 5);
-      this.creativeServicesSubCategories = res.data.filter(
-        (x) => x.category_id == 6
-      );
-      this.educationSubCategories = res.data.filter((x) => x.category_id == 7);
-      this.automotiveSubCategories = res.data.filter(
-        (x) => x.category_id == 8
-      );
-      this.homeimprovementSubCategories = res.data.filter(
-        (x) => x.category_id == 9
-      );
-      this.entertainmentSubCategories = res.data.filter(
-        (x) => x.category_id == 10
-      );
-      this.healthSubCategories = res.data.filter(
-        (x) => x.category_id == 11
-      );
-      console.log('subCategories:', this.subCategories);
-      this.productList = this.foodnBeverageSubCategories;
-    });
+    this.productList = JSON.parse(localStorage.getItem('foodnBeverageSubCategories'));
   }
 
   showFoodnBeverage() {
-    this.productList = this.foodnBeverageSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('foodnBeverageSubCategories'));
   }
 
   showRetail() {
-    this.productList = this.retailSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('retailSubCategories'));
   }
 
   showServices() {
-    this.productList = this.servicesSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('servicesSubCategories'));
   }
 
   showProfessionalServices() {
-    this.productList = this.professionalServicesSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('professionalServicesSubCategories'));
   }
 
   showCreativeServices() {
-    this.productList = this.creativeServicesSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('creativeServicesSubCategories'));
   }
 
   showEducation() {
-    this.productList = this.educationSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('educationSubCategories'));
   }
 
   showAutomotive() {
-    this.productList = this.automotiveSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('automotiveSubCategories'));
   }
 
   showHomeImprovement() {
-    this.productList = this.homeimprovementSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('homeImprovementSubCategories'));
   }
 
   showEntertainment() {
-    this.productList = this.entertainmentSubCategories;
+    this.productList = JSON.parse(localStorage.getItem('entertainmentSubCategories'));
   }
 
   showHealth() {
-    this.productList = this.healthSubCategories;
+    JSON.parse(localStorage.getItem('healthSubCategories'));
   }
 
   goToCategoryProducts(id: any) {

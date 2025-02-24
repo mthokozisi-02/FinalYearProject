@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Orders } from '../../../models/orders';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
@@ -30,11 +31,15 @@ export class BuyerOrdersComponent {
 
   categories: SubCategory[] = [];
 
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
+
   constructor(
     private orderService: OrdersService,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
-    private categoryService: SubCategoriesService,
+    private subCatgeorySevice: SubCategoriesService,
   ) { }
 
   ngOnInit(): void {
@@ -42,40 +47,42 @@ export class BuyerOrdersComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.categoryService.getAllList().subscribe((res) => {
-      this.categories = res.data;
-      console.log('categories:', this.categories);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
+    });
 
-      this.sellerService.getAllList().subscribe((res) => {
-        this.sellers = res.data;
-        console.log('sellers:', res.data);
+    this.sellerService.getAllList().subscribe((res) => {
+      this.sellers = res.data;
+      console.log('sellers:', res.data);
 
-        this.orderService.getBuyerOrders().subscribe((res) => {
-          this.orders = res.data;
-          console.log(res.data)
-          this.orders.forEach((order) => {
-            order.total_quantity = 0;
-            order.products = []
+      this.orderService.getBuyerOrders().subscribe((res) => {
+        this.orders = res.data;
+        console.log(res.data)
+        this.orders.forEach((order) => {
+          order.total_quantity = 0;
+          order.products = []
 
-            order.sub_orders.forEach(sub => {
-              sub.order_products.forEach(ord => {
-                order.total_quantity += ord.quantity
-                ord.product.seller_id = sub.seller.id
-                ord.product.seller_name = sub.seller.name
-                this.categories.filter(x => x.id == ord.product.sub_category_id).forEach(cat => {
-                  ord.product.sub_category_name = cat.name
-                })
-                ord.product.quantity = ord.quantity
-                ord.product.total_amount = sub.total_price
-                ord.product.image_url = 'https://orezon.co.zw/storage/app/public/' + ord.product.image_url;
-
-                order.products = [...order.products, ord.product];
+          order.sub_orders.forEach(sub => {
+            sub.order_products.forEach(ord => {
+              order.total_quantity += ord.quantity
+              ord.product.seller_id = sub.seller.id
+              ord.product.seller_name = sub.seller.name
+              this.subCategories_.filter(x => x.id == ord.product.sub_category_id).forEach(cat => {
+                ord.product.sub_category_name = cat.name
               })
+              ord.product.quantity = ord.quantity
+              ord.product.total_amount = sub.total_price
+              ord.product.image_url = 'https://orezon.co.zw/storage/app/public/' + ord.product.image_url;
+
+              order.products = [...order.products, ord.product];
             })
-          });
-          this.filteredOrders = this.orders
-          console.log('finalorders:', this.orders);
+          })
         });
+        this.filteredOrders = this.orders
+        console.log('finalorders:', this.orders);
       });
     });
 

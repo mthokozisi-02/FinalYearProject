@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Buyer } from '../../../models/buyer';
 import { ProductCategory } from '../../../models/product-category';
 import { Seller } from '../../../models/seller';
+import { SubCategory } from '../../../models/sub-category';
 import { SubOrder } from '../../../models/sub-order';
 import { User } from '../../../models/user';
 import { BuyerRegistrationService, OrdersService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
@@ -28,6 +30,10 @@ export class AdminOrdersComponent {
 
   viewOrderModal = false;
 
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
+
   seller: Seller = {} as Seller;
 
   categories: ProductCategory[] = [];
@@ -38,7 +44,8 @@ export class AdminOrdersComponent {
     private orderService: OrdersService,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
-    private categoryService: SubCategoriesService
+    private categoryService: SubCategoriesService,
+    private subCatgeorySevice: SubCategoriesService
   ) { }
 
   ngOnInit(): void {
@@ -54,45 +61,47 @@ export class AdminOrdersComponent {
         this.sellers = res.data;
         console.log('sellers:', res.data);
 
-        this.categoryService.getAllList().subscribe((res) => {
-          this.categories = res.data;
-          console.log('categories:', this.categories);
+        this.subCategories = this.subCatgeorySevice.subCategories;
+        console.log('subCategories:', this.subCategories);
+        this.subCategories.forEach(category => {
+          this.subCategories_ = category;
+          console.log('subCategories:', this.subCategories_);
+        });
 
-          this.orderService.getAllList().subscribe((res) => {
-            this.orders = res.data;
-            console.log('orders:', this.orders);
+        this.orderService.getAllList().subscribe((res) => {
+          this.orders = res.data;
+          console.log('orders:', this.orders);
 
-            this.orders.forEach((order) => {
-              order.total_quantity = 0;
-              this.buyers
-                .filter((x) => x.user_id == order.buyer_id)
-                .forEach((buyer) => {
-                  console.log('entered', buyer);
-                  order.buyer_pic =
-                    'assets/img/user.png';
-                  order.buyer_name = buyer.user.name;
-                  order.buyer_email = buyer.user.email;
-                });
-              order.products.forEach((prod: any) => {
-                prod.image_url =
-                  'https://orezon.co.zw/storage/app/public/' + prod.image_url;
-                const category = this.categories.filter(
-                  (x) => x.id == prod.sub_category_id
-                );
-                category.forEach((cat) => {
-                  prod.sub_category_name = cat.name;
-                });
-                this.sellers
-                  .filter((x) => x.user_id == order.seller_id)
-                  .forEach((seller) => {
-                    prod.business_name = seller.business_name;
-                  });
-                order.total_quantity += prod.pivot.quantity;
+          this.orders.forEach((order) => {
+            order.total_quantity = 0;
+            this.buyers
+              .filter((x) => x.user_id == order.buyer_id)
+              .forEach((buyer) => {
+                console.log('entered', buyer);
+                order.buyer_pic =
+                  'assets/img/user.png';
+                order.buyer_name = buyer.user.name;
+                order.buyer_email = buyer.user.email;
               });
+            order.products.forEach((prod: any) => {
+              prod.image_url =
+                'https://orezon.co.zw/storage/app/public/' + prod.image_url;
+              const category = this.subCategories_.filter(
+                (x) => x.id == prod.sub_category_id
+              );
+              category.forEach((cat) => {
+                prod.sub_category_name = cat.name;
+              });
+              this.sellers
+                .filter((x) => x.user_id == order.seller_id)
+                .forEach((seller) => {
+                  prod.business_name = seller.business_name;
+                });
+              order.total_quantity += prod.pivot.quantity;
             });
-            this.filteredOrders = this.orders
-            console.log('orders:', this.orders);
           });
+          this.filteredOrders = this.orders
+          console.log('orders:', this.orders);
         });
 
       });

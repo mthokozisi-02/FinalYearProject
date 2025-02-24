@@ -128,6 +128,8 @@ Route::prefix('v1')->group(function() {
             Route::get('/admin/get-payouts', [PayoutsController::class, 'getPayouts']);
             Route::post('/admin/sellers/make-payouts', [PayoutsController::class, 'makePayouts']);
 
+            Route::get('/admin/enquiries', [\App\Http\Controllers\Api\EnquiryController::class, 'getAllEnquiries']);
+
         });
 
         // Seller-only routes

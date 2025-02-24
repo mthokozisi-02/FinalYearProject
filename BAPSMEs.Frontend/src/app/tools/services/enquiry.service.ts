@@ -27,7 +27,7 @@ export class EnquiryService extends AlertService {
   }
 
   getAllList() {
-    return this.http.get<ResponseHandler>(`${url}/enquiries/`);
+    return this.http.get<ResponseHandler>(`${url}/admin/enquiries`);
   }
 
   enquire(itemDto: any) {

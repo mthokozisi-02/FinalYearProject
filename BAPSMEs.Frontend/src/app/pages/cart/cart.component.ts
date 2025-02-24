@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Orders } from '../../../models/orders';
 import { Products } from '../../../models/products';
 import { SubCategory } from '../../../models/sub-category';
@@ -31,11 +32,15 @@ export class CartComponent {
 
   role: any
 
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
+
   constructor(
     private router: Router,
     public cartService: CartService,
     private productService: ProductsService,
-    private categoryService: SubCategoriesService,
+    private subCatgeorySevice: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private orderService: OrdersService
   ) { }
@@ -53,27 +58,29 @@ export class CartComponent {
 
     this.cartItems = this.cartService.getCurrentCart();
 
-    this.categoryService.getAllList().subscribe((res) => {
-      this.categories = res.data;
-      console.log('categories:', this.categories);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
+    });
 
-      this.productService.getAllList().subscribe((res) => {
-        this.unfilteredProducts = res.data.filter(
-          (x) => x.sub_category_id == this.id
+    this.productService.getAllList().subscribe((res) => {
+      this.unfilteredProducts = res.data.filter(
+        (x) => x.sub_category_id == this.id
+      );
+      this.unfilteredProducts.forEach((product: any) => {
+        product.image_url =
+          'https://orezon.co.zw/storage/app/public/' + product.image_url;
+        const category = this.subCategories_.filter(
+          (x) => x.id == product.sub_category_id
         );
-        this.unfilteredProducts.forEach((product: any) => {
-          product.image_url =
-            'https://orezon.co.zw/storage/app/public/' + product.image_url;
-          const category = this.categories.filter(
-            (x) => x.id == product.sub_category_id
-          );
-          category.forEach((cat) => {
-            product.sub_category_name = cat.name;
-          });
+        category.forEach((cat) => {
+          product.sub_category_name = cat.name;
         });
-        this.products = this.unfilteredProducts;
-        console.log('products:', this.products);
       });
+      this.products = this.unfilteredProducts;
+      console.log('products:', this.products);
     });
 
     this.id = this.actRoute.snapshot.params['id'];

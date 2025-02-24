@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
+import { Enquire } from '../../../models/enquire';
 import { Orders } from '../../../models/orders';
 import { Package } from '../../../models/package';
 import { Payments } from '../../../models/payments';
 import { Seller } from '../../../models/seller';
 import { SubOrder } from '../../../models/sub-order';
 import { BuyerRegistrationService, OrdersService, PackagesService, PaymentService, SellerRegistrationService } from '../../tools/services';
+import { BookService } from '../../tools/services/book.service';
+import { EnquiryService } from '../../tools/services/enquiry.service';
 
 @Component({
   selector: 'app-admin-stats',
@@ -36,13 +40,15 @@ export class AdminStatsComponent {
 
   lastMonthOrders = 0
 
-  ordersPercentageDiff: any
+  queriesPercentageDiff: any
+
+  bookingsPercentageDiff: any
 
   totalUsers = 0
 
-  thisMonthUsers = 0
+  thisMonthQueries = 0
 
-  lastMonthUsers = 0
+  lastMonthQueries = 0
 
   usersPercentageDiff: any
 
@@ -58,7 +64,7 @@ export class AdminStatsComponent {
 
   subOrders: SubOrder[] = [];
 
-  filteredsubOrders: SubOrder[] = [];
+  filteredBookings: Enquire[] = [];
 
   lastMonthPayments = 0
 
@@ -70,7 +76,11 @@ export class AdminStatsComponent {
 
   buyers: Buyer[] = [];
 
+  enquiries: Enquire[] = [];
+
   sellers: Seller[] = [];
+
+  bookings: Booking[] = [];
 
   constructor(
     private packageService: PackagesService,
@@ -78,7 +88,9 @@ export class AdminStatsComponent {
     private buyerService: BuyerRegistrationService,
     private sellerService: SellerRegistrationService,
     private paymentService: PaymentService,
-    private router: Router
+    private router: Router,
+    private enquiryService: EnquiryService,
+    private bookingService: BookService
   ) { }
 
   ngOnInit(): void {
@@ -97,91 +109,82 @@ export class AdminStatsComponent {
     this.buyerService.getAllList().subscribe((res) => {
       this.buyers = res.data;
 
-      this.orderService.getAllList().subscribe((res) => {
-        this.subOrders = res.data;
+      this.bookingService.getAllList().subscribe((res) => {
+        this.bookings = res.data;
 
-        this.subOrders.forEach(order => {
-          order.buyer_pic = 'assets/img/user.png';
-          this.buyers.filter(x => x.user_id == order.buyer_id).forEach(buyer => {
-            order.buyer_email = buyer.user.email
-            order.buyer_name = buyer.user.name
-          })
-          order.total_quantity = order.products.reduce((sum, order) => sum + order.quantity, 0);
+        this.bookings.forEach(book => {
+          book.buyer_pic = 'assets/img/user.png';
+          book.buyer_email = book.user.email
+          book.buyer_name = book.user.name
         })
 
         console.log('orders:', this.subOrders)
 
         // Calculate total orders for last month and this month
-        this.lastMonthOrders = this.subOrders.filter(order => {
-          const orderDate = new Date(order.created_at);
+        this.lastMonthOrders = this.bookings.filter(book => {
+          const orderDate = new Date(book.created_at);
           return orderDate.getFullYear() === new Date().getFullYear() &&
             orderDate.getMonth() === new Date().getMonth() - 1;
-        }).reduce((sum, order) => sum + Number(order.total_price), 0);
+        }).reduce((sum, book) => sum + Number(book.total_price), 0);
 
-        this.thisMonthOrders = this.subOrders.filter(order => {
-          const orderDate = new Date(order.created_at);
+        this.thisMonthOrders = this.bookings.filter(book => {
+          const orderDate = new Date(book.created_at);
           return orderDate.getFullYear() === new Date().getFullYear() &&
             orderDate.getMonth() === new Date().getMonth();
-        }).reduce((sum, order) => sum + Number(order.total_price), 0);
+        }).reduce((sum, book) => sum + Number(book.total_price), 0);
 
-        this.filteredsubOrders = this.subOrders.filter(order => {
-          const orderDate = new Date(order.created_at);
+        this.filteredBookings = this.bookings.filter(book => {
+          const orderDate = new Date(book.created_at);
           return orderDate.getFullYear() === new Date().getFullYear() &&
             orderDate.getMonth() === new Date().getMonth();
         })
 
-        const uniqueOrderIds = new Set(this.filteredsubOrders.map(order => order.order_id));
-        this.totalOrders = uniqueOrderIds.size;
+        // const uniqueOrderIds = new Set(this.filteredsubOrders.map(order => order.order_id));
+        // this.totalOrders = uniqueOrderIds.size;
 
 
         // Calculate percentage difference
-        this.ordersPercentageDiff = ((this.thisMonthOrders - this.lastMonthOrders) / this.lastMonthOrders * 100)
-        if (this.ordersPercentageDiff == Infinity) {
-          this.ordersPercentageDiff = 100
-        } else if (!(this.ordersPercentageDiff >= 0)) {
-          this.paymentsPercentageDiff = 0
+        if (this.lastMonthOrders == 0 && this.thisMonthOrders == 0) {
+          this.bookingsPercentageDiff = 0
         }
-        console.log('orders:', this.orders, ':', this.thisMonthOrders, ':', this.lastMonthOrders, ':', this.ordersPercentageDiff);
+        else if (this.lastMonthOrders == 0 && this.thisMonthOrders >= 0) {
+          this.bookingsPercentageDiff = 100
+        }
+        else {
+          this.bookingsPercentageDiff = (((this.thisMonthOrders - this.lastMonthOrders) / (this.lastMonthOrders) * 100)).toFixed(2)
+        }
+        console.log('bookings:', this.bookings, ':', this.thisMonthOrders, ':', this.lastMonthOrders, ':', this.bookingsPercentageDiff);
       });
-
-      this.lastMonthUsers += this.buyers.filter(user => {
-        const userDate = new Date(user.created_at);
-        return userDate.getFullYear() === new Date().getFullYear() &&
-          userDate.getMonth() === new Date().getMonth() - 1;
-      }).length;
-
-      this.thisMonthUsers += this.buyers.filter(user => {
-        const userDate = new Date(user.created_at);
-        return userDate.getFullYear() === new Date().getFullYear() &&
-          userDate.getMonth() === new Date().getMonth();
-      }).length;
-
-      console.log('buyers:', this.buyers);
     });
 
-    this.sellerService.getAllList().subscribe((res) => {
-      this.sellers = res.data;
+    this.enquiryService.getAllList().subscribe((res) => {
+      this.enquiries = res.data;
 
-      this.lastMonthUsers += this.sellers.filter(user => {
-        const userDate = new Date(user.created_at);
+      this.lastMonthQueries += this.enquiries.filter(enquiry => {
+        const userDate = new Date(enquiry.created_at);
         return userDate.getFullYear() === new Date().getFullYear() &&
           userDate.getMonth() === new Date().getMonth() - 1;
       }).length;
 
-      this.thisMonthUsers += this.sellers.filter(user => {
-        const userDate = new Date(user.created_at);
+      this.thisMonthQueries += this.enquiries.filter(enquiry => {
+        const userDate = new Date(enquiry.created_at);
         return userDate.getFullYear() === new Date().getFullYear() &&
           userDate.getMonth() === new Date().getMonth();
       }).length;
 
-      console.log('sellers:', this.sellers);
+      console.log('enquiries:', this.enquiries);
 
       // Calculate percentage difference
-      this.usersPercentageDiff = ((this.thisMonthUsers - this.lastMonthUsers) / this.lastMonthUsers * 100).toFixed(2)
-      if (this.usersPercentageDiff == Infinity) {
-        this.usersPercentageDiff = 100
+      if (this.lastMonthQueries == 0 && this.thisMonthQueries == 0) {
+        this.queriesPercentageDiff = 0
       }
-      console.log('all:', this.lastMonthUsers, this.thisMonthUsers, this.usersPercentageDiff);
+      else if (this.lastMonthQueries == 0 && this.thisMonthQueries >= 0) {
+        this.queriesPercentageDiff = 100
+      }
+      else {
+        this.queriesPercentageDiff = (((this.thisMonthQueries - this.lastMonthQueries) / (this.lastMonthQueries) * 100)).toFixed(2)
+      }
+      console.log('all:', this.thisMonthQueries, this.lastMonthQueries, this.queriesPercentageDiff);
     });
 
     this.sellerService.getAllList().subscribe((res) => {

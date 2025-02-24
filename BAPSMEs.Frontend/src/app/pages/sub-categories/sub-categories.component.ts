@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Category } from '../../../models/category';
 import { SubCategory } from '../../../models/sub-category';
 import { SubCategoriesService } from '../../tools/services';
@@ -12,7 +13,9 @@ import { CategoriesService } from '../../tools/services/categories.service';
 export class SubCategoriesComponent {
   categories: Category[] = [];
 
-  subCategories: SubCategory[] = [];
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
 
   filteredsubCategories: SubCategory[] = [];
 
@@ -70,19 +73,24 @@ export class SubCategoriesComponent {
       this.categories = res.data;
       console.log('categories:', this.categories);
 
-      this.subCatgeorySevice.getAllList().subscribe((res) => {
-        res.data.forEach((product: any) => {
-          const category = this.categories.filter(
-            (x) => x.id == product.category_id
-          );
-          category.forEach((cat) => {
-            product.category_name = cat.name;
-          });
-        });
-        this.subCategories = res.data;
-        this.filteredsubCategories = this.subCategories
-        console.log('subCategories:', this.subCategories);
+      this.subCategories = this.subCatgeorySevice.subCategories;
+      console.log('subCategories:', this.subCategories);
+      this.subCategories.forEach(category => {
+        this.subCategories_ = category;
+        console.log('subCategories:', this.subCategories_);
       });
+
+
+      this.subCategories_.forEach((product: any) => {
+        const category = this.subCategories_.filter(
+          (x) => x.id == product.category_id
+        );
+        category.forEach((cat) => {
+          product.category_name = cat.name;
+        });
+      });
+      this.filteredsubCategories = this.subCategories_
+      console.log('subCategories:', this.subCategories_);
     });
 
 
@@ -98,19 +106,16 @@ export class SubCategoriesComponent {
           this.createModal = false
           this.mainSection = true
           this.subCategoryForm.reset();
-          this.subCatgeorySevice.getAllList().subscribe((res) => {
-            res.data.forEach((product: any) => {
-              const category = this.categories.filter(
-                (x) => x.id == product.category_id
-              );
-              category.forEach((cat) => {
-                product.category_name = cat.name;
-              });
+          this.subCategories_.forEach((product: any) => {
+            const category = this.subCategories_.filter(
+              (x) => x.id == product.category_id
+            );
+            category.forEach((cat) => {
+              product.category_name = cat.name;
             });
-            this.subCategories = res.data;
-            this.filteredsubCategories = this.subCategories
-            console.log('products:', this.subCategories);
           });
+          this.filteredsubCategories = this.subCategories_
+          console.log('products:', this.subCategories_);
           console.log(res.message);
         } else {
           console.log(res.message);
@@ -127,11 +132,6 @@ export class SubCategoriesComponent {
 
         if (res.status == 'created') {
           alert(res.message);
-          this.subCatgeorySevice.getAllList().subscribe((res) => {
-            this.categories = res.data;
-            this.ngOnInit();
-            console.log('categories:', this.categories);
-          });
           console.log(res.message);
         } else {
           console.log(res.message);
@@ -161,13 +161,13 @@ export class SubCategoriesComponent {
             this.editProduct = false;
             this.mainSection = true;
             this.subCategoryForm.reset()
-            var index = this.subCategories.findIndex(
+            var index = this.subCategories_.findIndex(
               (x) => x.id === this.selectedId
             );
-            this.subCategories.splice(index, 1);
+            this.subCategories_.splice(index, 1);
 
-            this.subCategories = [...this.subCategories, res.data];
-            this.filteredsubCategories = this.subCategories
+            this.subCategories_ = [...this.subCategories_, res.data];
+            this.filteredsubCategories = this.subCategories_
           } else {
             console.error(Error);
           }
@@ -240,11 +240,11 @@ export class SubCategoriesComponent {
     this.subCatgeorySevice.delete(this.selectedId).subscribe(
       (res) => {
         this.subCatgeorySevice.success(res.message);
-        var index = this.subCategories.findIndex((x) => x.id === this.selectedId);
-        this.subCategories.splice(index, 1);
+        var index = this.subCategories_.findIndex((x) => x.id === this.selectedId);
+        this.subCategories_.splice(index, 1);
 
-        this.subCategories = [...this.subCategories, res.data];
-        this.filteredsubCategories = this.subCategories
+        this.subCategories_ = [...this.subCategories_, res.data];
+        this.filteredsubCategories = this.subCategories_
       }
     );
 
@@ -253,7 +253,7 @@ export class SubCategoriesComponent {
 
   searchProducts(item: any) {
     console.log(this.subCategories)
-    this.filteredsubCategories = this.subCategories.filter(
+    this.filteredsubCategories = this.subCategories_.filter(
       prod => prod?.name.toLowerCase().includes(item.toLowerCase())
     );
     // if (this.filteredProducts = []) {

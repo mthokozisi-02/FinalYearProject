@@ -20,6 +20,9 @@ export interface Enquire {
     buyer_name: string;
     buyer_email: string;
     buyer_pic: any;
+    seller_name: string;
+    seller_email: string;
+    seller_pic: any;
     buyer_phone: string;
     buyer_country: string;
     buyer: Buyer

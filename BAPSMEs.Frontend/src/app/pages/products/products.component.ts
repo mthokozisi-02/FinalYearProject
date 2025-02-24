@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
 import { SubCategory } from '../../../models/sub-category';
@@ -21,7 +22,9 @@ export class ProductsComponent implements OnInit {
 
   categories: ProductCategory[] = [];
 
-  subCategories: SubCategory[] = [];
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
 
   filteredSubCategories: SubCategory[] = [];
 
@@ -88,7 +91,7 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private searchService: SearchService,
     private productService: ProductsService,
-    private subCategoryService: SubCategoriesService,
+    private subCatgeorySevice: SubCategoriesService,
     private categoryService: CategoriesService,
   ) {
     this.productForm = new FormGroup({
@@ -181,31 +184,33 @@ export class ProductsComponent implements OnInit {
       this.productForm.value.category = this.categories[0].name
     });
 
-    this.subCategoryService.getAllList().subscribe((res) => {
-      this.subCategories = res.data;
-      console.log('sub categories:', this.subCategories);
-      this.filteredSubCategories = this.subCategories.filter(x => x.category_id == Number(this.selectedCategoryOption))
-      this.selectedSubCategoryOption = 1
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
+    });
+    this.filteredSubCategories = this.subCategories_.filter(x => x.category_id == Number(this.selectedCategoryOption))
+    this.selectedSubCategoryOption = 1
 
-      this.productService.getSellerProducts(this.user).subscribe((res) => {
-        res.data.forEach((product: any) => {
-          product.image_url =
-            'http://127.0.0.1:8000/storage/' + product.image_url;
-          product.image_url2 =
-            'http://127.0.0.1:8000/storage/' + product.image_url2;
-          product.image_url3 =
-            'http://127.0.0.1:8000/storage/' + product.image_url3;
-          const category = this.subCategories.filter(
-            (x) => x.id == product.sub_category_id
-          );
-          category.forEach((cat) => {
-            product.sub_category_name = cat.name;
-          });
+    this.productService.getSellerProducts(this.user).subscribe((res) => {
+      res.data.forEach((product: any) => {
+        product.image_url =
+          'http://127.0.0.1:8000/storage/' + product.image_url;
+        product.image_url2 =
+          'http://127.0.0.1:8000/storage/' + product.image_url2;
+        product.image_url3 =
+          'http://127.0.0.1:8000/storage/' + product.image_url3;
+        const category = this.subCategories_.filter(
+          (x) => x.id == product.sub_category_id
+        );
+        category.forEach((cat) => {
+          product.sub_category_name = cat.name;
         });
-        this.products = res.data;
-        this.filteredProducts = this.products
-        console.log('products:', this.products);
       });
+      this.products = res.data;
+      this.filteredProducts = this.products
+      console.log('products:', this.products);
     });
 
 
@@ -391,25 +396,21 @@ export class ProductsComponent implements OnInit {
           this.selectedFile = null;
           this.selectedFile2 = null
           this.selectedFile3 = null
-          this.subCategoryService.getAllList().subscribe((res) => {
-            this.subCategories = res.data;
-            console.log('sub categories:', this.subCategories);
 
-            this.productService.getSellerProducts(this.user).subscribe((res) => {
-              res.data.forEach((product: any) => {
-                product.image_url =
-                  'https://orezon.co.zw/storage/app/public/' + product.image_url;
-                const category = this.subCategories.filter(
-                  (x) => x.id == product.sub_category_id
-                );
-                category.forEach((cat) => {
-                  product.sub_category_name = cat.name;
-                });
+          this.productService.getSellerProducts(this.user).subscribe((res) => {
+            res.data.forEach((product: any) => {
+              product.image_url =
+                'https://orezon.co.zw/storage/app/public/' + product.image_url;
+              const category = this.subCategories_.filter(
+                (x) => x.id == product.sub_category_id
+              );
+              category.forEach((cat) => {
+                product.sub_category_name = cat.name;
               });
-              this.products = res.data;
-              this.filteredProducts = this.products
-              console.log('products:', this.products);
             });
+            this.products = res.data;
+            this.filteredProducts = this.products
+            console.log('products:', this.products);
           });
           console.log(res.message);
         } else {
@@ -496,7 +497,7 @@ export class ProductsComponent implements OnInit {
     this.editProduct = true;
     this.productsTab = false;
     this.selectedProduct = item;
-    this.filteredSubCategories = this.subCategories
+    this.filteredSubCategories = this.subCategories_
     this.selectedId = item.id;
     this.selectedCategoryOption = this.selectedProduct.subcategory.category_id
     this.selectedSubCategoryOption = this.selectedProduct.sub_category_id
@@ -622,7 +623,7 @@ export class ProductsComponent implements OnInit {
     console.log(this.selectedCategoryOption)
     this.selectedSubCategoryOption = null
 
-    this.filteredSubCategories = this.subCategories.filter(x => x.category_id == Number(this.selectedCategoryOption))
+    this.filteredSubCategories = this.subCategories_.filter(x => x.category_id == Number(this.selectedCategoryOption))
     this.selectedSubCategoryOption = this.filteredSubCategories[0].id
 
     if (this.filteredSubCategories.length > 0) {

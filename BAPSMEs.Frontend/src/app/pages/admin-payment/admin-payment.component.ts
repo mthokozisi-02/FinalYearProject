@@ -55,8 +55,7 @@ export class AdminPaymentComponent {
         this.paymentService.getAllList().subscribe((res) => {
           this.payments = res.data;
           console.log('payments:', this.payments);
-          this.packagesPayments = this.payments.filter(x => x.buyer_id == null)
-          this.orderPayments = this.payments.filter(x => x.buyer_id != null)
+          this.packagesPayments = this.payments
 
           this.packagesPayments.forEach(pay => {
             this.sellers

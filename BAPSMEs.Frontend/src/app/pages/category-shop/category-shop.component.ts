@@ -1,5 +1,6 @@
 import { Component, type OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Orders } from '../../../models/orders';
 import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
@@ -21,6 +22,10 @@ export class CategoryShopComponent implements OnInit {
 
   order: Orders = {} as Orders;
 
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
+
   id = 0;
 
   products: Products[] = [];
@@ -28,8 +33,6 @@ export class CategoryShopComponent implements OnInit {
   unfilteredProducts: Products[] = [];
 
   categories: ProductCategory[] = [];
-
-  subCategories: SubCategory[] = [];
 
   wishlist = [];
 
@@ -53,7 +56,7 @@ export class CategoryShopComponent implements OnInit {
     public cartService: CartService,
     private wishlistServie: WishListService,
     private productService: ProductsService,
-    private categoryService: SubCategoriesService,
+    private subCatgeorySevice: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private router: Router,
     private sellerService: SellerRegistrationService
@@ -64,62 +67,64 @@ export class CategoryShopComponent implements OnInit {
     this.id = this.actRoute.snapshot.params['id'];
 
 
-    this.categoryService.getAllList().subscribe((res) => {
-      this.subCategories = res.data;
-      console.log('categories:', this.subCategories);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
+    });
 
-      this.sellerService.getAllList().subscribe((res) => {
-        this.sellers = res.data;
-        console.log('sellers:', this.sellers);
+    this.sellerService.getAllList().subscribe((res) => {
+      this.sellers = res.data;
+      console.log('sellers:', this.sellers);
 
-        this.productService.getAllList().subscribe((res) => {
-          console.log('res.data:', res.data);
-          this.unfilteredProducts = res.data.filter(
-            (x) => x.sub_category_id == this.id
+      this.productService.getAllList().subscribe((res) => {
+        console.log('res.data:', res.data);
+        this.unfilteredProducts = res.data.filter(
+          (x) => x.sub_category_id == this.id
+        );
+        this.unfilteredProducts.forEach((product: any) => {
+          product.image_url =
+            'http://127.0.0.1:8000/storage/' + product.image_url;
+          product.image_url2 =
+            'http://127.0.0.1:8000/storage/' + product.image_url2;
+          product.image_url3 =
+            'http://127.0.0.1:8000/storage/' + product.image_url3;
+
+          product.noOfRatings = product.ratings.length
+          product.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (product.noOfRatings))
+          product.avgRating = Math.floor(product.unRoundedAvgRating);
+
+          product.totalStars = product.ratings.length
+
+          product.one = product.ratings.filter(x => x.rating == 1).length
+          product.two = product.ratings.filter(x => x.rating == 2).length
+          product.three = product.ratings.filter(x => x.rating == 3).length
+          product.four = product.ratings.filter(x => x.rating == 4).length
+          product.five = product.ratings.filter(x => x.rating == 5).length
+
+          product.fiveStar = (((product.ratings.filter(x => x.rating == 5).length) / product.totalStars) * 100)
+          product.fourStar = (((product.ratings.filter(x => x.rating == 4).length) / product.totalStars) * 100)
+          product.threeStar = (((product.ratings.filter(x => x.rating == 3).length) / product.totalStars) * 100)
+          product.twoStar = (((product.ratings.filter(x => x.rating == 2).length) / product.totalStars) * 100)
+          product.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / product.totalStars) * 100)
+
+          this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
+            product.seller_name = seller.business_name
+            product.location = seller.address
+            product.business_name = (seller.business_name).toUpperCase()
+          })
+          const category = this.subCategories_.filter(
+            (x) => x.id == product.sub_category_id
           );
-          this.unfilteredProducts.forEach((product: any) => {
-            product.image_url =
-              'http://127.0.0.1:8000/storage/' + product.image_url;
-            product.image_url2 =
-              'http://127.0.0.1:8000/storage/' + product.image_url2;
-            product.image_url3 =
-              'http://127.0.0.1:8000/storage/' + product.image_url3;
-
-            product.noOfRatings = product.ratings.length
-            product.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (product.noOfRatings))
-            product.avgRating = Math.floor(product.unRoundedAvgRating);
-
-            product.totalStars = product.ratings.length
-
-            product.one = product.ratings.filter(x => x.rating == 1).length
-            product.two = product.ratings.filter(x => x.rating == 2).length
-            product.three = product.ratings.filter(x => x.rating == 3).length
-            product.four = product.ratings.filter(x => x.rating == 4).length
-            product.five = product.ratings.filter(x => x.rating == 5).length
-
-            product.fiveStar = (((product.ratings.filter(x => x.rating == 5).length) / product.totalStars) * 100)
-            product.fourStar = (((product.ratings.filter(x => x.rating == 4).length) / product.totalStars) * 100)
-            product.threeStar = (((product.ratings.filter(x => x.rating == 3).length) / product.totalStars) * 100)
-            product.twoStar = (((product.ratings.filter(x => x.rating == 2).length) / product.totalStars) * 100)
-            product.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / product.totalStars) * 100)
-
-            this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
-              product.seller_name = seller.business_name
-              product.location = seller.address
-              product.business_name = (seller.business_name).toUpperCase()
-            })
-            const category = this.subCategories.filter(
-              (x) => x.id == product.sub_category_id
-            );
-            console.log('category', category);
-            category.forEach((cat) => {
-              product.sub_category_name = cat.name;
-              console.log('category', product.sub_category_name);
-            });
+          console.log('category', category);
+          category.forEach((cat) => {
+            product.sub_category_name = cat.name;
+            console.log('category', product.sub_category_name);
           });
-          this.products = this.unfilteredProducts;
-          console.log('products:', this.products);
         });
+        this.products = this.unfilteredProducts;
+        console.log('products:', this.products);
       });
     });
 

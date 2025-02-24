@@ -64,6 +64,7 @@ import { AlertService } from './tools/services';
 import { TruncatePipe } from './truncate.pipe';
 import { RecommendedProductsComponent } from './pages/recommended-products/recommended-products.component';
 import { EventsComponent } from './pages/events/events.component';
+import { AdminEnquiriesComponent } from './pages/admin-enquiries/admin-enquiries.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { EventsComponent } from './pages/events/events.component';
     EnquireComponent,
     TruncatePipe,
     RecommendedProductsComponent,
-    EventsComponent
+    EventsComponent,
+    AdminEnquiriesComponent
   ],
   imports: [
     BrowserModule,

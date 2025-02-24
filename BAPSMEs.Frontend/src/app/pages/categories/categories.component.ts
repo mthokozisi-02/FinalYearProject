@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { SubCategory } from '../../../models/sub-category';
 import { SubCategoriesService } from '../../tools/services';
 
@@ -9,7 +10,9 @@ import { SubCategoriesService } from '../../tools/services';
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent {
-  subCategories: SubCategory[] = [];
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
 
   unfilteredSubCategories: SubCategory[] = [];
 
@@ -19,8 +22,10 @@ export class CategoriesComponent {
   ) { }
 
   ngOnInit(): void {
-    this.subCatgeorySevice.getAllList().subscribe((res) => {
-      this.unfilteredSubCategories = res.data.filter((x) => x.category_id == 1);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      this.unfilteredSubCategories = this.subCategories_.filter((x) => x.category_id == 1);
       this.unfilteredSubCategories.filter(x => x.id == 1).forEach(cat => {
         cat.image_url = 'assets/img/construction.jpg';
       })
@@ -33,7 +38,6 @@ export class CategoriesComponent {
       this.unfilteredSubCategories.filter(x => x.id == 4).forEach(cat => {
         cat.image_url = 'assets/img/property.png';
       })
-      this.subCategories = this.unfilteredSubCategories;
       console.log('subCategories:', this.unfilteredSubCategories);
     });
   }

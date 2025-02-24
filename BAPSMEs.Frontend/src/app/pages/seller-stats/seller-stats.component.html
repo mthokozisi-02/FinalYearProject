@@ -74,10 +74,14 @@
                     {{thisMonthClients}}</h4>
             </div>
             <div class="border-t border-blue-gray-50 p-4">
-                <p class="block antialiased font-sans leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-green-500">{{clientsPercentageDiff}}%</strong>&nbsp;than
-                    last
+                <p *ngIf="clientsPercentageDiff > 0 || clientsPercentageDiff == 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-green-500">+{{clientsPercentageDiff}}%</strong>&nbsp;than last
                     month
+                </p>
+                <p *ngIf="clientsPercentageDiff < 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-red-500">{{clientsPercentageDiff}}%</strong>&nbsp;than last month
                 </p>
             </div>
         </div>
@@ -118,10 +122,14 @@
                     {{thisMonthPayments}}</h4>
             </div>
             <div class="border-t border-blue-gray-50 p-4">
-                <p class="block antialiased font-sans leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-green-500">+{{paymentsPercentageDiff}}%</strong>&nbsp;than
-                    last
+                <p *ngIf="paymentsPercentageDiff > 0 || paymentsPercentageDiff == 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-green-500">+{{paymentsPercentageDiff}}%</strong>&nbsp;than last
                     month
+                </p>
+                <p *ngIf="paymentsPercentageDiff < 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-red-500">{{paymentsPercentageDiff}}%</strong>&nbsp;than last month
                 </p>
             </div>
         </div>

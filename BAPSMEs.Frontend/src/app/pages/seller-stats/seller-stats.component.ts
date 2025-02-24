@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Buyer } from '../../../models/buyer';
 import { Enquire } from '../../../models/enquire';
 import { Package } from '../../../models/package';
@@ -8,10 +9,12 @@ import { Payments } from '../../../models/payments';
 import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
+import { SubCategory } from '../../../models/sub-category';
 import { SubOrder } from '../../../models/sub-order';
 import { User } from '../../../models/user';
 import { Roles } from '../../tools/models';
-import { BuyerRegistrationService, PackagesService, PaymentService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { BuyerRegistrationService, PackagesService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { BookService } from '../../tools/services/book.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
 
 @Component({
@@ -97,14 +100,18 @@ export class SellerStatsComponent {
 
   totalOrders = 0;
 
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
+
   constructor(
     private packageService: PackagesService,
     private router: Router,
-    private paymentService: PaymentService,
+    private paymentService: BookService,
     private enquiryService: EnquiryService,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
-    private categoryService: SubCategoriesService,
+    private subCatgeorySevice: SubCategoriesService,
     private productService: ProductsService
   ) {
     this.sellerForm = new FormGroup({
@@ -214,19 +221,22 @@ export class SellerStatsComponent {
 
 
       // Calculate percentage difference
-      this.clientsPercentageDiff = ((this.thisMonthClients - this.lastMonthClients) / this.lastMonthClients * 100).toFixed(2)
-      if (this.clientsPercentageDiff == Infinity) {
-        this.clientsPercentageDiff = 100
-      } else if (!(this.clientsPercentageDiff >= 0)) {
-        this.ordersPercentageDiff = 0
+      if (this.lastMonthClients == 0 && this.thisMonthClients == 0) {
+        this.clientsPercentageDiff = 0
       }
+      else if (this.lastMonthClients == 0 && this.thisMonthClients >= 0) {
+        this.clientsPercentageDiff = 100
+      }
+      else {
+        this.clientsPercentageDiff = (((this.thisMonthClients - this.lastMonthClients) / (this.lastMonthClients) * 100)).toFixed(2)
+      }
+
       console.log('all:', this.lastMonthClients, this.thisMonthClients, this.clientsPercentageDiff);
     });
 
 
-    this.paymentService.getSellerPayments().subscribe((res) => {
+    this.paymentService.getSellerBookings().subscribe((res) => {
       this.payments = res.data;
-      this.payments = this.payments.filter(x => x.buyer_id != null)
 
       this.lastMonthPayments = this.payments.filter(payment => {
         const paymentDate = new Date(payment.created_at);
@@ -242,20 +252,25 @@ export class SellerStatsComponent {
 
 
       // Calculate percentage difference
-      this.paymentsPercentageDiff = ((this.thisMonthPayments - this.lastMonthPayments) / this.lastMonthPayments * 100).toFixed(2)
-      if (this.paymentsPercentageDiff == Infinity) {
-        this.paymentsPercentageDiff = 100
-      } else if (!(this.clientsPercentageDiff >= 0)) {
+      if (this.lastMonthPayments == 0 && this.thisMonthPayments == 0) {
         this.paymentsPercentageDiff = 0
+      }
+      else if (this.lastMonthPayments == 0 && this.thisMonthPayments >= 0) {
+        this.paymentsPercentageDiff = 100
+      }
+      else {
+        this.paymentsPercentageDiff = (((this.thisMonthPayments - this.lastMonthPayments) / (this.lastMonthPayments) * 100)).toFixed(2)
       }
       console.log('payment:', this.lastMonthPayments, this.thisMonthPayments, this.paymentsPercentageDiff);
     });
 
 
 
-    this.categoryService.getAllList().subscribe((res) => {
-      this.categories = res.data;
-      console.log('categories:', this.categories);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
     });
 
 

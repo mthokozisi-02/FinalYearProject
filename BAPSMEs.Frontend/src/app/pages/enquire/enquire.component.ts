@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IgcRatingComponent, defineComponents } from 'igniteui-webcomponents';
+import { Observable } from 'rxjs';
 import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
 import { Enquire } from '../../../models/enquire';
@@ -40,7 +41,9 @@ export class EnquireComponent implements AfterViewInit {
 
   products: Products[] = []
 
-  subCategories: SubCategory[] = [];
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
 
   id = 0
 
@@ -86,7 +89,7 @@ export class EnquireComponent implements AfterViewInit {
 
   totalStars = 0
 
-  constructor(private productService: ProductsService, private bookingService: BookService, private enquiryService: EnquiryService, private categoryService: SubCategoriesService,
+  constructor(private productService: ProductsService, private bookingService: BookService, private enquiryService: EnquiryService, private subCatgeorySevice: SubCategoriesService,
     public actRoute: ActivatedRoute,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
@@ -177,82 +180,84 @@ export class EnquireComponent implements AfterViewInit {
     this.id = this.actRoute.snapshot.params['id'];
     this.userId = JSON.parse(sessionStorage.getItem('loggedUser') || '{}');
 
-    this.categoryService.getAllList().subscribe((res) => {
-      this.subCategories = res.data;
-      console.log('categories:', this.subCategories);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
+    });
 
-      this.sellerService.getAllList().subscribe((res) => {
-        this.sellers = res.data;
-        console.log('sellers:', this.sellers);
+    this.sellerService.getAllList().subscribe((res) => {
+      this.sellers = res.data;
+      console.log('sellers:', this.sellers);
 
-        this.buyerService.getAllList().subscribe((res) => {
-          this.buyers = res.data;
-          console.log('buyers:', this.buyers);
+      this.buyerService.getAllList().subscribe((res) => {
+        this.buyers = res.data;
+        console.log('buyers:', this.buyers);
 
-          this.productService.getAllList().subscribe((res) => {
-            console.log('res.data:', res.data);
-            this.products = res.data.filter(
-              (x) => x.id == this.id
+        this.productService.getAllList().subscribe((res) => {
+          console.log('res.data:', res.data);
+          this.products = res.data.filter(
+            (x) => x.id == this.id
+          );
+          this.products.forEach((product: any) => {
+            this.selectedCategoryOption = product.subcategory.category_id
+            this.selectedSubCategoryOption = product.sub_category_id
+            product.image_url =
+              'http://127.0.0.1:8000/storage/' + product.image_url;
+            product.image_url2 =
+              'http://127.0.0.1:8000/storage/' + product.image_url2;
+            product.image_url3 =
+              'http://127.0.0.1:8000/storage/' + product.image_url3;
+
+            this.noOfRatings = product.ratings.length
+            this.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (this.noOfRatings))
+            this.avgRating = Math.floor(this.unRoundedAvgRating);
+
+            this.totalStars = product.ratings.length
+
+            this.one = product.ratings.filter(x => x.rating == 1).length
+            this.two = product.ratings.filter(x => x.rating == 2).length
+            this.three = product.ratings.filter(x => x.rating == 3).length
+            this.four = product.ratings.filter(x => x.rating == 4).length
+            this.five = product.ratings.filter(x => x.rating == 5).length
+
+            this.fiveStar = (((product.ratings.filter(x => x.rating == 5).length) / this.totalStars) * 100)
+            this.fourStar = (((product.ratings.filter(x => x.rating == 4).length) / this.totalStars) * 100)
+            this.threeStar = (((product.ratings.filter(x => x.rating == 3).length) / this.totalStars) * 100)
+            this.twoStar = (((product.ratings.filter(x => x.rating == 2).length) / this.totalStars) * 100)
+            this.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / this.totalStars) * 100)
+
+            product.ratings.forEach(rate => {
+              this.sellers.filter(x => x.user_id == rate.user_id).forEach(seller => {
+                rate.user_name = seller.user.name
+              })
+              this.buyers.filter(x => x.user_id == rate.user_id).forEach(buyer => {
+                rate.user_name = buyer.user.name
+              })
+
+              if (rate.image_url1) {
+                rate.image_url1 = 'http://127.0.0.1:8000/storage/' + rate.image_url1
+              }
+              if (rate.image_url2) {
+                rate.image_url2 = 'http://127.0.0.1:8000/storage/' + rate.image_url2
+              }
+            })
+            this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
+              product.seller_name = seller.business_name
+            })
+            const category = this.subCategories_.filter(
+              (x) => x.id == product.sub_category_id
             );
-            this.products.forEach((product: any) => {
-              this.selectedCategoryOption = product.subcategory.category_id
-              this.selectedSubCategoryOption = product.sub_category_id
-              product.image_url =
-                'http://127.0.0.1:8000/storage/' + product.image_url;
-              product.image_url2 =
-                'http://127.0.0.1:8000/storage/' + product.image_url2;
-              product.image_url3 =
-                'http://127.0.0.1:8000/storage/' + product.image_url3;
-
-              this.noOfRatings = product.ratings.length
-              this.unRoundedAvgRating = ((product.ratings.reduce((sum, rate) => sum + Number(rate.rating), 0)) / (this.noOfRatings))
-              this.avgRating = Math.floor(this.unRoundedAvgRating);
-
-              this.totalStars = product.ratings.length
-
-              this.one = product.ratings.filter(x => x.rating == 1).length
-              this.two = product.ratings.filter(x => x.rating == 2).length
-              this.three = product.ratings.filter(x => x.rating == 3).length
-              this.four = product.ratings.filter(x => x.rating == 4).length
-              this.five = product.ratings.filter(x => x.rating == 5).length
-
-              this.fiveStar = (((product.ratings.filter(x => x.rating == 5).length) / this.totalStars) * 100)
-              this.fourStar = (((product.ratings.filter(x => x.rating == 4).length) / this.totalStars) * 100)
-              this.threeStar = (((product.ratings.filter(x => x.rating == 3).length) / this.totalStars) * 100)
-              this.twoStar = (((product.ratings.filter(x => x.rating == 2).length) / this.totalStars) * 100)
-              this.oneStar = (((product.ratings.filter(x => x.rating == 1).length) / this.totalStars) * 100)
-
-              product.ratings.forEach(rate => {
-                this.sellers.filter(x => x.user_id == rate.user_id).forEach(seller => {
-                  rate.user_name = seller.user.name
-                })
-                this.buyers.filter(x => x.user_id == rate.user_id).forEach(buyer => {
-                  rate.user_name = buyer.user.name
-                })
-
-                if (rate.image_url1) {
-                  rate.image_url1 = 'http://127.0.0.1:8000/storage/' + rate.image_url1
-                }
-                if (rate.image_url2) {
-                  rate.image_url2 = 'http://127.0.0.1:8000/storage/' + rate.image_url2
-                }
-              })
-              this.sellers.filter(x => x.user_id == product.user_id).forEach(seller => {
-                product.seller_name = seller.business_name
-              })
-              const category = this.subCategories.filter(
-                (x) => x.id == product.sub_category_id
-              );
-              console.log('category', category);
-              category.forEach((cat) => {
-                product.sub_category_name = cat.name;
-                console.log('category', product.sub_category_name);
-              });
-
-              this.product = product
+            console.log('category', category);
+            category.forEach((cat) => {
+              product.sub_category_name = cat.name;
+              console.log('category', product.sub_category_name);
             });
-            console.log('products:', this.product);
+
+            this.product = product
           });
+          console.log('products:', this.product);
         });
       });
     });

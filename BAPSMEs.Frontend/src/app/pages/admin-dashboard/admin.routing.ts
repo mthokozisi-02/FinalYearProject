@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AdminOrdersComponent } from '../admin-orders/admin-orders.component';
+import { AdminEnquiriesComponent } from '../admin-enquiries/admin-enquiries.component';
 import { AdminPaymentComponent } from '../admin-payment/admin-payment.component';
 import { AdminStatsComponent } from '../admin-stats/admin-stats.component';
 import { PackagesComponent } from '../packages/packages.component';
@@ -25,8 +25,8 @@ const routes: Routes = [
                 component: UsersComponent
             },
             {
-                path: 'orders',
-                component: AdminOrdersComponent
+                path: 'enquiries',
+                component: AdminEnquiriesComponent
             },
             {
                 path: 'categories',

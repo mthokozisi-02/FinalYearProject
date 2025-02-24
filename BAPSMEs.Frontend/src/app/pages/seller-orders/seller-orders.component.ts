@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Buyer } from '../../../models/buyer';
 import { ProductCategory } from '../../../models/product-category';
 import { Seller } from '../../../models/seller';
+import { SubCategory } from '../../../models/sub-category';
 import { SubOrder } from '../../../models/sub-order';
 import { User } from '../../../models/user';
 import { BuyerRegistrationService, OrdersService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
@@ -33,11 +35,15 @@ export class SellerOrdersComponent {
 
   categories: ProductCategory[] = [];
 
+  subCategories: Observable<Array<SubCategory>>;
+
+  subCategories_: SubCategory[] = [];
+
   constructor(
     private orderService: OrdersService,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
-    private categoryService: SubCategoriesService
+    private subCatgeorySevice: SubCategoriesService
   ) { }
 
   ngOnInit(): void {
@@ -45,43 +51,45 @@ export class SellerOrdersComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.categoryService.getAllList().subscribe((res) => {
-      this.categories = res.data;
-      console.log('categories:', this.categories);
+    this.subCategories = this.subCatgeorySevice.subCategories;
+    console.log('subCategories:', this.subCategories);
+    this.subCategories.forEach(category => {
+      this.subCategories_ = category;
+      console.log('subCategories:', this.subCategories_);
+    });
 
-      this.orderService.getSellerOrders().subscribe((res) => {
-        this.orders = res.data;
-        this.orders.forEach((order) => {
-          order.total_quantity = 0;
-          this.buyers
-            .filter((x) => x.user_id == order.buyer_id)
-            .forEach((buyer) => {
-              console.log('entered', buyer);
-              order.buyer_pic =
-                'assets/img/user.png';
-              order.buyer_name = buyer.user.name;
-              order.buyer_email = buyer.user.email;
-            });
-          order.products.forEach((prod: any) => {
-            prod.image_url =
-              'https://orezon.co.zw/storage/app/public/' + prod.image_url;
-            const category = this.categories.filter(
-              (x) => x.id == prod.sub_category_id
-            );
-            category.forEach((cat) => {
-              prod.sub_category_name = cat.name;
-            });
-            this.sellers
-              .filter((x) => x.user_id == order.seller_id)
-              .forEach((seller) => {
-                prod.business_name = seller.business_name;
-              });
-            order.total_quantity += prod.pivot.quantity;
+    this.orderService.getSellerOrders().subscribe((res) => {
+      this.orders = res.data;
+      this.orders.forEach((order) => {
+        order.total_quantity = 0;
+        this.buyers
+          .filter((x) => x.user_id == order.buyer_id)
+          .forEach((buyer) => {
+            console.log('entered', buyer);
+            order.buyer_pic =
+              'assets/img/user.png';
+            order.buyer_name = buyer.user.name;
+            order.buyer_email = buyer.user.email;
           });
+        order.products.forEach((prod: any) => {
+          prod.image_url =
+            'https://orezon.co.zw/storage/app/public/' + prod.image_url;
+          const category = this.subCategories_.filter(
+            (x) => x.id == prod.sub_category_id
+          );
+          category.forEach((cat) => {
+            prod.sub_category_name = cat.name;
+          });
+          this.sellers
+            .filter((x) => x.user_id == order.seller_id)
+            .forEach((seller) => {
+              prod.business_name = seller.business_name;
+            });
+          order.total_quantity += prod.pivot.quantity;
         });
-        this.filteredOrders = this.orders
-        console.log('orders:', this.orders);
       });
+      this.filteredOrders = this.orders
+      console.log('orders:', this.orders);
     });
 
     this.buyerService.getAllList().subscribe((res) => {
