@@ -159,14 +159,6 @@ export class EnquireComponent implements AfterViewInit {
       guest_information: new FormControl(''),
       special_requirements: new FormControl('')
     });
-    this.bookForm = new FormGroup({
-      message: new FormControl('', [Validators.required]),
-      quantity: new FormControl(0, [Validators.required]),
-      location: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required]),
-      time: new FormControl('', [Validators.required]),
-      payment: new FormControl('', [Validators.required]),
-    });
   }
 
   ngAfterViewInit() {
@@ -396,45 +388,6 @@ export class EnquireComponent implements AfterViewInit {
     this.enquireForm.reset();
   }
 
-  book() {
-    this.newBooking.date = this.bookForm.value.date
-    this.newBooking.time = this.bookForm.value.time
-    this.newBooking.location = this.bookForm.value.location
-    this.newBooking.payment = this.bookForm.value.payment
-    this.newBooking.quantity = this.bookForm.value.quantity
-    this.newBooking.message = this.bookForm.value.message
-    this.newBooking.product_id = this.product.id
-    this.newBooking.sub_category_id = this.product.sub_category_id
-    this.newBooking.seller_id = this.product.user_id
-    this.newBooking.user_id = this.userId
-    this.newBooking.total_price = (Number(this.product.price)) * this.newBooking.quantity
-
-    console.log('booking', this.newBooking)
-
-    this.bookingService.book(this.newBooking).subscribe(
-      (res) => {
-        console.log('res', res);
-
-        if (res.status == 'created') {
-          alert(res.message);
-          this.ngOnInit()
-          console.log(res.message);
-          this.selectedFile = null
-          this.selectedFile2 = null
-        } else {
-          console.log(res.message);
-          // Handle the error as needed
-        }
-      },
-      (error) => {
-        console.error(error.error.message);
-        console.log('error', error)
-        alert(error.error.message);
-        // Handle the error as needed
-      }
-    );
-    this.bookForm.reset();
-  }
 
   onFileSelected2(event: any) {
     console.log('2')

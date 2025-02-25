@@ -85,17 +85,83 @@ class BookingController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'seller_id' => 'required',
-                'product_id' => 'required',
-                'sub_category_id' => 'required',
-                'user_id' => 'required',
-                'total_price' => 'required',
-                'quantity' => 'nullable',
-                'location' => 'nullable|string|max:255',
-                'payment' => 'nullable|string|max:255',
-                'message' => 'nullable|string|max:255',
-                'date' => 'nullable',
-                'time' => 'nullable',
+                // Core fields
+                'user_id' => 'required|exists:users,id',
+                'sub_category_id' => 'required|exists:sub_categories,id',
+                'product_id' => 'required|exists:products,id',
+                'seller_id' => 'nullable|exists:users,id',
+                'total_price' => 'required|numeric|between:0,99999999999.99',
+
+                // Contact preferences
+                'preferred_contact_method' => 'nullable|string|in:Whatsapp,Email,Call',
+                'payment_method' => 'nullable|string',
+                'booking_status' => 'nullable|string',
+
+                // Construction fields
+                'project_details' => 'nullable|string|max:255',
+                'property_address' => 'nullable|string|max:255',
+                'project_timeline' => 'nullable|string|max:255',
+                'payment_schedule' => 'nullable|string|max:255',
+
+                // Insurance and Banking
+                'appointment_type' => 'nullable|string',
+                'management_duration' => 'nullable|string|max:255',
+
+                // Food and Beverage
+                'number_of_people' => 'nullable|integer|min:0',
+                'special_request' => 'nullable|string|max:255',
+                'dietary_requirements' => 'nullable|string|max:255',
+                'table_preferences' => 'nullable|string|max:255',
+
+                // Retail
+                'quantity' => 'nullable|integer|min:0',
+                'size' => 'nullable|string|max:255',
+                'style' => 'nullable|string|max:255',
+                'shipping_options' => 'nullable|string',
+
+                // Services
+                'address' => 'nullable|string|max:255',
+                'equipment_requirements' => 'nullable|string|max:255',
+                'service_duration' => 'nullable|string|max:255',
+                'location_type' => 'nullable|string',
+                'special_instructions' => 'nullable|string|max:255',
+
+                // Professional Services
+                'project_scope' => 'nullable|string|max:255',
+                'required_documentation' => 'nullable|string|max:255',
+                'timeline_requirements' => 'nullable|string|max:255',
+
+                // Creative Services
+                'project_type' => 'nullable|string|max:255',
+                'deliverable_format' => 'nullable|string|max:255',
+                'revision_requirements' => 'nullable|string|max:255',
+                'style_preference' => 'nullable|string|max:255',
+
+                // Education
+                'skill_level' => 'nullable|string|max:255',
+                'schedule_requirements' => 'nullable|string|max:255',
+                'class_size' => 'nullable|integer|min:0',
+                'prerequisites' => 'nullable|string|max:255',
+
+                // Automotive
+                'vehicle_information' => 'nullable|string|max:255',
+                'service_type' => 'nullable|string|max:255',
+                'preferred_date' => 'nullable|date_format:Y-m-d',
+                'preferred_time' => 'nullable|date_format:H:i',
+
+                // Home Improvement
+                'property_type' => 'nullable|string|max:255',
+                'budget_range' => 'nullable|string|max:255',
+
+                // Entertainment
+                'number_of_guests' => 'nullable|integer|min:0',
+                'event_type' => 'nullable|string|max:255',
+                'duration' => 'nullable|string|max:255',
+                'special_requirements' => 'nullable|string|max:255',
+
+                // Additional fields
+                'additional_information' => 'nullable|string|max:255',
+                'received' => 'boolean'
             ]);
 
             $user = auth()->user();

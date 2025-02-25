@@ -42,13 +42,22 @@
                 </svg>
             </div>
             <div class="p-4 text-right">
-                <p class="block antialiased font-sans leading-normal font-normal text-blue-gray-600">
+                <p class="block antialiased font-sans  leading-normal font-normal text-blue-gray-600">
                     This Month Sales</p>
                 <h4
                     class="block antialiased tracking-normal font-sans text-lg font-semibold leading-snug text-blue-gray-900">
-                    {{totalProducts}}</h4>
+                    {{thisMonthPayments | currency}}</h4>
             </div>
             <div class="border-t border-blue-gray-50 p-4">
+                <p *ngIf="paymentsPercentageDiff > 0 || paymentsPercentageDiff == 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-green-500">+{{paymentsPercentageDiff}}%</strong>&nbsp;than last
+                    month
+                </p>
+                <p *ngIf="paymentsPercentageDiff < 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-red-500">{{paymentsPercentageDiff}}%</strong>&nbsp;than last month
+                </p>
             </div>
         </div>
         <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
@@ -70,13 +79,17 @@
                     This Month's Orders</p>
                 <h4
                     class="block antialiased tracking-normal font-sans text-lg font-semibold leading-snug text-blue-gray-900">
-                    {{thisMonthEnquiries}}</h4>
+                    {{thisMonthOrders}}</h4>
             </div>
             <div class="border-t border-blue-gray-50 p-4">
-                <p class="block antialiased font-sans leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-green-500">{{enquiriesPercentageDiff}}%</strong>&nbsp;than
-                    last
+                <p *ngIf="ordersPercentageDiff > 0 || ordersPercentageDiff == 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-green-500">+{{ordersPercentageDiff}}%</strong>&nbsp;than last
                     month
+                </p>
+                <p *ngIf="ordersPercentageDiff < 0"
+                    class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
+                    <strong class="text-red-500">{{ordersPercentageDiff}}%</strong>&nbsp;than last month
                 </p>
             </div>
         </div>
@@ -92,20 +105,20 @@
             </div>
             <div class="p-4 text-right">
                 <p class="block antialiased font-sans leading-normal font-normal text-blue-gray-600">
-                    Registered Buyers</p>
+                    This Month Enquiries</p>
                 <h4
                     class="block antialiased tracking-normal font-sans text-lg font-semibold leading-snug text-blue-gray-900">
-                    {{thisMonthClients}}</h4>
+                    {{thisMonthEnquiries}}</h4>
             </div>
             <div class="border-t border-blue-gray-50 p-4">
-                <p *ngIf="clientsPercentageDiff > 0 || clientsPercentageDiff == 0"
+                <p *ngIf="enquiriesPercentageDiff > 0 || enquiriesPercentageDiff == 0"
                     class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-green-500">+{{clientsPercentageDiff}}%</strong>&nbsp;than last
+                    <strong class="text-green-500">+{{enquiriesPercentageDiff}}%</strong>&nbsp;than last
                     month
                 </p>
-                <p *ngIf="clientsPercentageDiff < 0"
+                <p *ngIf="enquiriesPercentageDiff < 0"
                     class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-red-500">{{clientsPercentageDiff}}%</strong>&nbsp;than last month
+                    <strong class="text-red-500">{{enquiriesPercentageDiff}}%</strong>&nbsp;than last month
                 </p>
             </div>
         </div>
@@ -121,20 +134,20 @@
             </div>
             <div class="p-4 text-right">
                 <p class="block antialiased font-sans leading-normal font-normal text-blue-gray-600">
-                    Bookings</p>
+                    This Month Bookings</p>
                 <h4
                     class="block antialiased tracking-normal font-sans text-lg font-semibold leading-snug text-blue-gray-900">
-                    {{thisMonthPayments}}</h4>
+                    {{thisMonthBookings}}</h4>
             </div>
             <div class="border-t border-blue-gray-50 p-4">
-                <p *ngIf="paymentsPercentageDiff > 0 || paymentsPercentageDiff == 0"
+                <p *ngIf="bookingsPercentageDiff > 0 || bookingsPercentageDiff == 0"
                     class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-green-500">+{{paymentsPercentageDiff}}%</strong>&nbsp;than last
+                    <strong class="text-green-500">+{{bookingsPercentageDiff}}%</strong>&nbsp;than last
                     month
                 </p>
-                <p *ngIf="paymentsPercentageDiff < 0"
+                <p *ngIf="bookingsPercentageDiff < 0"
                     class="block antialiased font-sans  leading-relaxed font-normal text-blue-gray-600">
-                    <strong class="text-red-500">{{paymentsPercentageDiff}}%</strong>&nbsp;than last month
+                    <strong class="text-red-500">{{bookingsPercentageDiff}}%</strong>&nbsp;than last month
                 </p>
             </div>
         </div>

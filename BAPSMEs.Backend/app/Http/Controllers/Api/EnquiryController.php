@@ -96,10 +96,10 @@ class EnquiryController extends Controller
             'total_price' => 'required',
 
             // Core fields
-            'preferred_contact_method' => 'nullable|string|in:whatsapp,email,call',
-            'payment_method' => 'nullable|string|in:cash,swipe,credit_card,ecocash',
-            'enquiry_type' => 'nullable|string|in:general,specific_service',
-            'urgency_level' => 'nullable|string|in:very_urgent,not_urgent',
+            'preferred_contact_method' => 'nullable|string',
+            'payment_method' => 'nullable|string',
+            'enquiry_type' => 'nullable|string',
+            'urgency_level' => 'nullable|string',
             'additional_information' => 'nullable|string|max:255',
             'preferred_time' => 'nullable|string|max:255',
             'preferred_date' => 'nullable|string|max:255',
@@ -110,7 +110,7 @@ class EnquiryController extends Controller
 
             // Insurance and Banking fields
             'preferred_location' => 'nullable|string|max:255',
-            'insurance_type' => 'nullable|string|in:life,property',
+            'insurance_type' => 'nullable|string',
 
             // Common service fields
             'service_interest' => 'nullable|string|max:255',

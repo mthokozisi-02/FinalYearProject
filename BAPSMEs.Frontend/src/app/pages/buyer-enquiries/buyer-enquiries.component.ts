@@ -5,15 +5,15 @@ import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { User } from '../../../models/user';
-import { BuyerRegistrationService } from '../../tools/services/buyer-registration.service';
+import { SellerRegistrationService } from '../../tools/services';
 import { EnquiryService } from '../../tools/services/enquiry.service';
-@Component({
-  selector: 'app-seller-enquiries',
-  templateUrl: './seller-enquiries.component.html',
-  styleUrl: './seller-enquiries.component.css'
-})
-export class SellerEnquiriesComponent {
 
+@Component({
+  selector: 'app-buyer-enquiries',
+  templateUrl: './buyer-enquiries.component.html',
+  styleUrl: './buyer-enquiries.component.css'
+})
+export class BuyerEnquiriesComponent {
   enquiries: Enquire[] = []
 
   selectedSubCategoryOption: any
@@ -40,7 +40,7 @@ export class SellerEnquiriesComponent {
 
   buyer_pic: any;
 
-  constructor(private enquiryService: EnquiryService, private buyerService: BuyerRegistrationService,) { }
+  constructor(private enquiryService: EnquiryService, private sellerService: SellerRegistrationService,) { }
 
 
   ngOnInit(): void {
@@ -51,20 +51,21 @@ export class SellerEnquiriesComponent {
     this.viewEnquiry = false;
     this.viewEnquiries = true;
 
-    this.buyerService.getAllList().subscribe((res) => {
-      this.buyers = res.data;
-      console.log('buyers', this.buyers)
-      this.enquiryService.getSellerEnquiries().subscribe((res) => {
+    this.sellerService.getAllList().subscribe((res) => {
+      this.sellers = res.data;
+
+      this.enquiryService.getBuyerEnquiries().subscribe((res) => {
         res.data.forEach((enquiry) => {
 
-          this.buyers.filter(x => x.user_id == enquiry.user_id).forEach(buyer => {
-            enquiry.buyer_phone = buyer.phone
-            enquiry.buyer_country = buyer.country
+          this.sellers.filter(x => x.user_id == enquiry.seller_id).forEach(seller => {
+            enquiry.seller_phone = seller.phone
+            enquiry.seller_country = seller.country
           })
-          enquiry.buyer_pic =
+
+          enquiry.seller_pic =
             'assets/img/user.png';
-          enquiry.buyer_name = enquiry.user.name;
-          enquiry.buyer_email = enquiry.user.email;
+          enquiry.seller_name = enquiry.seller.name;
+          enquiry.seller_email = enquiry.seller.email;
           enquiry.sub_category_name = enquiry.sub_category.name
           enquiry.product_name = enquiry.product.name
         });
@@ -78,7 +79,7 @@ export class SellerEnquiriesComponent {
   searchPayments(item: any) {
     console.log(this.enquiries)
     this.filteredEnquiries = this.enquiries.filter(
-      prod => prod?.buyer_name.toLowerCase().includes(item.toLowerCase())
+      prod => prod?.seller_name.toLowerCase().includes(item.toLowerCase())
     );
     // if (this.filteredProducts = []) {
     //   this.showProducts = false
@@ -112,28 +113,8 @@ export class SellerEnquiriesComponent {
     this.viewEnquiries = false
     this.selectedSubCategoryOption = item.sub_category_id
     this.selectedCategoryOption = item.sub_category.category_id
-
-    if (item.received == 'false') {
-      this.Received(item)
-    }
   }
 
-  Received(item: any) {
-    this.enquiryService
-      .updateStatus(item.id)
-      .subscribe(
-        (res) => {
-          console.log('res', res);
-
-          if (res.status == 'success') {
-            this.enquiryService.success('Enquiry updated successfully');
-            this.ngOnInit();
-          } else {
-            console.error(Error);
-          }
-        }
-      );
-  }
 
   clear() {
     this.viewEnquiries = true

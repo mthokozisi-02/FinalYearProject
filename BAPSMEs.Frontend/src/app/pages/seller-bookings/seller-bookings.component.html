@@ -1,0 +1,442 @@
+<!-- Start block -->
+<div *ngIf="viewBookings"
+    class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+    <div class="flex-1 flex items-center space-x-2">
+        <h5>
+            <span class="text-gray-500 text-2xl">All Bookings:</span>
+        </h5>
+    </div>
+</div>
+<div *ngIf="viewBookings"
+    class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+    <div class="w-full md:w-1/2">
+        <form class="flex items-center">
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <i class="fa fa-search mr-3"></i>
+                </div>
+                <input type="text" #filter id="simple-search" (input)="searchPayments(filter.value)"
+                    placeholder="Search by buyer" required=""
+                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                <button type="submit" (click)="searchPayments(filter.value)"
+                    class="absolute top-0 end-0 p-2.5 font-medium h-full text-white bg-green-700 rounded-e-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <hr>
+</div>
+
+<div *ngIf="viewBookings" class="overflow-x-auto">
+    <table class="w-full  text-left text-gray-500 dark:text-gray-400">
+        <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="p-4">ID</th>
+                <th scope="col" class="p-4">Buyer</th>
+                <th scope="col" class="p-4">Category</th>
+                <th scope="col" class="p-4">Product</th>
+                <th scope="col" class="p-4">Contact</th>
+                <th scope="col" class="p-4">Payment</th>
+                <th scope="col" class="p-4">Date</th>
+                <th scope="col" class="p-4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of filteredBookings"
+                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div class="flex items-center mr-3">
+                        {{item.id}}
+                    </div>
+                </th>
+                <td scope="row" class="flex items-center px-6 py-4">
+                    <img class="w-14 h-14 rounded-full" [src]="item.buyer_pic" alt="Jese image">
+                    <div class="ps-3">
+                        <div class="text-lg font-semibold">{{item.buyer_name}}</div>
+                        <div class="font-normal text-gray-500">
+                            {{ item.buyer_email | slice:0:19 }}...
+                        </div>
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    <span
+                        class="inline-flex items-center bg-green-100 text-green-800  px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                        <span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+                        {{item.sub_category_name}}
+                    </span>
+                </td>
+                <td class="px-4 py-3">
+                    {{item.product_name}}</td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center">
+                        <div class="h-4 w-4 rounded-full inline-block mr-2 bg-red-700"></div>
+                        {{item.preferred_contact_method}}
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    {{item.payment_method}}</td>
+                <td class="px-4 py-3">
+                    {{item.created_at | date : 'MMM d, y'}}</td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center space-x-4">
+                        <button type="button" (click)="view(item)" data-modal-target="viewProductModal"
+                            data-modal-toggle="viewProductModal" aria-controls="drawer-read-product-advanced"
+                            class="py-2 px-3 flex items-center font-medium text-center text-white focus:outline-none bg-blue-700 rounded-lg border border-blue-700 hover:bg-white hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-700 dark:bg-blue-800 dark:text-blue-400 dark:border-blue-600 dark:hover:text-white dark:hover:bg-blue-700">
+                            Read
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="viewBooking" class="py-4 md:py-4">
+    <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b xl:mb-5 dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">View Booking</h3>
+    </div>
+    <!-- Modal body -->
+    <form style="padding:2vw; background-color:#f3f7f5">
+        <div class="grid grid-cols-12 gap-6 mb-4">
+            <div class="col-span-8">
+                <div class="grid gap-4 mb-4 xl:grid-cols-2">
+                    <div>
+                        <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Category</label>
+                        <span class="text-green-700">{{selectedBooking.sub_category_name}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">Product
+                            Name</label>
+                        <span class="text-green-700">{{selectedBooking.product_name}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="preferred_contact_method"
+                            class="block mb-2 font-medium text-gray-900 dark:text-white">Preferred Contact
+                            Method</label>
+                        <span class="text-green-700">{{selectedBooking.preferred_contact_method}}</span>
+                        <hr>
+                    </div>
+                    <div>
+                        <label for="payment_method"
+                            class="block mb-2 font-medium text-gray-900 dark:text-white">Preferred Payment
+                            Method</label>
+                        <span class="text-green-700">{{selectedBooking.payment_method}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedSubCategoryOption == 1">
+                        <label for="project_details" class="text-lg font-medium text-gray-900 block mb-2">Project
+                            Details</label>
+                        <span class="text-green-700">{{selectedBooking.project_details}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 1 || selectedSubCategoryOption == 4">
+                        <label for="property_address" class="text-lg font-medium text-gray-900 block mb-2">Property
+                            Address</label>
+                        <span class="text-green-700">{{selectedBooking.property_address}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 1">
+                        <label for="project_timeline" class="text-lg font-medium text-gray-900 block mb-2">Project
+                            Timeline</label>
+                        <span class="text-green-700">{{selectedBooking.project_timeline}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedSubCategoryOption == 1">
+                        <label for="payment_schedule" class="text-lg font-medium text-gray-900 block mb-2">Payment
+                            Schedule</label>
+                        <span class="text-green-700">{{selectedBooking.payment_schedule}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedSubCategoryOption == 2 || selectedSubCategoryOption == 3">
+                        <label for="appointment_type"
+                            class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment Type</label>
+                        <span class="text-green-700">{{selectedBooking.appointment_type}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedSubCategoryOption == 4">
+                        <label for="management_duration" class="text-lg font-medium text-gray-900 block mb-2">Management
+                            Duration</label>
+                        <span class="text-green-700">{{selectedBooking.management_duration}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 2">
+                        <label for="number_of_people" class="text-lg font-medium text-gray-900 block mb-2">Number of
+                            People</label>
+                        <span class="text-green-700">{{selectedBooking.number_of_people}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 2">
+                        <label for="special_request" class="text-lg font-medium text-gray-900 block mb-2">Special
+                            Request</label>
+                        <span class="text-green-700">{{selectedBooking.special_request}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 2">
+                        <label for="dietary_requirements" class="text-lg font-medium text-gray-900 block mb-2">Dietary
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedBooking.dietary_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 2">
+                        <label for="table_preferences" class="text-lg font-medium text-gray-900 block mb-2">Table
+                            Preferences</label>
+                        <span class="text-green-700">{{selectedBooking.table_preferences}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 3">
+                        <label for="quantity" class="text-lg font-medium text-gray-900 block mb-2">Quantity</label>
+                        <span class="text-green-700">{{selectedBooking.quantity}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 3">
+                        <label for="size" class="text-lg font-medium text-gray-900 block mb-2">Size</label>
+                        <span class="text-green-700">{{selectedBooking.size}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 3">
+                        <label for="shipping_options"
+                            class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping Options</label>
+                        <span class="text-green-700">{{selectedBooking.shipping_options}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 4">
+                        <label for="address" class="text-lg font-medium text-gray-900 block mb-2">Address</label>
+                        <span class="text-green-700">{{selectedBooking.address}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 4">
+                        <label for="equipment_requirements"
+                            class="text-lg font-medium text-gray-900 block mb-2">Equipment Requirements</label>
+                        <span class="text-green-700">{{selectedBooking.equipment_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 4">
+                        <label for="service_duration" class="text-lg font-medium text-gray-900 block mb-2">Service
+                            Duration</label>
+                        <span class="text-green-700">{{selectedBooking.service_duration}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 4">
+                        <label for="location_type" class="block mb-2 font-medium text-gray-900 dark:text-white">Location
+                            Type</label>
+                        <span class="text-green-700">{{selectedBooking.location_type}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 4">
+                        <label for="special_instructions" class="text-lg font-medium text-gray-900 block mb-2">Special
+                            Instructions</label>
+                        <span class="text-green-700">{{selectedBooking.special_instructions}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 9">
+                        <label for="project_scope" class="text-lg font-medium text-gray-900 block mb-2">Project
+                            Scope</label>
+                        <span class="text-green-700">{{selectedBooking.project_scope}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 5">
+                        <label for="required_documentation"
+                            class="text-lg font-medium text-gray-900 block mb-2">Required Documentation</label>
+                        <span class="text-green-700">{{selectedBooking.required_documentation}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 9">
+                        <label for="timeline_requirements" class="text-lg font-medium text-gray-900 block mb-2">Timeline
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedBooking.timeline_requirements}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 6">
+                        <label for="project_type" class="text-lg font-medium text-gray-900 block mb-2">Project
+                            Type</label>
+                        <span class="text-green-700">{{selectedBooking.project_type}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 6">
+                        <label for="deliverable_format" class="text-lg font-medium text-gray-900 block mb-2">Deliverable
+                            Format</label>
+                        <span class="text-green-700">{{selectedBooking.deliverable_format}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 6">
+                        <label for="revision_requirements" class="text-lg font-medium text-gray-900 block mb-2">Revision
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedBooking.revision_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 6 || selectedCategoryOption == 3">
+                        <label for="style_preference" class="text-lg font-medium text-gray-900 block mb-2">Style
+                            Preference</label>
+                        <span class="text-green-700">{{selectedBooking.style_preference}}</span>
+                        <hr>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="skill_level" class="text-lg font-medium text-gray-900 block mb-2">Skill
+                            Level</label>
+                        <span class="text-green-700">{{selectedBooking.skill_level}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="schedule_requirements" class="text-lg font-medium text-gray-900 block mb-2">Schedule
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedBooking.schedule_requirements}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="class_size" class="text-lg font-medium text-gray-900 block mb-2">Class
+                            Size</label>
+                        <span class="text-green-700">{{selectedBooking.class_size}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 7">
+                        <label for="prerequisites" class="text-lg font-medium text-gray-900 block mb-2">Class
+                            Size</label>
+                        <span class="text-green-700">{{selectedBooking.prerequisites}}</span>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="selectedCategoryOption == 8">
+                        <label for="vehicle_information" class="text-lg font-medium text-gray-900 block mb-2">Vehicle
+                            Information</label>
+                        <span class="text-green-700">{{selectedBooking.vehicle_information}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 8">
+                        <label for="service_type" class="text-lg font-medium text-gray-900 block mb-2">Service
+                            Type</label>
+                        <span class="text-green-700">{{selectedBooking.service_type}}</span>
+                        <hr>
+                    </div>
+                    <div
+                        *ngIf="selectedSubCategoryOption == 2 || selectedCategoryOption == 10 || selectedSubCategoryOption == 3 || selectedCategoryOption == 8">
+                        <label for="product-name" class="text-lg font-medium text-gray-900 block mb-2">
+                            Preferred Date <i style="color: grey;">(*if applicable)</i>
+                        </label>
+
+                        <div class="flex gap-4">
+                            <!-- Date Input -->
+                            <span class="text-green-700">{{selectedBooking.preferred_date}}</span>
+                            <hr>
+
+                            <!-- Time Input -->
+                            <span class="text-green-700">{{selectedBooking.preferred_time}}</span>
+                            <hr>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="selectedCategoryOption == 9">
+                        <label for="property_type" class="text-lg font-medium text-gray-900 block mb-2">Property
+                            Type</label>
+                        <span class="text-green-700">{{selectedBooking.project_type}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 9">
+                        <label for="budget_range" class="text-lg font-medium text-gray-900 block mb-2">Budget
+                            Range</label>
+                        <span class="text-green-700">{{selectedBooking.budget_range}}</span>
+                        <hr>
+                    </div>
+
+
+
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="number_of_guests" class="text-lg font-medium text-gray-900 block mb-2">Number of
+                            Guests</label>
+                        <span class="text-green-700">{{selectedBooking.number_of_guests}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="event_type" class="text-lg font-medium text-gray-900 block mb-2">Event
+                            Type</label>
+                        <span class="text-green-700">{{selectedBooking.event_type}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="duration" class="text-lg font-medium text-gray-900 block mb-2">Duration</label>
+                        <span class="text-green-700">{{selectedBooking.duration}}</span>
+                        <hr>
+                    </div>
+                    <div *ngIf="selectedCategoryOption == 10">
+                        <label for="special_requirements" class="text-lg font-medium text-gray-900 block mb-2">Special
+                            Requirements</label>
+                        <span class="text-green-700">{{selectedBooking.special_requirements}}</span>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-2  mb-4">
+                    <label for="additional_information" class="text-lg font-medium text-gray-900 block mb-2">Additional
+                        Information</label>
+                    <ng-container
+                        *ngFor="let chunk of splitDescription(selectedBooking.additional_information, 13); let first = first">
+                        <span class="text-green-700">{{ chunk }}</span>
+                        <hr>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-span-4 border border-4 rounded-lg shadow p-6 space-y-6">
+                <div
+                    class="flex justify-between items-center pb-4 mb-4 rounded-t border-b xl:mb-5 dark:border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Customer Details</h3>
+                </div>
+                <div>
+                    <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Full
+                        Name</label>
+                    <span class="text-green-700">{{selectedBooking.buyer_name}}</span>
+                    <hr>
+                </div>
+                <div>
+                    <label for="category" class="block mb-2 font-medium text-gray-900 dark:text-white">Email
+                        Address</label>
+                    <span class="text-green-700">{{selectedBooking.buyer_email}}</span>
+                    <hr>
+                </div>
+                <div>
+                    <label for="name" class="block mb-2 font-medium text-gray-900 dark:text-white">Phone Number</label>
+                    <span class="text-green-700">{{selectedBooking.buyer_phone}}</span>
+                    <hr>
+                </div>
+                <div>
+                    <label for="category" class="block mb-2 font-medium text-gray-900 dark:text-white">Country</label>
+                    <span class="text-green-700">{{selectedBooking.buyer_country}}</span>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+        <div class="items-center space-y-4 xl:flex xl:space-y-0 xl:space-x-4">
+            <button type="button" (click)="clear()"
+                class="w-full justify-center text-white inline-flex bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancel</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
 import { Enquire } from '../../../models/enquire';
 import { Package } from '../../../models/package';
@@ -13,7 +14,7 @@ import { SubCategory } from '../../../models/sub-category';
 import { SubOrder } from '../../../models/sub-order';
 import { User } from '../../../models/user';
 import { Roles } from '../../tools/models';
-import { BuyerRegistrationService, PackagesService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
+import { BuyerRegistrationService, OrdersService, PackagesService, PaymentService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
 import { BookService } from '../../tools/services/book.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
 
@@ -64,6 +65,18 @@ export class SellerStatsComponent {
 
   paymentsPercentageDiff: any
 
+  thisMonthBookings = 0
+
+  lastMonthBookings = 0
+
+  bookingsPercentageDiff: any
+
+  thisMonthOrders = 0
+
+  lastMonthOrders = 0
+
+  ordersPercentageDiff: any
+
   role: any;
 
   countries: any[] = [];
@@ -90,11 +103,7 @@ export class SellerStatsComponent {
 
   enquiries: Enquire[] = []
 
-  thisMonthOrders = 0
-
-  lastMonthOrders = 0
-
-  ordersPercentageDiff: any
+  bookings: Booking[] = []
 
   totalProducts = 0;
 
@@ -107,12 +116,14 @@ export class SellerStatsComponent {
   constructor(
     private packageService: PackagesService,
     private router: Router,
-    private paymentService: BookService,
+    private paymentService: PaymentService,
     private enquiryService: EnquiryService,
     private sellerService: SellerRegistrationService,
     private buyerService: BuyerRegistrationService,
     private subCatgeorySevice: SubCategoriesService,
-    private productService: ProductsService
+    private productService: ProductsService,
+    private orderService: OrdersService,
+    private boookingService: BookService
   ) {
     this.sellerForm = new FormGroup({
       business_name: new FormControl('', [Validators.required]),
@@ -192,51 +203,56 @@ export class SellerStatsComponent {
 
 
       // Calculate percentage difference
-      this.enquiriesPercentageDiff = ((this.thisMonthEnquiries - this.lastMonthEnquiries) / this.lastMonthEnquiries * 100).toFixed(2)
-      if (this.enquiriesPercentageDiff == Infinity) {
-        this.enquiriesPercentageDiff = 100
-      } else if (!(this.enquiriesPercentageDiff >= 0)) {
+      if (this.lastMonthEnquiries == 0 && this.thisMonthEnquiries == 0) {
         this.enquiriesPercentageDiff = 0
       }
-      console.log('all:', this.lastMonthEnquiries, this.thisMonthEnquiries, this.enquiriesPercentageDiff);
+      else if (this.lastMonthEnquiries == 0 && this.thisMonthEnquiries >= 0) {
+        this.enquiriesPercentageDiff = 100
+      }
+      else {
+        this.paymentsPercentageDiff = (((this.thisMonthEnquiries - this.lastMonthEnquiries) / (this.lastMonthEnquiries) * 100)).toFixed(2)
+      }
+      console.log('enquries:', this.lastMonthEnquiries, this.thisMonthEnquiries, this.enquiriesPercentageDiff);
 
 
     });
 
 
-    this.buyerService.getAllList().subscribe((res) => {
-      this.buyers = res.data;
+    this.boookingService.getSellerBookings().subscribe((res) => {
+      this.bookings = res.data;
+      console.log('bookings:', res.data);
 
-      this.lastMonthClients = this.buyers.filter(user => {
-        const userDate = new Date(user.created_at);
-        return userDate.getFullYear() === new Date().getFullYear() &&
-          userDate.getMonth() === new Date().getMonth() - 1;
+      this.lastMonthBookings = this.bookings.filter(booking => {
+        const bookingDate = new Date(booking.created_at);
+        return bookingDate.getFullYear() === new Date().getFullYear() &&
+          bookingDate.getMonth() === new Date().getMonth() - 1;
       }).length;
 
-      this.thisMonthClients = this.buyers.filter(user => {
-        const userDate = new Date(user.created_at);
-        return userDate.getFullYear() === new Date().getFullYear() &&
-          userDate.getMonth() === new Date().getMonth();
+      this.thisMonthBookings = this.bookings.filter(booking => {
+        const bookingDate = new Date(booking.created_at);
+        return bookingDate.getFullYear() === new Date().getFullYear() &&
+          bookingDate.getMonth() === new Date().getMonth();
       }).length;
 
 
       // Calculate percentage difference
-      if (this.lastMonthClients == 0 && this.thisMonthClients == 0) {
-        this.clientsPercentageDiff = 0
+      if (this.lastMonthBookings == 0 && this.thisMonthBookings == 0) {
+        this.bookingsPercentageDiff = 0
       }
-      else if (this.lastMonthClients == 0 && this.thisMonthClients >= 0) {
-        this.clientsPercentageDiff = 100
+      else if (this.lastMonthBookings == 0 && this.thisMonthBookings >= 0) {
+        this.bookingsPercentageDiff = 100
       }
       else {
-        this.clientsPercentageDiff = (((this.thisMonthClients - this.lastMonthClients) / (this.lastMonthClients) * 100)).toFixed(2)
+        this.bookingsPercentageDiff = (((this.thisMonthBookings - this.lastMonthBookings) / (this.lastMonthBookings) * 100)).toFixed(2)
       }
 
-      console.log('all:', this.lastMonthClients, this.thisMonthClients, this.clientsPercentageDiff);
+      console.log('bookings:', this.lastMonthBookings, this.thisMonthBookings, this.bookingsPercentageDiff);
     });
 
 
-    this.paymentService.getSellerBookings().subscribe((res) => {
+    this.paymentService.getSellerPayments().subscribe((res) => {
       this.payments = res.data;
+      this.payments = this.payments.filter(payment => payment.buyer_id != null)
 
       this.lastMonthPayments = this.payments.filter(payment => {
         const paymentDate = new Date(payment.created_at);
@@ -264,15 +280,37 @@ export class SellerStatsComponent {
       console.log('payment:', this.lastMonthPayments, this.thisMonthPayments, this.paymentsPercentageDiff);
     });
 
+    this.orderService.getSellerOrders().subscribe((res) => {
+      this.subOrders = res.data;
+      console.log('orders:', res.data);
+
+      this.lastMonthOrders = this.subOrders.filter(order => {
+        const orderDate = new Date(order.created_at);
+        return orderDate.getFullYear() === new Date().getFullYear() &&
+          orderDate.getMonth() === new Date().getMonth() - 1;
+      }).length;
+
+      this.lastMonthOrders = this.subOrders.filter(order => {
+        const orderDate = new Date(order.created_at);
+        return orderDate.getFullYear() === new Date().getFullYear() &&
+          orderDate.getMonth() === new Date().getMonth();
+      }).length;
 
 
-    this.subCategories = this.subCatgeorySevice.subCategories;
-    console.log('subCategories:', this.subCategories);
-    this.subCategories.forEach(category => {
-      this.subCategories_ = category;
-      console.log('subCategories:', this.subCategories_);
+      // Calculate percentage difference
+      if (this.lastMonthOrders == 0 && this.thisMonthOrders == 0) {
+        this.ordersPercentageDiff = 0
+      }
+      else if (this.lastMonthOrders == 0 && this.thisMonthOrders >= 0) {
+        this.ordersPercentageDiff = 100
+      }
+      else {
+        this.paymentsPercentageDiff = (((this.thisMonthOrders - this.lastMonthOrders) / (this.lastMonthOrders) * 100)).toFixed(2)
+      }
+      console.log('orders:', this.lastMonthOrders, this.thisMonthOrders, this.ordersPercentageDiff);
     });
 
+    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;

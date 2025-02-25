@@ -15,11 +15,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AdminEnquiriesComponent } from './pages/admin-enquiries/admin-enquiries.component';
 import { AdminOrdersComponent } from './pages/admin-orders/admin-orders.component';
 import { AdminPaymentComponent } from './pages/admin-payment/admin-payment.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { BookComponent } from './pages/book/book.component';
 import { BrokerComponent } from './pages/broker/broker.component';
+import { BuyerBookingsComponent } from './pages/buyer-bookings/buyer-bookings.component';
 import { BuyerDashboardComponent } from './pages/buyer-dashboard/buyer-dashboard.component';
+import { BuyerEnquiriesComponent } from './pages/buyer-enquiries/buyer-enquiries.component';
 import { BuyerOrdersComponent } from './pages/buyer-orders/buyer-orders.component';
 import { BuyerPaymentComponent } from './pages/buyer-payment/buyer-payment.component';
 import { BuyerProfileComponent } from './pages/buyer-profile/buyer-profile.component';
@@ -34,6 +38,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EmailVerifiedComponent } from './pages/email-verified/email-verified.component';
 import { EnquireComponent } from './pages/enquire/enquire.component';
 import { EquipmentCategoriesComponent } from './pages/equipment-categories/equipment-categories.component';
+import { EventsComponent } from './pages/events/events.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MetalsComponent } from './pages/metals/metals.component';
@@ -43,12 +48,15 @@ import { PackagesComponent } from './pages/packages/packages.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { QuotationComponent } from './pages/quotation/quotation.component';
+import { RecommendedProductsComponent } from './pages/recommended-products/recommended-products.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SelectPackageComponent } from './pages/select-package/select-package.component';
+import { SellerBookingsComponent } from './pages/seller-bookings/seller-bookings.component';
 import { SellerCheckoutComponent } from './pages/seller-checkout/seller-checkout.component';
 import { SellerEnquiriesComponent } from './pages/seller-enquiries/seller-enquiries.component';
 import { SellerOrdersComponent } from './pages/seller-orders/seller-orders.component';
+import { SellerPaymentsComponent } from './pages/seller-payments/seller-payments.component';
 import { SellerPayoutsComponent } from './pages/seller-payouts/seller-payouts.component';
 import { SellerStatsComponent } from './pages/seller-stats/seller-stats.component';
 import { SellerTermsAndConditionsComponent } from './pages/seller-terms-and-conditions/seller-terms-and-conditions.component';
@@ -62,11 +70,6 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { ErrorInterceptor, LoaderInterceptor } from './tools/helpers';
 import { AlertService } from './tools/services';
 import { TruncatePipe } from './truncate.pipe';
-import { RecommendedProductsComponent } from './pages/recommended-products/recommended-products.component';
-import { EventsComponent } from './pages/events/events.component';
-import { AdminEnquiriesComponent } from './pages/admin-enquiries/admin-enquiries.component';
-import { SellerPaymentsComponent } from './pages/seller-payments/seller-payments.component';
-import { BookComponent } from './pages/book/book.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +125,10 @@ import { BookComponent } from './pages/book/book.component';
     EventsComponent,
     AdminEnquiriesComponent,
     SellerPaymentsComponent,
-    BookComponent
+    BookComponent,
+    BuyerBookingsComponent,
+    BuyerEnquiriesComponent,
+    SellerBookingsComponent
   ],
   imports: [
     BrowserModule,

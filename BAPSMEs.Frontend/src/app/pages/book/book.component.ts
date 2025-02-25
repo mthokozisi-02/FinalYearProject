@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
-import { Enquire } from '../../../models/enquire';
 import { Products } from '../../../models/products';
 import { Ratings } from '../../../models/ratings';
 import { Seller } from '../../../models/seller';
@@ -43,8 +42,6 @@ export class BookComponent {
   id = 0
 
   ratingValue = 0
-
-  newEnquiry: Enquire = {} as Enquire
 
   newBooking: Booking = {} as Booking
 
@@ -325,11 +322,12 @@ export class BookComponent {
     this.newBooking.additional_information = this.bookForm.value.additional_information;
 
 
-    this.newEnquiry.product_id = this.product.id
-    this.newEnquiry.sub_category_id = this.product.sub_category_id
-    this.newEnquiry.seller_id = this.product.user_id
-    this.newEnquiry.user_id = this.userId
-    this.newEnquiry.total_price = (Number(this.product.price))
+    this.newBooking.product_id = this.product.id
+    this.newBooking.sub_category_id = this.product.sub_category_id
+    this.newBooking.seller_id = this.product.user_id
+    this.newBooking.user_id = this.userId
+    this.newBooking.total_price = (Number(this.product.price))
+    this.newBooking.received = 'false'
 
     console.log('booking', this.newBooking)
 

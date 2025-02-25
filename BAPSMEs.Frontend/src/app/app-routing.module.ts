@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { BookComponent } from './pages/book/book.component';
 import { BrokerComponent } from './pages/broker/broker.component';
 import { BuyerComponent } from './pages/buyer/buyer.component';
 import { CartComponent } from './pages/cart/cart.component';
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'metals', component: MetalsComponent },
   { path: 'broker', component: BrokerComponent },
   { path: 'buyer', component: BuyerComponent },
+  { path: 'book/:id', component: BookComponent },
   { path: 'packages', component: PackagesComponent },
   { path: 'seller', component: SellerComponent },
   { path: 'select-package', component: SelectPackageComponent },

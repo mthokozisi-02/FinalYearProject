@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SignUpService } from '../../tools/services';
 import { Roles } from '../../tools/models';
+import { SignUpService } from '../../tools/services';
 
 @Component({
   selector: 'app-login',
@@ -57,8 +57,6 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-    sessionStorage.clear();
-    console.log(sessionStorage);
   }
 
   toEquipmentUpload() {

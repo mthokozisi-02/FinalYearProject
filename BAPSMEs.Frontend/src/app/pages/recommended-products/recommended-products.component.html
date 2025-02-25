@@ -160,7 +160,7 @@
                         </button>
                     </div>
                     <div *ngIf="item.appointment == 'yes'" class="mt-4 flex items-center justify-between gap-2">
-                        <button type="button"
+                        <button type="button" (click)="book(item.id)"
                             class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <i class="fa fa-book-dead text-white mr-2"></i>
                             Book Now

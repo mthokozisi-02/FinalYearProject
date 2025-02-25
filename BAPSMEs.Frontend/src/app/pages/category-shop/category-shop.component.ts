@@ -200,6 +200,10 @@ export class CategoryShopComponent implements OnInit {
     this.router.navigate(['/enquire', id]);
   }
 
+  book(id: number) {
+    this.router.navigate(['/book', id]);
+  }
+
   hideDialog() {
     this.viewProduct = false
   }

@@ -481,9 +481,9 @@
         </div>
 
         <div class="bg-white border border-4 rounded-lg shadow relative mt-16">
-            <div *ngIf="product.name == 'yes'" class="p-6 space-y-6 mt-8">
+            <div class="p-6 space-y-6 mt-8">
                 <form [formGroup]="bookForm" (submit)="book()">
-                    <div class="grid grid-cols-12 gap-6 mb-4">
+                    <div class="grid gap-4 mb-4 xl:grid-cols-2">
                         <div>
                             <label for="product-name"
                                 class="text-lg font-medium text-gray-900 block mb-2">Category</label>
@@ -848,15 +848,14 @@
                                 class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                 placeholder="any special requirements" required="">
                         </div>
-
-                        <div>
-                            <label for="additional_information-name"
-                                class="text-lg font-medium text-gray-900 block mb-2">Additional Information</label>
-                            <textarea rows="8" type="text" name="additional_information" id="additional_information"
-                                class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                formControlName="additional_information" placeholder="additional information"
-                                required=""></textarea>
-                        </div>
+                    </div>
+                    <div>
+                        <label for="additional_information"
+                            class="text-lg font-medium text-gray-900 block mb-2">Additional Information</label>
+                        <textarea rows="3" type="text" name="additional_information" id="additional_information"
+                            class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                            formControlName="additional_information" placeholder="additional information"
+                            required=""></textarea>
                     </div>
                     <div class="flex justify-between w-full px-3 border-t border-gray-200">
                         <div class="md:flex md:items-center">

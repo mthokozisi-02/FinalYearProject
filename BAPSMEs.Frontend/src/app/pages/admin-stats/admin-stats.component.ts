@@ -64,7 +64,7 @@ export class AdminStatsComponent {
 
   subOrders: SubOrder[] = [];
 
-  filteredBookings: Enquire[] = [];
+  filteredBookings: Booking[] = [];
 
   lastMonthPayments = 0
 

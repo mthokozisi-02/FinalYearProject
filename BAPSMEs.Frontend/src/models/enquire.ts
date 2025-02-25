@@ -25,6 +25,8 @@ export interface Enquire {
     seller_pic: any;
     buyer_phone: string;
     buyer_country: string;
+    seller_phone: string;
+    seller_country: string;
     buyer: Buyer
 
     preferred_contact_method?: 'Whatsapp' | 'Email' | 'Call';

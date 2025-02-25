@@ -115,6 +115,10 @@ export class RecommendedProductsComponent implements OnInit {
     this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
   }
 
+  book(id: number) {
+    this.router.navigate(['/book', id]);
+  }
+
   refresh() {
     this.wishlist = this.wishlistService.getCurrentCart()
 

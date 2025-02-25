@@ -1,4 +1,5 @@
 import { Buyer } from "./buyer";
+import { Seller } from "./seller";
 import { User } from "./user";
 
 export interface Booking {
@@ -23,6 +24,10 @@ export interface Booking {
     buyer_country: string;
     buyer: Buyer;
     user: User
+    seller_phone: string;
+    seller_country: string;
+    seller: Seller
+    type: string;
 
     preferred_contact_method?: 'Whatsapp' | 'Email' | 'Call';
     payment_method?: 'Cash' | 'Swipe' | 'Credit Card' | 'Ecocash';

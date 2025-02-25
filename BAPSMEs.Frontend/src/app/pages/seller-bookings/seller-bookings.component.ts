@@ -1,38 +1,39 @@
 import { Component } from '@angular/core';
+import { Booking } from '../../../models/booking';
 import { Buyer } from '../../../models/buyer';
-import { Enquire } from '../../../models/enquire';
 import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
 import { User } from '../../../models/user';
-import { BuyerRegistrationService } from '../../tools/services/buyer-registration.service';
-import { EnquiryService } from '../../tools/services/enquiry.service';
-@Component({
-  selector: 'app-seller-enquiries',
-  templateUrl: './seller-enquiries.component.html',
-  styleUrl: './seller-enquiries.component.css'
-})
-export class SellerEnquiriesComponent {
+import { BuyerRegistrationService } from '../../tools/services';
+import { BookService } from '../../tools/services/book.service';
 
-  enquiries: Enquire[] = []
+@Component({
+  selector: 'app-seller-bookings',
+  templateUrl: './seller-bookings.component.html',
+  styleUrl: './seller-bookings.component.css'
+})
+export class SellerBookingsComponent {
+
+  bookings: Booking[] = []
 
   selectedSubCategoryOption: any
 
   selectedCategoryOption: any
 
-  viewEnquiry = false;
+  viewBooking = false;
 
-  viewEnquiries = false
+  viewBookings = false
 
   subCategories: SubCategory[] = []
 
   products: Products[] = []
 
-  filteredEnquiries: Enquire[] = []
+  filteredBookings: Booking[] = []
 
   user: User = {} as User;
 
-  selectedEnquiry: Enquire = {} as Enquire;
+  selectedBooking: Booking = {} as Booking;
 
   buyers: Buyer[] = [];
 
@@ -40,7 +41,7 @@ export class SellerEnquiriesComponent {
 
   buyer_pic: any;
 
-  constructor(private enquiryService: EnquiryService, private buyerService: BuyerRegistrationService,) { }
+  constructor(private bookingService: BookService, private buyerService: BuyerRegistrationService,) { }
 
 
   ngOnInit(): void {
@@ -48,42 +49,42 @@ export class SellerEnquiriesComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.viewEnquiry = false;
-    this.viewEnquiries = true;
+    this.viewBooking = false;
+    this.viewBookings = true;
 
     this.buyerService.getAllList().subscribe((res) => {
       this.buyers = res.data;
-      console.log('buyers', this.buyers)
-      this.enquiryService.getSellerEnquiries().subscribe((res) => {
-        res.data.forEach((enquiry) => {
 
-          this.buyers.filter(x => x.user_id == enquiry.user_id).forEach(buyer => {
-            enquiry.buyer_phone = buyer.phone
-            enquiry.buyer_country = buyer.country
+      this.bookingService.getSellerBookings().subscribe((res) => {
+        res.data.forEach((booking) => {
+
+          this.buyers.filter(x => x.user_id == booking.user_id).forEach(buyer => {
+            booking.buyer_phone = buyer.phone
+            booking.buyer_country = buyer.country
           })
-          enquiry.buyer_pic =
+
+          booking.buyer_pic =
             'assets/img/user.png';
-          enquiry.buyer_name = enquiry.user.name;
-          enquiry.buyer_email = enquiry.user.email;
-          enquiry.sub_category_name = enquiry.sub_category.name
-          enquiry.product_name = enquiry.product.name
+          booking.buyer_name = booking.user.name;
+          booking.buyer_email = booking.user.email;
+          booking.sub_category_name = booking.sub_category.name
+          booking.product_name = booking.product.name
         });
-        this.enquiries = res.data
-        this.filteredEnquiries = this.enquiries
-        console.log('enquiries:', this.enquiries);
+        this.bookings = res.data
+        this.filteredBookings = this.bookings
+        console.log('bookings:', this.bookings);
       });
     });
   }
 
   searchPayments(item: any) {
-    console.log(this.enquiries)
-    this.filteredEnquiries = this.enquiries.filter(
+    this.filteredBookings = this.bookings.filter(
       prod => prod?.buyer_name.toLowerCase().includes(item.toLowerCase())
     );
     // if (this.filteredProducts = []) {
     //   this.showProducts = false
     // }
-    console.log(this.filteredEnquiries)
+    console.log(this.filteredBookings)
     //this.filteredProducts = this.products.filter(x => x.)
   }
 
@@ -103,30 +104,30 @@ export class SellerEnquiriesComponent {
   }
 
   hideDialog() {
-    this.viewEnquiry = false
+    this.viewBooking = false
   }
 
   view(item: any) {
-    this.selectedEnquiry = item
-    this.viewEnquiry = true
-    this.viewEnquiries = false
+    this.selectedBooking = item
+    this.viewBooking = true
+    this.viewBookings = false
     this.selectedSubCategoryOption = item.sub_category_id
     this.selectedCategoryOption = item.sub_category.category_id
 
-    if (item.received == 'false') {
+    if (this.selectedBooking.received == 'false') {
       this.Received(item)
     }
   }
 
   Received(item: any) {
-    this.enquiryService
+    this.bookingService
       .updateStatus(item.id)
       .subscribe(
         (res) => {
           console.log('res', res);
 
           if (res.status == 'success') {
-            this.enquiryService.success('Enquiry updated successfully');
+            this.bookingService.success('Enquiry updated successfully');
             this.ngOnInit();
           } else {
             console.error(Error);
@@ -136,8 +137,8 @@ export class SellerEnquiriesComponent {
   }
 
   clear() {
-    this.viewEnquiries = true
-    this.viewEnquiry = false
+    this.viewBookings = true
+    this.viewBooking = false
   }
 
 }

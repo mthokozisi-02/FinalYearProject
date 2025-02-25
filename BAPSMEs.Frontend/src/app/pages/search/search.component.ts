@@ -275,6 +275,10 @@ export class SearchComponent implements OnInit {
     return 0;
   }
 
+  book(id: number) {
+    this.router.navigate(['/book', id]);
+  }
+
   goToCategoryProducts(item: any) {
     const selectedCategory = (item.target as HTMLSelectElement).value;
 
