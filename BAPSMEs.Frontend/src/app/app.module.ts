@@ -8,6 +8,7 @@ import {
   provideHttpClient,
 } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthInterceptor } from '../auth/AuthInterceptor';
@@ -132,6 +133,7 @@ import { TruncatePipe } from './truncate.pipe';
   ],
   imports: [
     BrowserModule,
+    NgApexchartsModule,
     CommonModule,
     HttpClientModule,
     DecimalPipe,
@@ -156,7 +158,7 @@ import { TruncatePipe } from './truncate.pipe';
     },
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

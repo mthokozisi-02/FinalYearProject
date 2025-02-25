@@ -86,7 +86,7 @@ Route::prefix('v1')->group(function() {
         });
 
         Route::prefix('bookings')->group(function () {
-            Route::get('/', [\App\Http\Controllers\Api\V1\BookingController::class, 'index']);
+            Route::get('/', [\App\Http\Controllers\Api\V1\BookingController::class, 'getAllBookings']);
             Route::post('/book', [\App\Http\Controllers\Api\V1\BookingController::class, 'store']);
         });
 

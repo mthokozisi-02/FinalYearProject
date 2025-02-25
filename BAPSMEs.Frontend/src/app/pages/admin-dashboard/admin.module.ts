@@ -1,11 +1,12 @@
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UsersComponent } from '../users/users.component';
-import { AdminRoutes } from './admin.routing';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { AdminStatsComponent } from '../admin-stats/admin-stats.component';
 import { TransactionComponent } from '../transaction/transaction.component';
+import { UsersComponent } from '../users/users.component';
+import { AdminRoutes } from './admin.routing';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { TransactionComponent } from '../transaction/transaction.component';
         CommonModule,
         AdminRoutes,
         RouterModule,
+        NgApexchartsModule,
         HttpClientModule,
         CurrencyPipe,
         DatePipe
@@ -23,6 +25,7 @@ import { TransactionComponent } from '../transaction/transaction.component';
         AdminStatsComponent,
         TransactionComponent
 
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule { }

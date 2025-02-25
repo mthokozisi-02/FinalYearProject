@@ -157,12 +157,12 @@ class OrderController extends Controller
                 $product = Product::find($productData['id']);
 
                 // Check if requested quantity is more than available stock
-                if ($productData['quantity'] > $product->quantity) {
+                if ($productData['quantity'] > $product->capacity) {
                     return errorResponseHandler("Requested quantity for {$product->name} exceeds available stock.");
                 }
 
                 // Reduce stock quantity
-                $product->decrement('quantity', $productData['quantity']);
+                $product->decrement('capacity', $productData['quantity']);
 
                 $productsGroupedBySeller[$product->user_id][] = [
                     'id' => $product->id,

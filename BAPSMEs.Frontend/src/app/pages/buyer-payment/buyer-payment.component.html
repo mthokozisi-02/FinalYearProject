@@ -37,7 +37,6 @@
         <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="p-4">Payment ID</th>
-                <th scope="col" class="p-4">Buyer</th>
                 <th scope="col" class="p-4">Order No</th>
                 <th scope="col" class="p-4">Amount</th>
                 <th scope="col" class="p-4">Payment Method</th>
@@ -55,13 +54,6 @@
                         {{item.id}}
                     </div>
                 </th>
-                <td scope="row" class="flex items-center px-6 py-4">
-                    <img class="w-14 h-14 rounded-full" [src]="item.buyer_pic" alt="Jese image">
-                    <div class="ps-3">
-                        <div class="text-lg font-semibold">{{item.buyer_name}}</div>
-                        <div class="font-normal text-gray-500">{{item.buyer_email}}</div>
-                    </div>
-                </td>
                 <td class="px-4 py-3">
                     <div class="flex items-center">
                         <div class="h-4 w-4 rounded-full inline-block mr-2 bg-red-700"></div>

@@ -51,11 +51,10 @@ export class BuyerOrdersComponent {
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;
-      console.log('sellers:', res.data);
 
       this.orderService.getBuyerOrders().subscribe((res) => {
         this.orders = res.data;
-        console.log(res.data)
+        console.log('order', res.data)
         this.orders.forEach((order) => {
           order.total_quantity = 0;
           order.products = []
@@ -70,7 +69,7 @@ export class BuyerOrdersComponent {
               })
               ord.product.quantity = ord.quantity
               ord.product.total_amount = sub.total_price
-              ord.product.image_url = 'https://orezon.co.zw/storage/app/public/' + ord.product.image_url;
+              ord.product.image_url = 'http://127.0.0.1:8000/storage/' + ord.product.image_url;
 
               order.products = [...order.products, ord.product];
             })

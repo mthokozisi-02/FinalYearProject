@@ -36,6 +36,7 @@ export class BuyerPaymentComponent {
 
     this.paymentService.getBuyerPayments().subscribe((res) => {
       this.payments = res.data;
+      console.log('payments:', res.data);
       this.payments.forEach((payment) => {
         this.buyers
           .filter((x) => x.user_id == payment.buyer_id)

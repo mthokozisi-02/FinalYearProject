@@ -68,7 +68,7 @@ export class SellerOrdersComponent {
           });
         order.products.forEach((prod: any) => {
           prod.image_url =
-            'https://orezon.co.zw/storage/app/public/' + prod.image_url;
+            'http://127.0.0.1:8000/storage/' + prod.image_url;
           const category = this.subCategories_.filter(
             (x) => x.id == prod.sub_category_id
           );

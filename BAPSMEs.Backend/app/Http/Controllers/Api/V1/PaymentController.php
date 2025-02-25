@@ -72,7 +72,7 @@ class PaymentController extends Controller
             }
 
             throw new Exception($response, 400);
-            
+
 
             // return ['success' => false, 'message' => 'Failed to create PayPal order'];
 
@@ -115,10 +115,10 @@ class PaymentController extends Controller
     {
         try {
             $userId = Auth::id();
-            
+
             // Find the seller associated with the logged-in user
             $seller = Seller::where('user_id', $userId)->first();
-            
+
             if (!$seller) {
                 return errorResponseHandler('Seller not found.');
             }
@@ -157,7 +157,7 @@ class PaymentController extends Controller
 
             $payment = Payment::where('transaction_id', $orderId)->firstOrFail();
             $order = Order::with('subOrders')->findOrFail($payment->order_id);
-            
+
             if (isset($response['status']) && $response['status'] === 'COMPLETED') {
                 // Save payment details to the database
 
@@ -173,10 +173,10 @@ class PaymentController extends Controller
                 }
 
                 return response()->json([
-                    'success' => true, 
+                    'success' => true,
                     'message' => 'Payment completed',
                     'payment' => $payment,
-                    'order' => $order, 
+                    'order' => $order,
                     'res' => $response
                 ]);
             }
@@ -188,7 +188,7 @@ class PaymentController extends Controller
             }
 
             return response()->json(['success' => false, 'message' => 'Payment not completed', 'data' => $response], 400);
-            
+
         } catch (\Exception $e) {
             Log::error("Error Capturing PayPal Payment: ", ['error' => $e->getMessage()]);
             return response()->json(['success' => false, 'message' => 'An error occurred'], 500);
