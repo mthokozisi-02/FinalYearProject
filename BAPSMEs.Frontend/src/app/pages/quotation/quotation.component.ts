@@ -6,9 +6,10 @@ import { User } from '../../../models/user';
 import { WishListService } from '../../tools/services';
 
 @Component({
-  selector: 'app-quotation',
-  templateUrl: './quotation.component.html',
-  styleUrl: './quotation.component.css'
+    selector: 'app-quotation',
+    templateUrl: './quotation.component.html',
+    styleUrl: './quotation.component.css',
+    standalone: false
 })
 export class QuotationComponent {
 

@@ -12,6 +12,7 @@ import {
   selector: 'app-seller-payouts',
   templateUrl: './seller-payouts.component.html',
   styleUrl: './seller-payouts.component.css',
+  standalone: false
 })
 export class SellerPayoutsComponent {
   orders: SubOrder[] = [];
@@ -111,6 +112,7 @@ export class SellerPayoutsComponent {
   getPayOuts() {
     this.payoutService.getAllSellerBalance().subscribe((res) => {
       this.payments = res.data;
+      console.log('payments', this.payments)
     });
   }
 

@@ -7,9 +7,10 @@ import { User } from '../../../models/user';
 import { SellerRegistrationService, PayoutsService, BuyerRegistrationService, OrdersService, PaymentService } from '../../tools/services';
 
 @Component({
-  selector: 'app-transaction',
-  templateUrl: './transaction.component.html',
-  styleUrl: './transaction.component.css',
+    selector: 'app-transaction',
+    templateUrl: './transaction.component.html',
+    styleUrl: './transaction.component.css',
+    standalone: false
 })
 export class TransactionComponent   implements  OnInit{
   orders: SubOrder[] = [];

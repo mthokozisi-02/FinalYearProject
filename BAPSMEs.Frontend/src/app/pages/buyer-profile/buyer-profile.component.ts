@@ -6,9 +6,10 @@ import { User } from '../../../models/user';
 import { Country } from '../../tools/models';
 import { BuyerRegistrationService } from '../../tools/services';
 @Component({
-  selector: 'app-buyer-profile',
-  templateUrl: './buyer-profile.component.html',
-  styleUrl: './buyer-profile.component.css',
+    selector: 'app-buyer-profile',
+    templateUrl: './buyer-profile.component.html',
+    styleUrl: './buyer-profile.component.css',
+    standalone: false
 })
 export class BuyerProfileComponent {
   countries: any[] = [];

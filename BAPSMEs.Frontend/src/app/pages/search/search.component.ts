@@ -16,9 +16,10 @@ import { SharedService } from '../../tools/services/shared.service';
 
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.css',
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrl: './search.component.css',
+    standalone: false
 })
 export class SearchComponent implements OnInit {
   URL = environment.domain;

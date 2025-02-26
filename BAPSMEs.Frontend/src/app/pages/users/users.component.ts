@@ -4,9 +4,10 @@ import { Seller } from '../../../models/seller';
 import { Roles } from '../../tools/models';
 import { BuyerRegistrationService, SellerRegistrationService } from '../../tools/services';
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrl: './users.component.css',
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrl: './users.component.css',
+    standalone: false
 })
 export class UsersComponent {
   buyers: Buyer[] = [];

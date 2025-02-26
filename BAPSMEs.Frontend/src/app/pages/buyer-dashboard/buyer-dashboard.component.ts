@@ -5,9 +5,10 @@ import { Roles } from '../../tools/models';
 import { OrdersService } from '../../tools/services';
 
 @Component({
-  selector: 'app-buyer-dashboard',
-  templateUrl: './buyer-dashboard.component.html',
-  styleUrl: './buyer-dashboard.component.css',
+    selector: 'app-buyer-dashboard',
+    templateUrl: './buyer-dashboard.component.html',
+    styleUrl: './buyer-dashboard.component.css',
+    standalone: false
 })
 export class BuyerDashboardComponent {
   profile = false;

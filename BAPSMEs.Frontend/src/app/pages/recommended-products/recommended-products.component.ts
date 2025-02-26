@@ -14,7 +14,8 @@ import { SharedService } from '../../tools/services/shared.service';
 @Component({
   selector: 'app-recommended-products',
   templateUrl: './recommended-products.component.html',
-  styleUrl: './recommended-products.component.css'
+  styleUrl: './recommended-products.component.css',
+  standalone: false
 })
 export class RecommendedProductsComponent implements OnInit {
   URL = environment.domain;
@@ -112,7 +113,7 @@ export class RecommendedProductsComponent implements OnInit {
     });
     this.refresh();
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
   }
 
   book(id: number) {

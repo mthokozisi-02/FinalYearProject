@@ -21,7 +21,8 @@ import { EnquiryService } from '../../tools/services/enquiry.service';
 @Component({
   selector: 'app-seller-stats',
   templateUrl: './seller-stats.component.html',
-  styleUrl: './seller-stats.component.css'
+  styleUrl: './seller-stats.component.css',
+  standalone: false
 })
 export class SellerStatsComponent {
 
@@ -290,7 +291,7 @@ export class SellerStatsComponent {
           orderDate.getMonth() === new Date().getMonth() - 1;
       }).length;
 
-      this.lastMonthOrders = this.subOrders.filter(order => {
+      this.thisMonthOrders = this.subOrders.filter(order => {
         const orderDate = new Date(order.created_at);
         return orderDate.getFullYear() === new Date().getFullYear() &&
           orderDate.getMonth() === new Date().getMonth();
@@ -305,12 +306,12 @@ export class SellerStatsComponent {
         this.ordersPercentageDiff = 100
       }
       else {
-        this.paymentsPercentageDiff = (((this.thisMonthOrders - this.lastMonthOrders) / (this.lastMonthOrders) * 100)).toFixed(2)
+        this.ordersPercentageDiff = (((this.thisMonthOrders - this.lastMonthOrders) / (this.lastMonthOrders) * 100)).toFixed(2)
       }
       console.log('orders:', this.lastMonthOrders, this.thisMonthOrders, this.ordersPercentageDiff);
     });
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;

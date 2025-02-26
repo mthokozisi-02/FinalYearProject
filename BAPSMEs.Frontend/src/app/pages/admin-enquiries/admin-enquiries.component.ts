@@ -9,9 +9,10 @@ import { BuyerRegistrationService, SellerRegistrationService } from '../../tools
 import { EnquiryService } from '../../tools/services/enquiry.service';
 
 @Component({
-  selector: 'app-admin-enquiries',
-  templateUrl: './admin-enquiries.component.html',
-  styleUrl: './admin-enquiries.component.css'
+    selector: 'app-admin-enquiries',
+    templateUrl: './admin-enquiries.component.html',
+    styleUrl: './admin-enquiries.component.css',
+    standalone: false
 })
 export class AdminEnquiriesComponent {
 

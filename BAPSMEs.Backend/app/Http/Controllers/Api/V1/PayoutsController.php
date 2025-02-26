@@ -14,14 +14,14 @@ class PayoutsController extends Controller
 {
     public function getSellersWithBalances()
     {
-        $sellers = SubOrder::where('status', 'paid')
+        $sellers = SubOrder::with('seller', 'buyer','order')
             ->where('payout_status', 'pending')
             ->groupBy('seller_id')
             ->select(
                 'seller_id',
                 DB::raw('SUM(payable_amount) as balance')
             )
-            ->with('seller:id,name,email') // Assuming `SubOrder` has a `seller` relationship
+            ->with('seller:id,name,email',) // Assuming `SubOrder` has a `seller` relationship
             ->orderByDesc('balance') // Optional: order by balance
             ->get();
 
@@ -54,7 +54,7 @@ class PayoutsController extends Controller
             $payouts = $query->get();
 
             return successResponseHandler("Fetched payouts successfully", $payouts);
-            
+
         } catch (\Exception $e) {
             return errorResponseHandler($e->getMessage());
         }
@@ -129,7 +129,7 @@ class PayoutsController extends Controller
             if (in_array($response['batch_header']['batch_status'], ['PENDING', 'SUCCESS'])) {
                 foreach ($response['items'] as $item) {
                     $sellerId = explode('_', $item['sender_item_id'])[1]; // Extract seller ID from sender_item_id
-                    
+
                     if ($item['transaction_status'] === 'SUCCESS') {
                         // Update successful payout
                         SubOrder::where('seller_id', $sellerId)

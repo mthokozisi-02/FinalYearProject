@@ -8,6 +8,7 @@ import { SubCategoriesService } from '../../tools/services';
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
+  standalone: false
 })
 export class CategoriesComponent {
   subCategories: Observable<Array<SubCategory>>;
@@ -22,7 +23,7 @@ export class CategoriesComponent {
   ) { }
 
   ngOnInit(): void {
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.unfilteredSubCategories = this.subCategories_.filter((x) => x.category_id == 1);
     this.unfilteredSubCategories.filter(x => x.id == 1).forEach(cat => {

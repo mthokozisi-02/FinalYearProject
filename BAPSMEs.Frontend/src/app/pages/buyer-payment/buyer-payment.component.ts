@@ -5,9 +5,10 @@ import { User } from '../../../models/user';
 import { BuyerRegistrationService, PaymentService } from '../../tools/services';
 
 @Component({
-  selector: 'app-buyer-payment',
-  templateUrl: './buyer-payment.component.html',
-  styleUrl: './buyer-payment.component.css'
+    selector: 'app-buyer-payment',
+    templateUrl: './buyer-payment.component.html',
+    styleUrl: './buyer-payment.component.css',
+    standalone: false
 })
 export class BuyerPaymentComponent {
 

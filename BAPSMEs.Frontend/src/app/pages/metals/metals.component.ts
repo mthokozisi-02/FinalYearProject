@@ -4,9 +4,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-metals',
-  templateUrl: './metals.component.html',
-  styleUrl: './metals.component.css'
+    selector: 'app-metals',
+    templateUrl: './metals.component.html',
+    styleUrl: './metals.component.css',
+    standalone: false
 })
 export class MetalsComponent {
   public metalsForm: FormGroup;

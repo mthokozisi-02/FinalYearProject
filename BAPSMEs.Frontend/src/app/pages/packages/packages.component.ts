@@ -4,9 +4,10 @@ import { Package } from '../../../models/package';
 import { PackagesService } from '../../tools/services';
 
 @Component({
-  selector: 'app-packages',
-  templateUrl: './packages.component.html',
-  styleUrl: './packages.component.css',
+    selector: 'app-packages',
+    templateUrl: './packages.component.html',
+    styleUrl: './packages.component.css',
+    standalone: false
 })
 export class PackagesComponent {
   packages: Package[] = [];

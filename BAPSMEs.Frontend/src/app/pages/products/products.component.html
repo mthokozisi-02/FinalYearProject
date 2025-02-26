@@ -218,12 +218,12 @@
                     <option value="Virtual">Virtual</option>
                 </select>
             </div>
-            <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
+            <div *ngIf="serviceType == 'Service'">
                 <label for="appointment" class="block mb-2 font-medium text-gray-900 dark:text-white">Bookable</label>
                 <select formControlName="appointment"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
                 </select>
             </div>
             <div *ngIf="selectedCategoryOption == 4 && serviceType == 'Service'">
@@ -494,7 +494,7 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     <option value="Personal">Property</option>
                     <option value="Business">Business</option>
-                    <option value="Investment">Investment</option>
+                    <option value="investment">Investment</option>
                 </select>
             </div>
             <div *ngIf="selectedSubCategoryOption ==3 && serviceType == 'Service'">
@@ -1302,42 +1302,42 @@
                     </div>
                     <!-- Modal body -->
                     <form [formGroup]="productForm" (submit)="updateProduct()">
-                        <div class="grid gap-4 mb-4 xl:grid-cols-2">
+                        <div *ngIf="selectedProduct.service_type == 'Service'" class="grid gap-4 mb-4 xl:grid-cols-2">
                             <div>
                                 <label for="category"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Category</label>
                                 <span class="text-green-700">{{selectedProduct.sub_category_name}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 2">
+                            <div *ngIf="selectedCategoryOption == 2 && selectedProduct.service_type == 'Service'">
                                 <label for="service_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.service_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==1">
+                            <div *ngIf="selectedSubCategoryOption ==1 && selectedProduct.service_type == 'Service'">
                                 <label for="cons_project_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.cons_project_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 3">
+                            <div *ngIf="selectedCategoryOption == 3 && selectedProduct.service_type == 'Service'">
                                 <label for="product_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Product
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.product_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 6">
+                            <div *ngIf="selectedCategoryOption == 6 && selectedProduct.service_type == 'Service'">
                                 <label for="project_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.project_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 9">
+                            <div *ngIf="selectedCategoryOption == 9 && selectedProduct.service_type == 'Service'">
                                 <label for="project_scope"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Project
                                     Scope</label>
@@ -1356,186 +1356,189 @@
                                 <span class="text-green-700">{{selectedProduct.price | currency}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==1">
+                            <div *ngIf="selectedSubCategoryOption ==1 && selectedProduct.service_type == 'Service'">
                                 <label for="service_scope"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                                     Scope</label>
                                 <span class="text-green-700">{{selectedProduct.service_scope}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 2">
+                            <div *ngIf="selectedCategoryOption == 2 && selectedProduct.service_type == 'Service'">
                                 <label for="preparation_time"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Preparation
                                     Time</label>
                                 <span class="text-green-700">{{selectedProduct.preparation_time}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 2">
+                            <div *ngIf="selectedCategoryOption == 2 && selectedProduct.service_type == 'Service'">
                                 <label for="minimum_order"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
                                     Order</label>
                                 <span class="text-green-700">{{selectedProduct.minimum_order}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 2">
+                            <div *ngIf="selectedCategoryOption == 2 && selectedProduct.service_type == 'Service'">
                                 <label for="delivery_options"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
                                     Options</label>
                                 <span class="text-green-700">{{selectedProduct.delivery_options}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 2">
+                            <div *ngIf="selectedCategoryOption == 2 && selectedProduct.service_type == 'Service'">
                                 <label for="dietary_information"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Dietary
                                     Information</label>
                                 <span class="text-green-700">{{selectedProduct.dietary_information}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 3">
+                            <div *ngIf="selectedCategoryOption == 3 && selectedProduct.service_type == 'Service'">
                                 <label for="inventory_status"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
                                     Status</label>
                                 <span class="text-green-700">{{selectedProduct.inventory_status}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 3">
+                            <div *ngIf="selectedCategoryOption == 3 && selectedProduct.service_type == 'Service'">
                                 <label for="shipping_options"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
                                     Options</label>
                                 <span class="text-green-700">{{selectedProduct.shipping_options}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 3">
+                            <div *ngIf="selectedCategoryOption == 3 && selectedProduct.service_type == 'Service'">
                                 <label for="return_policy"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Return
                                     Policy</label>
                                 <span class="text-green-700">{{selectedProduct.return_policy}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8">
+                            <div
+                                *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8 && selectedProduct.service_type == 'Service'">
                                 <label for="warranty_information"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                                     Information</label>
                                 <span class="text-green-700">{{selectedProduct.warranty_information}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1">
+                            <div
+                                *ngIf="selectedCategoryOption == 4 || selectedSubCategoryOption == 1 && selectedProduct.service_type == 'Service'">
                                 <label for="service_duration"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                                     Duration</label>
                                 <span class="text-green-700">{{selectedProduct.service_duration}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 4">
+                            <div *ngIf="selectedCategoryOption == 4 && selectedProduct.service_type == 'Service'">
                                 <label for="location_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Location
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.location_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 4">
+                            <div *ngIf="selectedCategoryOption == 4 && selectedProduct.service_type == 'Service'">
                                 <label for="appointment"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Appointment
                                     Required</label>
                                 <span class="text-green-700">{{selectedProduct.appointment}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 4">
+                            <div *ngIf="selectedCategoryOption == 4 && selectedProduct.service_type == 'Service'">
                                 <label for="service_area"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                                     Area</label>
                                 <span class="text-green-700">{{selectedProduct.service_area}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 4">
+                            <div *ngIf="selectedCategoryOption == 4 && selectedProduct.service_type == 'Service'">
                                 <label for="qualification"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Qualification</label>
                                 <span class="text-green-700">{{selectedProduct.qualification}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7">
+                            <div
+                                *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7 && selectedProduct.service_type == 'Service'">
                                 <label for="expertise_level"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Expertise
                                     Level</label>
                                 <span class="text-green-700">{{selectedProduct.expertise_level}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 5">
+                            <div *ngIf="selectedCategoryOption == 5 && selectedProduct.service_type == 'Service'">
                                 <label for="session_format"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Session
                                     Format</label>
                                 <span class="text-green-700">{{selectedProduct.session_format}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 5">
+                            <div *ngIf="selectedCategoryOption == 5 && selectedProduct.service_type == 'Service'">
                                 <label for="language_support"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Language
                                     support</label>
                                 <span class="text-green-700">{{selectedProduct.language_support}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 5">
+                            <div *ngIf="selectedCategoryOption == 5 && selectedProduct.service_type == 'Service'">
                                 <label for="certifications"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Certifications</label>
                                 <span class="text-green-700">{{selectedProduct.certifications}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 5">
+                            <div *ngIf="selectedCategoryOption == 5 && selectedProduct.service_type == 'Service'">
                                 <label for="experience_level"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Experience
                                     Level</label>
                                 <span class="text-green-700">{{selectedProduct.experience_level}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 6">
+                            <div *ngIf="selectedCategoryOption == 6 && selectedProduct.service_type == 'Service'">
                                 <label for="turnaround_time"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Turnaround
                                     Time</label>
                                 <span class="text-green-700">{{selectedProduct.turnaround_time}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 6">
+                            <div *ngIf="selectedCategoryOption == 6 && selectedProduct.service_type == 'Service'">
                                 <label for="revisions_included"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Revisions
                                     Included</label>
                                 <span class="text-green-700">{{selectedProduct.revisions_included}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 6">
+                            <div *ngIf="selectedCategoryOption == 6 && selectedProduct.service_type == 'Service'">
                                 <label for="file_formats"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">File
                                     formats</label>
                                 <span class="text-green-700">{{selectedProduct.file_formats}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 6">
+                            <div *ngIf="selectedCategoryOption == 6 && selectedProduct.service_type == 'Service'">
                                 <label for="usage_rights"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Usage
                                     Rights</label>
                                 <span class="text-green-700">{{selectedProduct.usage_rights}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 7">
+                            <div *ngIf="selectedCategoryOption == 7 && selectedProduct.service_type == 'Service'">
                                 <label for="course_format"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Course
                                     Format</label>
                                 <span class="text-green-700">{{selectedProduct.course_format}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 7">
+                            <div *ngIf="selectedCategoryOption == 7 && selectedProduct.service_type == 'Service'">
                                 <label for="class_size"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Class Size</label>
                                 <span class="text-green-700">{{selectedProduct.class_size}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 7">
+                            <div *ngIf="selectedCategoryOption == 7 && selectedProduct.service_type == 'Service'">
                                 <label for="materials_included"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Materials
                                     Included</label>
                                 <span class="text-green-700">{{selectedProduct.materials_included}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 7">
+                            <div *ngIf="selectedCategoryOption == 7 && selectedProduct.service_type == 'Service'">
                                 <label for="prerequisites"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Prerequisites</label>
                                 <span class="text-green-700">{{selectedProduct.prerequisites}}</span>
@@ -1543,209 +1546,284 @@
                             </div>
 
 
-                            <div *ngIf="selectedCategoryOption == 8">
+                            <div *ngIf="selectedCategoryOption == 8 && selectedProduct.service_type == 'Service'">
                                 <label for="vehicle_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Vehicle
                                     Types</label>
                                 <span class="text-green-700">{{selectedProduct.vehicle_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8">
+                            <div
+                                *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8 && selectedProduct.service_type == 'Service'">
                                 <label for="service_level"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Service
                                     Level</label>
                                 <span class="text-green-700">{{selectedProduct.service_level}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 8">
+                            <div *ngIf="selectedCategoryOption == 8 && selectedProduct.service_type == 'Service'">
                                 <label for="warranty_information"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                                     Offered</label>
                                 <span class="text-green-700">{{selectedProduct.warranty_information}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 8">
+                            <div *ngIf="selectedCategoryOption == 8 && selectedProduct.service_type == 'Service'">
                                 <label for="parts_included"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Parts
                                     Included</label>
                                 <span class="text-green-700">{{selectedProduct.parts_included}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption == 8">
+                            <div *ngIf="selectedCategoryOption == 8 && selectedProduct.service_type == 'Service'">
                                 <label for="loaner_vehicle"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Loaner
                                     Vehicle</label>
                                 <span class="text-green-700">{{selectedProduct.loaner_vehicle}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==9">
+                            <div *ngIf="selectedCategoryOption ==9 && selectedProduct.service_type == 'Service'">
                                 <label for="license_number"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">License
                                     Number</label>
                                 <span class="text-green-700">{{selectedProduct.license_number}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==9">
+                            <div *ngIf="selectedCategoryOption ==9 && selectedProduct.service_type == 'Service'">
                                 <label for="insurance_coverage"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Insurance
                                     Coverage</label>
                                 <span class="text-green-700">{{selectedProduct.insurance_coverage}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==9">
+                            <div *ngIf="selectedCategoryOption ==9 && selectedProduct.service_type == 'Service'">
                                 <label for="permit_handling"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Permit
                                     Handling</label>
                                 <span class="text-green-700">{{selectedProduct.permit_handling}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1">
+                            <div
+                                *ngIf="selectedCategoryOption ==9 || selectedSubCategoryOption == 1 && selectedProduct.service_type == 'Service'">
                                 <label for="warranty_period"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
                                     Period</label>
                                 <span class="text-green-700">{{selectedProduct.warranty_period}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==10">
+                            <div *ngIf="selectedCategoryOption ==10 && selectedProduct.service_type == 'Service'">
                                 <label for="capacity"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Capacity</label>
                                 <span class="text-green-700">{{selectedProduct.capacity}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==10">
+                            <div *ngIf="selectedCategoryOption ==10 && selectedProduct.service_type == 'Service'">
                                 <label for="age_restriction"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Age
                                     Restrictions</label>
                                 <span class="text-green-700">{{selectedProduct.age_restriction}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==10">
+                            <div *ngIf="selectedCategoryOption ==10 && selectedProduct.service_type == 'Service'">
                                 <label for="equipment_provided"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Equipment
                                     Provided</label>
                                 <span class="text-green-700">{{selectedProduct.equipment_provided}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==10">
+                            <div *ngIf="selectedCategoryOption ==10 && selectedProduct.service_type == 'Service'">
                                 <label for="catering_options"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Catering
                                     Options</label>
                                 <span class="text-green-700">{{selectedProduct.catering_options}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedCategoryOption ==10">
+                            <div *ngIf="selectedCategoryOption ==10 && selectedProduct.service_type == 'Service'">
                                 <label for="parking_availability"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Parking
                                     Availability</label>
                                 <span class="text-green-700">{{selectedProduct.parking_availability}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==1">
+                            <div *ngIf="selectedSubCategoryOption ==1 && selectedProduct.service_type == 'Service'">
                                 <label for="payment_term"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Payment
                                     Terms</label>
                                 <span class="text-green-700">{{selectedProduct.payment_term}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==2">
+                            <div *ngIf="selectedSubCategoryOption ==2 && selectedProduct.service_type == 'Service'">
                                 <label for="coverage_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.coverage_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==2">
+                            <div *ngIf="selectedSubCategoryOption ==2 && selectedProduct.service_type == 'Service'">
                                 <label for="policy_term"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Policy
                                     Term</label>
                                 <span class="text-green-700">{{selectedProduct.policy_term}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==2">
+                            <div *ngIf="selectedSubCategoryOption ==2 && selectedProduct.service_type == 'Service'">
                                 <label for="premium_frequency"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Premium
                                     Frequency</label>
                                 <span class="text-green-700">{{selectedProduct.premium_frequency}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==2">
+                            <div *ngIf="selectedSubCategoryOption ==2 && selectedProduct.service_type == 'Service'">
                                 <label for="deductible_amount"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Deductible
                                     Amount</label>
                                 <span class="text-green-700">{{selectedProduct.deductible_amount}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==2">
+                            <div *ngIf="selectedSubCategoryOption ==2 && selectedProduct.service_type == 'Service'">
                                 <label for="coverage_limit"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Coverage
                                     Limit</label>
                                 <span class="text-green-700">{{selectedProduct.coverage_limit}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==3">
+                            <div *ngIf="selectedSubCategoryOption ==3 && selectedProduct.service_type == 'Service'">
                                 <label for="account_type"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Account
                                     Type</label>
                                 <span class="text-green-700">{{selectedProduct.account_type}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==3">
+                            <div *ngIf="selectedSubCategoryOption ==3 && selectedProduct.service_type == 'Service'">
                                 <label for="minimum_balance"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum
                                     Balance</label>
                                 <span class="text-green-700">{{selectedProduct.minimum_balance}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==3">
+                            <div *ngIf="selectedSubCategoryOption ==3 && selectedProduct.service_type == 'Service'">
                                 <label for="interest_rate"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Interest
                                     Rate</label>
                                 <span class="text-green-700">{{selectedProduct.interest_rate}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==3">
+                            <div *ngIf="selectedSubCategoryOption ==3 && selectedProduct.service_type == 'Service'">
                                 <label for="fees"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Fees</label>
                                 <span class="text-green-700">{{selectedProduct.fees}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==3">
+                            <div *ngIf="selectedSubCategoryOption ==3 && selectedProduct.service_type == 'Service'">
                                 <label for="transaction_limit"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Transaction
                                     Limit</label>
                                 <span class="text-green-700">{{selectedProduct.transaction_limit}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==4">
+                            <div *ngIf="selectedSubCategoryOption ==4 && selectedProduct.service_type == 'Service'">
                                 <label for="property_types"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Property
                                     Types</label>
                                 <span class="text-green-700">{{selectedProduct.property_types}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==4">
+                            <div *ngIf="selectedSubCategoryOption ==4 && selectedProduct.service_type == 'Service'">
                                 <label for="geographic_area"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Geographic
                                     Area</label>
                                 <span class="text-green-700">{{selectedProduct.geographic_area}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==4">
+                            <div *ngIf="selectedSubCategoryOption ==4 && selectedProduct.service_type == 'Service'">
                                 <label for="management_fee"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Management
                                     Fee</label>
                                 <span class="text-green-700">{{selectedProduct.management_fee}}</span>
                                 <hr>
                             </div>
-                            <div *ngIf="selectedSubCategoryOption ==4">
+                            <div *ngIf="selectedSubCategoryOption ==4 && selectedProduct.service_type == 'Service'">
                                 <label for="response_time"
                                     class="block mb-2 font-medium text-gray-900 dark:text-white">Response
                                     Time</label>
                                 <span class="text-green-700">{{selectedProduct.response_time}}</span>
                                 <hr>
                             </div>
-
                         </div>
+
+                        <div *ngIf="selectedProduct.service_type == 'Product'" class="grid gap-4 mb-4 xl:grid-cols-3">
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Sub Category</label>
+                                <span class="text-green-700">{{selectedProduct.sub_category_name}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Product Name</label>
+                                <span class="text-green-700">{{selectedProduct.name}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Price</label>
+                                <span class="text-green-700">{{selectedProduct.price | currency}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Product Type</label>
+                                <span class="text-green-700">{{selectedProduct.product_type}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Minimum Order</label>
+                                <span class="text-green-700">{{selectedProduct.minimum_order}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Delivery
+                                    Options</label>
+                                <span class="text-green-700">{{selectedProduct.delivery_options}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Inventory
+                                    Status</label>
+                                <span class="text-green-700">{{selectedProduct.inventory_status}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Shipping
+                                    Options</label>
+                                <span class="text-green-700">{{selectedProduct.shipping_options}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Return Policy</label>
+                                <span class="text-green-700">{{selectedProduct.return_policy}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Warranty
+                                    Information</label>
+                                <span class="text-green-700">{{selectedProduct.warranty_information}}</span>
+                                <hr>
+                            </div>
+                            <div *ngIf="selectedProduct.service_type == 'Product'">
+                                <label for="response_time"
+                                    class="block mb-2 font-medium text-gray-900 dark:text-white">Description</label>
+                                <span class="text-green-700">{{selectedProduct.description}}</span>
+                                <hr>
+                            </div>
+                        </div>
+
                         <div class="mb-2">
                             <span class="block mb-2 font-medium text-gray-900 dark:text-white">Product
                                 Images</span>

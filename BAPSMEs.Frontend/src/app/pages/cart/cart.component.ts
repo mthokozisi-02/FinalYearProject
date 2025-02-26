@@ -10,6 +10,7 @@ import { CartService, OrdersService, ProductsService, SubCategoriesService } fro
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
+  standalone: false
 })
 export class CartComponent {
   currentCart: any = [];
@@ -58,7 +59,7 @@ export class CartComponent {
 
     this.cartItems = this.cartService.getCurrentCart();
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.productService.getAllList().subscribe((res) => {
       this.unfilteredProducts = res.data.filter(

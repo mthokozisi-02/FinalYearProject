@@ -11,6 +11,7 @@ import { BuyerRegistrationService, OrdersService, SellerRegistrationService, Sub
   selector: 'app-seller-orders',
   templateUrl: './seller-orders.component.html',
   styleUrl: './seller-orders.component.css',
+  standalone: false
 })
 export class SellerOrdersComponent {
   orders: SubOrder[] = [];
@@ -51,21 +52,26 @@ export class SellerOrdersComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.orderService.getSellerOrders().subscribe((res) => {
       this.orders = res.data;
+      console.log('ordersss:', res.data)
       this.orders.forEach((order) => {
         order.total_quantity = 0;
-        this.buyers
-          .filter((x) => x.user_id == order.buyer_id)
-          .forEach((buyer) => {
-            console.log('entered', buyer);
-            order.buyer_pic =
-              'assets/img/user.png';
-            order.buyer_name = buyer.user.name;
-            order.buyer_email = buyer.user.email;
-          });
+        this.buyerService.getAllList().subscribe((res) => {
+          this.buyers = res.data
+          this.buyers
+            .filter((x) => x.user_id == order.buyer_id)
+            .forEach((buyer) => {
+              console.log('entered', buyer);
+              order.buyer_pic =
+                'assets/img/user.png';
+              order.buyer_name = buyer.user.name;
+              order.buyer_email = buyer.user.email;
+              console.log('orderrrr:', this.orders)
+            });
+        });
         order.products.forEach((prod: any) => {
           prod.image_url =
             'http://127.0.0.1:8000/storage/' + prod.image_url;
@@ -75,26 +81,19 @@ export class SellerOrdersComponent {
           category.forEach((cat) => {
             prod.sub_category_name = cat.name;
           });
-          this.sellers
-            .filter((x) => x.user_id == order.seller_id)
-            .forEach((seller) => {
-              prod.business_name = seller.business_name;
-            });
+          this.sellerService.getAllList().subscribe((res) => {
+            this.sellers = res.data
+            this.sellers
+              .filter((x) => x.user_id == order.seller_id)
+              .forEach((seller) => {
+                prod.business_name = seller.business_name;
+              });
+          });
           order.total_quantity += prod.pivot.quantity;
         });
       });
       this.filteredOrders = this.orders
       console.log('orders:', this.orders);
-    });
-
-    this.buyerService.getAllList().subscribe((res) => {
-      this.buyers = res.data;
-      console.log('buyer:', res.data);
-    });
-
-    this.sellerService.getAllList().subscribe((res) => {
-      this.sellers = res.data;
-      console.log('sellers:', res.data);
     });
 
 

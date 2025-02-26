@@ -618,29 +618,24 @@
                                     class="mt-2 text-gray-500 dark:text-gray-400">
                                     <b>Geographic Area:</b> {{selectedProduct.geographic_area || 'N/A'}}
                                 </p>
-                                <div class="grid grid-cols-2">
-                                    <p *ngIf="selectedProduct.service_type == 'Product'"
-                                        class="mt-2 text-gray-500 dark:text-gray-400">
+                                <div *ngIf="selectedProduct.service_type == 'Product'" class="grid grid-cols-2">
+                                    <p class="mt-2 text-gray-500 dark:text-gray-400">
                                         <b>Product Type:</b> {{selectedProduct.product_type || 'N/A'}}
                                     </p>
-                                    <p *ngIf="selectedProduct.service_type == 'Product'"
-                                        class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <p class="mt-2 text-gray-500 dark:text-gray-400">
                                         <b>Minimum Order:</b> {{selectedProduct.minimum_order || 'N/A'}}
                                     </p>
                                 </div>
-                                <div class="grid grid-cols-2">
-                                    <p *ngIf="selectedProduct.service_type == 'Product'"
-                                        class="mt-2 text-gray-500 dark:text-gray-400">
+                                <div *ngIf="selectedProduct.service_type == 'Product'" class="grid grid-cols-2">
+                                    <p class="mt-2 text-gray-500 dark:text-gray-400">
                                         <b>Inventory Status:</b> {{selectedProduct.inventory_status || 'N/A'}}
                                     </p>
-                                    <p *ngIf="selectedProduct.service_type == 'Product'"
-                                        class="mt-2 text-gray-500 dark:text-gray-400">
+                                    <p class="mt-2 text-gray-500 dark:text-gray-400">
                                         <b>Shipping Options:</b> {{selectedProduct.shipping_options || 'N/A'}}
                                     </p>
                                 </div>
-                                <div class="grid grid-cols-2">
-                                    <p *ngIf="selectedProduct.service_type == 'Product'"
-                                        class="mt-2 text-gray-500 dark:text-gray-400">
+                                <div *ngIf="selectedProduct.service_type == 'Product'" class="grid grid-cols-2">
+                                    <p class="mt-2 text-gray-500 dark:text-gray-400">
                                         <b>Return Policy:</b> {{selectedProduct.return_policy || 'N/A'}}
                                     </p>
                                     <p *ngIf="selectedProduct.service_type == 'Product'"

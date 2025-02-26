@@ -12,6 +12,7 @@ import { CategoriesService } from '../../tools/services/categories.service';
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
+  standalone: false
 })
 export class ProductsComponent implements OnInit {
   products: Products[] = [];
@@ -186,7 +187,7 @@ export class ProductsComponent implements OnInit {
       this.productForm.value.category = this.categories[0].name
     });
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
     this.filteredSubCategories = this.subCategories_.filter(x => x.category_id == Number(this.selectedCategoryOption))
 
     this.selectedSubCategoryOption = 1

@@ -6,9 +6,10 @@ import { SubCategory } from '../../../models/sub-category';
 import { SubCategoriesService } from '../../tools/services';
 import { CategoriesService } from '../../tools/services/categories.service';
 @Component({
-  selector: 'app-sub-categories',
-  templateUrl: './sub-categories.component.html',
-  styleUrl: './sub-categories.component.css',
+    selector: 'app-sub-categories',
+    templateUrl: './sub-categories.component.html',
+    styleUrl: './sub-categories.component.css',
+    standalone: false
 })
 export class SubCategoriesComponent {
   categories: Category[] = [];

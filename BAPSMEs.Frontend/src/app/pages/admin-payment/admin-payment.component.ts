@@ -8,7 +8,8 @@ import { BuyerRegistrationService, PaymentService, SellerRegistrationService } f
 @Component({
   selector: 'app-admin-payment',
   templateUrl: './admin-payment.component.html',
-  styleUrl: './admin-payment.component.css'
+  styleUrl: './admin-payment.component.css',
+  standalone: false
 })
 export class AdminPaymentComponent {
 
@@ -55,7 +56,7 @@ export class AdminPaymentComponent {
         this.paymentService.getAllList().subscribe((res) => {
           this.payments = res.data;
           console.log('payments:', this.payments);
-          this.packagesPayments = this.payments
+          this.packagesPayments = this.payments.filter(x => x.buyer_id == null)
 
           this.packagesPayments.forEach(pay => {
             this.sellers
@@ -65,6 +66,8 @@ export class AdminPaymentComponent {
                 pay.buyer_email = seller.user.name
               });
           })
+
+          this.orderPayments = this.payments.filter(x => x.buyer_id != null)
 
           this.orderPayments.forEach(pay => {
             pay.buyer_name = pay.buyer.name

@@ -7,9 +7,10 @@ import { Country, Roles } from '../../tools/models';
 import { PackagesService, SellerRegistrationService } from '../../tools/services';
 
 @Component({
-  selector: 'app-seller',
-  templateUrl: './seller.component.html',
-  styleUrl: './seller.component.css',
+    selector: 'app-seller',
+    templateUrl: './seller.component.html',
+    styleUrl: './seller.component.css',
+    standalone: false
 })
 export class SellerComponent {
   newSeller: Seller = {} as Seller;

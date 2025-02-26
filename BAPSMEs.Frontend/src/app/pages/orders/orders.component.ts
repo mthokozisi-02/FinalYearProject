@@ -3,9 +3,10 @@ import { OrderProducts } from '../../../models/order-products';
 import { Orders } from '../../../models/orders';
 import { OrdersService } from '../../tools/services';
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.css'
+    selector: 'app-orders',
+    templateUrl: './orders.component.html',
+    styleUrl: './orders.component.css',
+    standalone: false
 })
 export class OrdersComponent {
 

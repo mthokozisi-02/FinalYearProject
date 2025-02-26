@@ -9,9 +9,10 @@ import { SellerRegistrationService } from '../../tools/services';
 import { EnquiryService } from '../../tools/services/enquiry.service';
 
 @Component({
-  selector: 'app-buyer-enquiries',
-  templateUrl: './buyer-enquiries.component.html',
-  styleUrl: './buyer-enquiries.component.css'
+    selector: 'app-buyer-enquiries',
+    templateUrl: './buyer-enquiries.component.html',
+    styleUrl: './buyer-enquiries.component.css',
+    standalone: false
 })
 export class BuyerEnquiriesComponent {
   enquiries: Enquire[] = []

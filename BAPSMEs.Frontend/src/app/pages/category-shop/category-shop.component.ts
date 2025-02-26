@@ -67,7 +67,7 @@ export class CategoryShopComponent implements OnInit {
     this.id = this.actRoute.snapshot.params['id'];
 
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;

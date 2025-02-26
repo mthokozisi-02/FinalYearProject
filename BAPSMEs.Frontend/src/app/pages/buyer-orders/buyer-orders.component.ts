@@ -9,6 +9,7 @@ import { BuyerRegistrationService, OrdersService, SellerRegistrationService, Sub
   selector: 'app-buyer-orders',
   templateUrl: './buyer-orders.component.html',
   styleUrl: './buyer-orders.component.css',
+  standalone: false
 })
 export class BuyerOrdersComponent {
   orders: Orders[] = [];
@@ -47,7 +48,7 @@ export class BuyerOrdersComponent {
     this.user.name = sessionStorage.getItem('loggedUserName') || '{}';
     this.user.email = sessionStorage.getItem('loggedUserEmail') || '{}';
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;

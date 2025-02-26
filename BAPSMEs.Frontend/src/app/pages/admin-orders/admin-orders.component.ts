@@ -10,7 +10,8 @@ import { BuyerRegistrationService, OrdersService, SellerRegistrationService, Sub
 @Component({
   selector: 'app-admin-orders',
   templateUrl: './admin-orders.component.html',
-  styleUrl: './admin-orders.component.css'
+  styleUrl: './admin-orders.component.css',
+  standalone: false
 })
 export class AdminOrdersComponent {
 
@@ -61,7 +62,7 @@ export class AdminOrdersComponent {
         this.sellers = res.data;
         console.log('sellers:', res.data);
 
-        this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+        this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
         this.orderService.getAllList().subscribe((res) => {
           this.orders = res.data;

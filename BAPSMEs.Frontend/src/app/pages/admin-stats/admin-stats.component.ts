@@ -37,7 +37,8 @@ export type ChartOptions = {
 @Component({
   selector: 'app-admin-stats',
   templateUrl: './admin-stats.component.html',
-  styleUrl: './admin-stats.component.css'
+  styleUrl: './admin-stats.component.css',
+  standalone: false
 })
 export class AdminStatsComponent {
   @ViewChild("chart", { static: false }) chart: ChartComponent;
@@ -386,7 +387,7 @@ export class AdminStatsComponent {
           orderDate.getMonth() === new Date().getMonth() - 1;
       }).length;
 
-      this.lastMonthOrders = this.subOrders.filter(order => {
+      this.thisMonthOrders = this.subOrders.filter(order => {
         const orderDate = new Date(order.created_at);
         return orderDate.getFullYear() === new Date().getFullYear() &&
           orderDate.getMonth() === new Date().getMonth();

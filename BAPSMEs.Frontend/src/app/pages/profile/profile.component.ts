@@ -9,9 +9,10 @@ import { Country } from '../../tools/models';
 import { PackagesService, SellerRegistrationService } from '../../tools/services';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css',
+    standalone: false
 })
 export class ProfileComponent {
   countries: any[] = [];

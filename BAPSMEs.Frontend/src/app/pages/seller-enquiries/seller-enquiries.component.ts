@@ -8,9 +8,10 @@ import { User } from '../../../models/user';
 import { BuyerRegistrationService } from '../../tools/services/buyer-registration.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
 @Component({
-  selector: 'app-seller-enquiries',
-  templateUrl: './seller-enquiries.component.html',
-  styleUrl: './seller-enquiries.component.css'
+    selector: 'app-seller-enquiries',
+    templateUrl: './seller-enquiries.component.html',
+    styleUrl: './seller-enquiries.component.css',
+    standalone: false
 })
 export class SellerEnquiriesComponent {
 

@@ -83,303 +83,377 @@
                     <b>Service Type</b> {{product.service_type}}
                 </p>
                 <!-- Preparation Time -->
-                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Preparation Time:</b> {{product.preparation_time || 'N/A'}}
                 </p>
 
                 <!-- Minimum Order -->
-                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Minimum Order:</b> {{product.minimum_order || 'N/A'}}
                 </p>
 
                 <!-- Delivery Options -->
-                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Delivery Options:</b> {{product.delivery_options || 'N/A'}}
                 </p>
 
                 <!-- Dietary Information -->
-                <p *ngIf="selectedCategoryOption == 2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Dietary Information:</b> {{product.dietary_information || 'N/A'}}
                 </p>
 
                 <!-- Product Type -->
-                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 6  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Product Type:</b> {{product.product_type || 'N/A'}}
                 </p>
 
                 <!-- Inventory Status -->
-                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Inventory Status:</b> {{product.inventory_status || 'N/A'}}
                 </p>
 
                 <!-- Shipping Options -->
-                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Shipping Options:</b> {{product.shipping_options || 'N/A'}}
                 </p>
 
                 <!-- Return Policy -->
-                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Return Policy:</b> {{product.return_policy || 'N/A'}}
                 </p>
 
                 <!-- Warranty Information -->
-                <p *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8"
+                <p *ngIf="selectedCategoryOption == 3 || selectedCategoryOption == 8  && product.service_type == 'Service'"
                     class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Warranty Information:</b> {{product.warranty_information || 'N/A'}}
                 </p>
 
                 <!-- Service Duration -->
-                <p *ngIf="selectedCategoryOption == 3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Service Duration:</b> {{product.service_duration || 'N/A'}}
                 </p>
 
                 <!-- Appointment -->
-                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Appointment:</b> {{product.appointment || 'N/A'}}
                 </p>
 
                 <!-- Location Type -->
-                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Location Type:</b> {{product.location_type || 'N/A'}}
                 </p>
 
                 <!-- Service Area -->
-                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Service Area:</b> {{product.service_area || 'N/A'}}
                 </p>
 
                 <!-- Qualification -->
-                <p *ngIf="selectedCategoryOption == 4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Qualification:</b> {{product.qualification || 'N/A'}}
                 </p>
 
                 <!-- Expertise Level -->
-                <p *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7"
+                <p *ngIf="selectedCategoryOption == 5 || selectedCategoryOption == 7  && product.service_type == 'Service'"
                     class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Expertise Level:</b> {{product.expertise_level || 'N/A'}}
                 </p>
 
                 <!-- Session Format -->
-                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 5  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Session Format:</b> {{product.session_format || 'N/A'}}
                 </p>
 
                 <!-- Language Support -->
-                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 5  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Language Support:</b> {{product.language_support || 'N/A'}}
                 </p>
 
                 <!-- Certifications -->
-                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 5  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Certifications:</b> {{product.certifications || 'N/A'}}
                 </p>
 
                 <!-- Experience Level -->
-                <p *ngIf="selectedCategoryOption == 5" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 5  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Experience Level:</b> {{product.experience_level || 'N/A'}}
                 </p>
 
                 <!-- Project Type -->
-                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 6  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Project Type:</b> {{product.project_type || 'N/A'}}
                 </p>
 
                 <!-- Turnaround Time -->
-                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 6  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Turnaround Time:</b> {{product.turnaround_time || 'N/A'}}
                 </p>
 
                 <!-- Revisions Included -->
-                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 6  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Revisions Included:</b> {{product.revisions_included || 'N/A'}}
                 </p>
 
                 <!-- File Formats -->
-                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 6  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>File Formats:</b> {{product.file_formats || 'N/A'}}
                 </p>
 
                 <!-- Usage Rights -->
-                <p *ngIf="selectedCategoryOption == 6" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 6  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Usage Rights:</b> {{product.usage_rights || 'N/A'}}
                 </p>
 
                 <!-- Course Format -->
-                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 7  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Course Format:</b> {{product.course_format || 'N/A'}}
                 </p>
 
                 <!-- Class Size -->
-                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 7  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Class Size:</b> {{product.class_size || 'N/A'}}
                 </p>
 
                 <!-- Materials Included -->
-                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 7  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Materials Included:</b> {{product.materials_included || 'N/A'}}
                 </p>
 
                 <!-- Prerequisites -->
-                <p *ngIf="selectedCategoryOption == 7" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 7  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Prerequisites:</b> {{product.prerequisites || 'N/A'}}
                 </p>
 
                 <!-- Vehicle Type -->
-                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 8  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Vehicle Type:</b> {{product.vehicle_type || 'N/A'}}
                 </p>
 
                 <!-- Parts Included -->
-                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 8  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Parts Included:</b> {{product.parts_included || 'N/A'}}
                 </p>
 
                 <!-- Loaner Vehicle -->
-                <p *ngIf="selectedCategoryOption == 8" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 8  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Loaner Vehicle:</b> {{product.loaner_vehicle || 'N/A'}}
                 </p>
 
                 <!-- Project Scope -->
-                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 9  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Project Scope:</b> {{product.project_scope || 'N/A'}}
                 </p>
 
                 <!-- License Number -->
-                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 9  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>License Number:</b> {{product.license_number || 'N/A'}}
                 </p>
 
                 <!-- Insurance Coverage -->
-                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 9  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Insurance Coverage:</b> {{product.insurance_coverage || 'N/A'}}
                 </p>
 
                 <!-- Permit Handling -->
-                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 9  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Permit Handling:</b> {{product.permit_handling || 'N/A'}}
                 </p>
 
                 <!-- Warranty Period -->
-                <p *ngIf="selectedCategoryOption == 9" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 9  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Warranty Period:</b> {{product.warranty_period || 'N/A'}}
                 </p>
 
                 <!-- Capacity -->
-                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 10  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Capacity:</b> {{product.capacity || 'N/A'}}
                 </p>
 
                 <!-- Age Restriction -->
-                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 10  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Age Restriction:</b> {{product.age_restriction || 'N/A'}}
                 </p>
 
                 <!-- Equipment Provided -->
-                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 10  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Equipment Provided:</b> {{product.equipment_provided || 'N/A'}}
                 </p>
 
                 <!-- Catering Options -->
-                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 10  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Catering Options:</b> {{product.catering_options || 'N/A'}}
                 </p>
 
                 <!-- Parking Availability -->
-                <p *ngIf="selectedCategoryOption == 10" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedCategoryOption == 10  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Parking Availability:</b> {{product.parking_availability || 'N/A'}}
                 </p>
 
                 <!-- Construction Project Type -->
-                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==1  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Construction Project Type:</b> {{product.cons_project_type || 'N/A'}}
                 </p>
 
                 <!-- Service Scope -->
-                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==1  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Service Scope:</b> {{product.service_scope || 'N/A'}}
                 </p>
 
                 <!-- Payment Term -->
-                <p *ngIf="selectedSubCategoryOption ==1" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==1  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Payment Term:</b> {{product.payment_term || 'N/A'}}
                 </p>
 
                 <!-- Coverage Type -->
-                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Coverage Type:</b> {{product.coverage_type || 'N/A'}}
                 </p>
 
                 <!-- Policy Term -->
-                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Policy Term:</b> {{product.policy_term || 'N/A'}}
                 </p>
 
                 <!-- Premium Frequency -->
-                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Premium Frequency:</b> {{product.premium_frequency || 'N/A'}}
                 </p>
 
                 <!-- Deductible Amount -->
-                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Deductible Amount:</b> {{product.deductible_amount || 'N/A'}}
                 </p>
 
                 <!-- Coverage Limit -->
-                <p *ngIf="selectedSubCategoryOption ==2" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==2  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Coverage Limit:</b> {{product.coverage_limit || 'N/A'}}
                 </p>
 
                 <!-- Account Type -->
-                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Account Type:</b> {{product.account_type || 'N/A'}}
                 </p>
 
                 <!-- Minimum Balance -->
-                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Minimum Balance:</b> {{product.minimum_balance || 'N/A'}}
                 </p>
 
                 <!-- Interest Rate -->
-                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Interest Rate:</b> {{product.interest_rate || 'N/A'}}
                 </p>
 
                 <!-- Fees -->
-                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Fees:</b> {{product.fees || 'N/A'}}
                 </p>
 
                 <!-- Transaction Limit -->
-                <p *ngIf="selectedSubCategoryOption ==3" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==3  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Transaction Limit:</b> {{product.transaction_limit || 'N/A'}}
                 </p>
 
                 <!-- Property Types -->
-                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Property Types:</b> {{product.property_types || 'N/A'}}
                 </p>
 
                 <!-- Service Level -->
-                <p *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8"
+                <p *ngIf="selectedSubCategoryOption == 4 || selectedCategoryOption == 8  && product.service_type == 'Service'"
                     class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Service Level:</b> {{product.service_level || 'N/A'}}
                 </p>
 
                 <!-- Management Fee -->
-                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Management Fee:</b> {{product.management_fee || 'N/A'}}
                 </p>
 
                 <!-- Response Time -->
-                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Response Time:</b> {{product.response_time || 'N/A'}}
                 </p>
 
                 <!-- Geographic Area -->
-                <p *ngIf="selectedSubCategoryOption ==4" class="mt-2 text-gray-500 dark:text-gray-400">
+                <p *ngIf="selectedSubCategoryOption ==4  && product.service_type == 'Service'"
+                    class="mt-2 text-gray-500 dark:text-gray-400">
                     <b>Geographic Area:</b> {{product.geographic_area || 'N/A'}}
                 </p>
-
+                <div *ngIf="product.service_type == 'Product'" class="grid grid-cols-2">
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">
+                        <b>Inventory Status:</b> {{product.inventory_status || 'N/A'}}
+                    </p>
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">
+                        <b>Shipping Options:</b> {{product.shipping_options || 'N/A'}}
+                    </p>
+                </div>
+                <div *ngIf="product.service_type == 'Product'" class="grid grid-cols-2">
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">
+                        <b>Return Policy:</b> {{product.return_policy || 'N/A'}}
+                    </p>
+                    <p *ngIf="product.service_type == 'Product'" class="mt-2 text-gray-500 dark:text-gray-400">
+                        <b>Warranty Info:</b> {{product.warranty_information || 'N/A'}}
+                    </p>
+                </div>
+                <p *ngIf="product.service_type == 'Product'" class="mt-2 text-gray-500 dark:text-gray-400">
+                    <b>Description:</b> {{product.description || 'N/A'}}
+                </p>
                 <div class="mt-4 flex items-center gap-2">
                     <div class="flex items-center gap-0.5">
                         <igc-rating [value]="avgRating" class="text-yellow-300" disabled></igc-rating>

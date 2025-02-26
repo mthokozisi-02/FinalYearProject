@@ -6,7 +6,8 @@ import { SellerCartService } from '../../tools/services';
 @Component({
   selector: 'app-dashboard-nav-bar',
   templateUrl: './dashboard-nav-bar.component.html',
-  styleUrl: './dashboard-nav-bar.component.css'
+  styleUrl: './dashboard-nav-bar.component.css',
+  standalone: false
 })
 export class DashboardNavBarComponent {
 
@@ -26,12 +27,16 @@ export class DashboardNavBarComponent {
 
   ngOnInit(): void {
     this.role = sessionStorage.getItem('loggedUserRole') || '{}';
+    console.log('sessionStorage', sessionStorage)
+    console.log(this.role, 'admin')
 
     this.getCartInformation();
-    if (sessionStorage.length === 0) {
+    if (sessionStorage.length == 0) {
       this.logIn = true;
+      console.log('entere')
     }
     else {
+      console.log('what')
       this.logOut = true
       this.home = true
       this.logIn = false

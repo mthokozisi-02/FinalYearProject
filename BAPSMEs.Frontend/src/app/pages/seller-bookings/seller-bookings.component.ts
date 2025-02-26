@@ -9,9 +9,10 @@ import { BuyerRegistrationService } from '../../tools/services';
 import { BookService } from '../../tools/services/book.service';
 
 @Component({
-  selector: 'app-seller-bookings',
-  templateUrl: './seller-bookings.component.html',
-  styleUrl: './seller-bookings.component.css'
+    selector: 'app-seller-bookings',
+    templateUrl: './seller-bookings.component.html',
+    styleUrl: './seller-bookings.component.css',
+    standalone: false
 })
 export class SellerBookingsComponent {
 

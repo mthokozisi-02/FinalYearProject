@@ -6,7 +6,8 @@ import { SellerCartService } from '../../tools/services';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.css'
+  styleUrl: './nav-bar.component.css',
+  standalone: false
 })
 export class NavBarComponent {
 
@@ -26,6 +27,7 @@ export class NavBarComponent {
 
   ngOnInit(): void {
     this.role = sessionStorage.getItem('loggedUserRole') || '{}';
+    console.log(this.role)
 
     this.getCartInformation();
     if (sessionStorage.length === 0) {

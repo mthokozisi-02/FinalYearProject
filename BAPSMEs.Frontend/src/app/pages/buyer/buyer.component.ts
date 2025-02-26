@@ -7,9 +7,10 @@ import { Country } from '../../tools/models';
 import { BuyerRegistrationService } from '../../tools/services';
 
 @Component({
-  selector: 'app-buyer',
-  templateUrl: './buyer.component.html',
-  styleUrl: './buyer.component.css',
+    selector: 'app-buyer',
+    templateUrl: './buyer.component.html',
+    styleUrl: './buyer.component.css',
+    standalone: false
 })
 export class BuyerComponent {
   buyerProfile: Buyer[] = [];

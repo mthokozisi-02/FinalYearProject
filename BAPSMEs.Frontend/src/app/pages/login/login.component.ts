@@ -8,6 +8,7 @@ import { SignUpService } from '../../tools/services';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  standalone: false
 })
 export class LoginComponent {
   public loginForm: FormGroup;
@@ -57,6 +58,7 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
+    sessionStorage.clear()
   }
 
   toEquipmentUpload() {
@@ -76,6 +78,8 @@ export class LoginComponent {
           sessionStorage.setItem('loggedUserRole', res.user.role);
           sessionStorage.setItem('loggedUserName', res.user.name);
           sessionStorage.setItem('loggedUserEmail', res.user.email);
+
+          console.log('session', sessionStorage)
 
           this.role = res.user.role;
           if (this.role == Roles.SELLER) {

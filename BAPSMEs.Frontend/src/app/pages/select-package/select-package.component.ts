@@ -7,9 +7,10 @@ import { PackagesService, SignUpService, SellerCartService } from '../../tools/s
 
 
 @Component({
-  selector: 'app-select-package',
-  templateUrl: './select-package.component.html',
-  styleUrl: './select-package.component.css',
+    selector: 'app-select-package',
+    templateUrl: './select-package.component.html',
+    styleUrl: './select-package.component.css',
+    standalone: false
 })
 export class SelectPackageComponent {
   packages: Package[] = [];

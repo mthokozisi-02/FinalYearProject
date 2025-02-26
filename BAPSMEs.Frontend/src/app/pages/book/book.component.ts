@@ -15,7 +15,8 @@ import { RatingService } from '../../tools/services/rating.service';
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
-  styleUrl: './book.component.css'
+  styleUrl: './book.component.css',
+  standalone: false
 })
 export class BookComponent {
 
@@ -149,7 +150,7 @@ export class BookComponent {
     this.id = this.actRoute.snapshot.params['id'];
     this.userId = JSON.parse(sessionStorage.getItem('loggedUser') || '{}');
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;

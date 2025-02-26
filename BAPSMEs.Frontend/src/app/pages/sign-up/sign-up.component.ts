@@ -5,9 +5,10 @@ import { Roles } from '../../tools/models';
 import { SignUpService } from '../../tools/services';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.css'
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrl: './sign-up.component.css',
+    standalone: false
 })
 export class SignUpComponent {
 

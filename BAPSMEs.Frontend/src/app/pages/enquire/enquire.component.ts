@@ -10,6 +10,7 @@ import { Products } from '../../../models/products';
 import { Ratings } from '../../../models/ratings';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
+import { Roles } from '../../tools/models';
 import { BuyerRegistrationService, ProductsService, SellerRegistrationService, SubCategoriesService } from '../../tools/services';
 import { BookService } from '../../tools/services/book.service';
 import { EnquiryService } from '../../tools/services/enquiry.service';
@@ -20,7 +21,8 @@ defineComponents(IgcRatingComponent);
 @Component({
   selector: 'app-enquire',
   templateUrl: './enquire.component.html',
-  styleUrl: './enquire.component.css'
+  styleUrl: './enquire.component.css',
+  standalone: false
 })
 export class EnquireComponent implements AfterViewInit {
 
@@ -88,6 +90,8 @@ export class EnquireComponent implements AfterViewInit {
   three = 0;
 
   totalStars = 0
+
+  role: any
 
   constructor(private productService: ProductsService, private bookingService: BookService, private enquiryService: EnquiryService, private subCatgeorySevice: SubCategoriesService,
     public actRoute: ActivatedRoute,
@@ -171,8 +175,9 @@ export class EnquireComponent implements AfterViewInit {
   ngOnInit(): void {
     this.id = this.actRoute.snapshot.params['id'];
     this.userId = JSON.parse(sessionStorage.getItem('loggedUser') || '{}');
+    this.role = sessionStorage.getItem('loggedUserRole') || '{}';
 
-    this.subCategories_ = JSON.parse(sessionStorage.getItem('subCategories'));
+    this.subCategories_ = JSON.parse(localStorage.getItem('subCategories'));
 
     this.sellerService.getAllList().subscribe((res) => {
       this.sellers = res.data;
@@ -275,28 +280,34 @@ export class EnquireComponent implements AfterViewInit {
       formData.append('image_url2', this.selectedFile2, this.selectedFile2.name);
     }
 
-    this.ratingService.create(formData).subscribe(
-      (res) => {
-        console.log('res', res);
+    if (this.role == Roles.BUYER) {
 
-        if (res.status == 'created') {
-          alert(res.message);
-          this.ngOnInit()
-          console.log(res.message);
-          this.selectedFile = null
-          this.selectedFile2 = null
-        } else {
-          console.log(res.message);
+      this.ratingService.create(formData).subscribe(
+        (res) => {
+          console.log('res', res);
+
+          if (res.status == 'created') {
+            alert(res.message);
+            this.ngOnInit()
+            console.log(res.message);
+            this.selectedFile = null
+            this.selectedFile2 = null
+          } else {
+            console.log(res.message);
+            // Handle the error as needed
+          }
+        },
+        (error) => {
+          console.error(error.error.message);
+          console.log('error', error)
+          alert(error.error.message);
           // Handle the error as needed
         }
-      },
-      (error) => {
-        console.error(error.error.message);
-        console.log('error', error)
-        alert(error.error.message);
-        // Handle the error as needed
-      }
-    );
+      );
+    } else {
+      console.log('yessssssssssssss')
+      alert('Only buyers can review products')
+    }
     this.ratingForm.reset();
   }
 
