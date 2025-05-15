@@ -70,6 +70,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { ErrorInterceptor, LoaderInterceptor } from './tools/helpers';
 import { AlertService } from './tools/services';
 import { TruncatePipe } from './truncate.pipe';
+import { AdminReportsComponent } from './pages/admin-reports/admin-reports.component';
+import { AdminQuotationComponent } from './pages/admin-quotation/admin-quotation.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +130,9 @@ import { TruncatePipe } from './truncate.pipe';
     BookComponent,
     BuyerBookingsComponent,
     BuyerEnquiriesComponent,
-    SellerBookingsComponent
+    SellerBookingsComponent,
+    AdminReportsComponent,
+    AdminQuotationComponent
   ],
   imports: [
     BrowserModule,

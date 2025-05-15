@@ -16,11 +16,6 @@ class PaymentController extends Controller
 {
     public function createOrder(Request $request, $order)
     {
-        // $request->validate([
-        //     'price' => 'required|numeric',
-        //     'currency' => 'required|string|max:3',
-        //     'description' => 'required|string',
-        // ]);
 
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));

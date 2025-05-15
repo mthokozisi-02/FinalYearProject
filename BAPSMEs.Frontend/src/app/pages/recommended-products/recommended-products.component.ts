@@ -7,6 +7,7 @@ import { ProductCategory } from '../../../models/product-category';
 import { Products } from '../../../models/products';
 import { Seller } from '../../../models/seller';
 import { SubCategory } from '../../../models/sub-category';
+import { Roles } from '../../tools/models';
 import { CartService, ProductsService, SearchService, SellerRegistrationService, SubCategoriesService, WishListService } from '../../tools/services';
 import { CategoriesService } from '../../tools/services/categories.service';
 import { SharedService } from '../../tools/services/shared.service';
@@ -220,17 +221,24 @@ export class RecommendedProductsComponent implements OnInit {
               product.sub_category_name = cat.name;
             });
           });
-          this.filteredProducts = this.products.slice(-8);
+          this.filteredProducts = this.products.slice(-12);
         });
       });
     }
   }
 
   updateCart(item: any) {
-    this.cartService.success('product added')
-    this.cartService.addToCart(item, item.price, 1);
+    if (this.role == Roles.BUYER) {
+      console.log('yes')
+      this.cartService.success('product added')
+      this.cartService.addToCart(item, item.price, 1);
 
-    this.checkCart(item);
+      this.checkCart(item);
+    }
+    else {
+      console.log('what')
+      alert('You are not allowed to add to cart')
+    }
   }
 
   addTowishList(item) {

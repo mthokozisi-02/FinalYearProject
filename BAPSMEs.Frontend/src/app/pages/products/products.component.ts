@@ -396,21 +396,7 @@ export class ProductsComponent implements OnInit {
           this.selectedFile2 = null
           this.selectedFile3 = null
 
-          this.productService.getSellerProducts(this.user).subscribe((res) => {
-            res.data.forEach((product: any) => {
-              product.image_url =
-                'https://orezon.co.zw/storage/app/public/' + product.image_url;
-              const category = this.subCategories_.filter(
-                (x) => x.id == product.sub_category_id
-              );
-              category.forEach((cat) => {
-                product.sub_category_name = cat.name;
-              });
-            });
-            this.products = res.data;
-            this.filteredProducts = this.products
-            console.log('products:', this.products);
-          });
+          this.ngOnInit();
           console.log(res.message);
         } else {
           console.log(res.message);
@@ -419,6 +405,8 @@ export class ProductsComponent implements OnInit {
       },
 
     );
+
+    this.productForm.reset();
   }
 
   updateProduct() {
